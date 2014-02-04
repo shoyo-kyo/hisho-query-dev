@@ -1,0 +1,21 @@
+@charset "utf-8";
+// ------------------------------
+// [name] _sprite-background v1.0.0
+// [path] /hisho/helper/_sprite-background
+// [desc]
+//   spriteの画像表示用style生成
+//     $sprites : sprite-map指定
+//     $name    : 表示する画像のfile名指定
+//     $publish : "all" or "position"
+// [exsample]
+//   @include sprite-background($spriteMap, "list01", "position");
+// ------------------------------
+@mixin sprite-background( $sprites, $name, $publish: "all"){
+	@if $publish == "all" {
+		background-image: sprite-url($sprites);
+		background-repeat: no-repeat;
+		height: image-height(sprite-file($sprites, $name));
+		width: image-width(sprite-file($sprites, $name));
+	}
+	background-position: sprite-position($sprites, $name);
+}

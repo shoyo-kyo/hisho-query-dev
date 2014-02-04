@@ -81,10 +81,10 @@
 		@return (width: $value);
 	
 	}@else if type-of($value) == string and hq-str-match($value,"/thin|medium|thick/"){
-		@return (type: $value);
+		@return (width: $value);
 
 	}@else if type-of($value) == string{
-		@return (type: $value);
+		@return (style: $value);
 
 	}@else{
 		@return ();
@@ -221,6 +221,46 @@
 	@return $_result;
 }
 
+// ------------------------------
+// [name] hq-css-to-map-list-style
+// [desc] ショートハンド指定されているfontリストをmapに変換
+// [return] map
+// ------------------------------
+@function hq-css-to-map-list-style-setter($value){
+
+	
+	@if type-of($value) == string and hq-str-match($value,"/outside|inside/"){
+		@return (position: $value);
+
+	}@else if type-of($value) == string and hq-str-match($value,"/url\(.*\)/"){
+		@return (image: $value);
+
+	}@else if type-of($value) == string{
+		@return (type: $value);
+
+	}@else{
+		@return ();
+	}
+}
+@function hq-css-to-map-list-style($list){
+	$_result: (
+		type:    null,
+		image:  null,
+		position: null
+	);
+	
+	//list形式
+	@if type-of($list) == list{
+		@each $_v in $list{
+			$_result: hq-map-extend($_result, hq-css-to-map-list-style-setter($_v));
+		}
+	//単一指定
+	}@else{
+		$_result: hq-map-extend($_result, hq-css-to-map-list-style-setter($list));
+	}
+	@return $_result;
+}
+
 
 // ------------------------------
 // [name] hq-css-to-map
@@ -235,16 +275,20 @@
 		@return hq-css-to-map-margin($list);
 
 	//border
-	}@else if $type == border{
+	}@else if $type == border or $type == outline{
 		@return hq-css-to-map-border($list);
 
-	//border
+	//background
 	}@else if $type == background{
 		@return hq-css-to-map-background($list);
 
-	//border
+	//font
 	}@else if $type == font{
 		@return hq-css-to-map-font($list);
+	
+	//list-style
+	}@else if $type == list-style{
+		@return hq-css-to-map-list-style($list);
 
 	//非対応のtypeはまま返す
 	}@else{

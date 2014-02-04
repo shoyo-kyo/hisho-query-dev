@@ -1,0 +1,55 @@
+@charset "utf-8";
+// ------------------------------
+// [name] _module-core v1.0.0
+// [path] /hisho/helper/mixin/_module-core.scss
+// [desc] moduleの基本styleを指定
+// [exsample]
+//
+//   @include module-core();
+//
+//   @include module-core(
+//     width : 500px,
+//     align : center
+//   );
+// ------------------------------
+
+//publick mixin
+@mixin module-core($options){
+
+	//-----------------
+	// options
+	//-----------------
+	$_options: map-extend((
+		width   : null,
+		align   : null,
+		margin  : null
+	), $options);
+	
+	//marginがlist形式の場合,mapに変換
+	$_margin: if(map-get($_options, margin), map-get($_options, margin), mgd($setting, "module.margin") );
+	$_margin: short-to-map(margin, $_margin);
+	
+	//width
+	$_width: if(map-get($_options, width) == auto, null, map-get($_options, width));
+	
+	//align
+	@if $_width and map-get($_options, align) == center{
+		$_margin: map-extend($_margin, (
+			right:  auto,
+			left:   auto
+		));
+
+	}@else if $_width and map-get($_options, align) == right{
+		$_margin: map-extend($_margin, (
+			right:  0,
+			left:   auto
+		));
+	}
+
+	//-----------------
+	// view
+	//-----------------
+	width: $_width;
+	@include propaty-set("margin", $_margin);
+
+}

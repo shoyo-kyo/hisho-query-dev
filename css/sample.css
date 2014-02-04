@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * hisho-query v0.1.0
  * Sass3 and compass1 Library
@@ -5,9 +6,50 @@
  * 
  * Copyright 2014 shoyo kyo
  * Released under the MIT license
- * http://query.hisho.com/license/n * 
+ * https://github.com/syouyou/hisho-query/blob/master/LICENSE
+ * 
  * Date: 2014-02-04
  */
+/*
+@mixin hq($argument...){
+	$_name: nth($argument,1);
+	$_arg: hq-list-slice($argument,2);
+	
+	@if $_name == "write"{
+		@include hq-wite($_arg...);
+
+	}@else if $_name == "write.propaty"{
+		@include hq-write-propaty($_arg...);
+
+	}@else if $_name == "sprite"{
+		@include hq-sprite($_arg...);
+
+	}@else if $_name == "sprite.core"{
+		@include hq-sprite-core($_arg...);
+
+	}@else if $_name == "sprite.image"{
+		@include hq-sprite-image($_arg...);
+
+	}@else if $_name == "module"{
+		@include hq-module($_arg...);
+
+	}@else if $_name == "module.core"{
+		@include hq-module-core($_arg...);
+
+	}@else if $_name == "font.cloud"{
+		@include hq-font-cloud($_arg...);
+
+	}@else if $_name == "link.style"{
+		@include hq-link-style($_arg...);
+
+	}@else if $_name == "help"{
+		@include hq-help($_arg...);
+		$test: hq-str-puts($mixinHelp);
+		@return null;
+	}
+
+}
+*/
 /* line 11, ../sass/sample.scss */
 .hq-str {
   unquote: abcdefg.hijklmn;
@@ -23,7 +65,7 @@
   match: true;
   replace: axadefg.hijklmn;
   sprit: abcdefg, hijklmn;
-  getId: uw80ow3u3;
+  getId: ui1s2m1wx;
 }
 
 /* line 34, ../sass/sample.scss */
@@ -94,11 +136,20 @@
 
 /* line 160, ../sass/sample.scss */
 .hq-css {
-  toMap: {"style"=>null, "width"=>1px, "color"=>#cccccc, "type"=>"solid"};
   toMap: {"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px};
-  toMap: {"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px};
-  toMap: {"size"=>8px, "line-height"=>null, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null};
+  toMap: {"top"=>0, "right"=>2px, "bottom"=>0, "left"=>2px};
+  toMap: {"style"=>"solid", "width"=>1px, "color"=>#cccccc};
+  toMap: {"style"=>"dotted", "width"=>null, "color"=>null};
   toMap: {"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)};
+  toMap: {"size"=>8px, "line-height"=>null, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null};
+  toMap: {"type"=>"square", "image"=>"url(../img.jpg)", "position"=>"outside"};
+  toShort: 8px 2px 7px;
+  toShort: 8px 2px;
+  toShort: solid 6px #cccccc;
+  toShort: dotted #cccccc;
+  toShort: url(../img/test.jpg) no-repeat 0 0 #cccccc;
+  toShort: bold "12px/1.5" "ＭＳ 明朝";
+  toShort: url(../img/test.jpg) square outside;
   getWidth: 492px;
   getHeight: 495px;
 }

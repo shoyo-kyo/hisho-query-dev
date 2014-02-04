@@ -1,0 +1,38 @@
+@charset "utf-8";
+// ------------------------------
+// [name] font-cloud v1.0.0
+// [path] /hisho/helper/_font-cloud.scss
+// [desc] 各種fontsize用class s,l,xl,xxl等を生成。map指定する事で任意の値を設定可能
+// [exsample]
+//
+//   @include font-cloud(12px);
+//
+//   @include font-cloud(
+//     xxs: 8px,
+//     l: 18px
+//   );
+// ------------------------------
+
+@mixin font-cloud($size){
+	$_baseSize: if(type-of($size) == map , map-get($size,m) , $size);
+
+	$_sizeMap : (
+		xxs : $_baseSize / 2,
+		xs  : 2 * $_baseSize / 3,
+		s   : 3 * $_baseSize / 4,
+		m   : $_baseSize,
+		l   : 4 * $_baseSize / 3,
+		xl  : 3 * $_baseSize / 2,
+		xxl : 2 * $_baseSize
+	);
+	//mapの場合extend
+	@if type-of($size) == map{
+		$_sizeMap: map-extend($_sizeMap, $size);
+	}
+
+	@each $_k, $_v in $_sizeMap {
+		&.#{$_k} {
+			font-size : $_v;
+		}
+	}
+}

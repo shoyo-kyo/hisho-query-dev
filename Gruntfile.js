@@ -42,6 +42,7 @@ module.exports = function(grunt){
 					'sass/hisho-query/hq-css/_get-width.scss',
 					'sass/hisho-query/hq-css/_get-height.scss',
 					'sass/hisho-query/hq-css/_to-map.scss',
+					'sass/hisho-query/hq-css/_to-short.scss',
 					'sass/hisho-query/hq-is/_string.scss',
 					'sass/hisho-query/hq-is/_number.scss',
 					'sass/hisho-query/hq-is/_color.scss',

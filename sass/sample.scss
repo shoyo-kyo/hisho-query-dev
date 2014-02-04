@@ -158,11 +158,59 @@ $gvalue: test;
 // hq-css
 //--------------------------------
 .hq-css{
-	toMap     : hq-map("toString", hq-css("toMap", "border", solid 1px #ccc) );
-	toMap     : hq-map("toString", hq-css("toMap", "padding", 0 2px 3px 4px) );
 	toMap     : hq-map("toString", hq-css("toMap", "margin", 0 2px 3px 4px) );
-	toMap     : hq-map("toString", hq-css("toMap", "font", 12px/1.5 bold) );
+	toMap     : hq-map("toString", hq-css("toMap", "padding", 0 2px) );
+	toMap     : hq-map("toString", hq-css("toMap", "border", solid 1px #ccc) );
+	toMap     : hq-map("toString", hq-css("toMap", "outline", dotted) );
 	toMap     : hq-map("toString", hq-css("toMap", "background", url(../img.jpg) #ccc 0 50%) );
+	toMap     : hq-map("toString", hq-css("toMap", "font", 12px/1.5 bold) );
+	toMap     : hq-map("toString", hq-css("toMap", "list-style", url(../img.jpg) outside square) );
+
+	toShort   : hq-css("toShort", "margin", (
+					top: 8px,
+					right: 2px,
+					bottom: 7px,
+					left: 2px
+				));
+	
+	toShort   : hq-css("toShort", "padding", (
+					top: 8px,
+					right: 2px,
+					bottom: 8px,
+					left: 2px
+				));
+
+	toShort   : hq-css("toShort", "border", (
+					style: solid,
+					width: 6px,
+					color: #ccc
+				));
+
+	toShort   : hq-css("toShort", "border", (
+					style: dotted,
+					color: #ccc
+				));
+
+	toShort   : hq-css("toShort", "background", (
+					image: url(../img/test.jpg),
+					repeat: no-repeat,
+					position: 0 0,
+					color: #ccc
+				));
+
+	toShort   : hq-css("toShort", "font", (
+					weight: bold,
+					size: 12px,
+					line-height: 1.5,
+					family: "ＭＳ 明朝"
+				));
+	
+	toShort   : hq-css("toShort", "list-style", (
+					type:    square,
+					image: url(../img/test.jpg),
+					position: outside
+				));
+
 	getWidth  : hq-css("getWidth", 500px, solid 1px #ccc, 0 2px 3px 4px);
 	getHeight : hq-css("getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px);
 	help      : hq-css("help");

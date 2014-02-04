@@ -1,0 +1,241 @@
+@charset "utf-8";
+// ------------------------------
+// [name] hq-write-propaty v1.0.0
+// [path] /hisho/helper/mixin/_write-propaty.scss
+// [desc] 指定内容を基にプロパティと値を生成
+//        通常指定の場合はショートハンド、map指定の場合は複数プロパティで返す
+// [exsample]
+//   @include hq-write-propaty("border",solid 1px #ccc);
+//
+//   @include hq-write-propaty("border",(
+//     style : solid,
+//     width : 1px
+//   ));
+// ------------------------------
+
+//
+// private mixin
+// @ hq-write-propaty-view-margin
+// - margin,padding時、map指定で値が全て指定されている場合、ショートハンドに変換し生成。
+//
+@mixin hq-write-propaty-view-margin($propaty, $data){
+	$_isNull: false;
+	$data: hq-map("merge"(
+		top: null,
+		right: null,
+		bottom: null,
+		left: null
+	) ,$data);
+
+	//shorthandチェック
+	$_short: hq-css-to-short($propaty, $data);
+	
+	//shortHand
+	@if $_short {
+		@each $key, $value in $data {
+			#{$propaty}-#{$key}: $value;
+		}
+	//map
+	}@else{
+		#{$propaty} : $_short;
+	}
+}
+
+//
+// private mixin
+// @ hq-write-propaty-view-border
+// - border時mapが複数構造ある場合対応
+//
+@mixin hq-write-propaty-view-border($propaty, $data){
+	//shorthandチェック
+	$_short: hq-css-to-short($propaty, $data);
+	
+	//shortHand
+	@if $_short {
+		@each $key, $value in $data {
+			//border-radius
+			@if $key == "radius"{
+				@include border-radius($value);
+			//border-image
+			}@else if $key == "image"{
+				@include border-image($value);
+			//map内にshortHand
+			}@else if $key == "all"{
+				#{$propaty}: $value;
+			//left->styleの様なdeep指定
+			}@else if type-of($value) == map{
+				@each $_k2, $_v2 in $value {
+					#{$propaty}-#{$key}-#{$_k2}: $_v2;
+				}
+			//通常map
+			}@else{
+				#{$propaty}-#{$key}: $value;
+			}
+		}
+	//map
+	}@else{
+		#{$propaty} : $_short;
+	}
+}
+
+//
+// private mixin
+// @ hq-write-propaty-view-background
+// - background時mapが複数構造ある場合対応
+//
+@mixin hq-write-propaty-view-background($propaty, $data){
+	//shorthandチェック
+	$_short: hq-css-to-short($propaty, $data);
+	
+	//shortHand
+	@if $_short {
+		@each $key, $value in $data {
+			//background-clip
+			@if $key == "clip"{
+				@include background-clip($value);
+			//background-origin
+			}@else if $key == "origin"{
+				@include background-origin($value);
+			//background-size
+			}@else if $key == "size"{
+				@include background-size($value);
+			//map内にshortHand
+			}@else if $key == "all"{
+				#{$propaty}: $value;
+			//通常map
+			}@else{
+				#{$propaty}-#{$key}: $value;
+			}
+		}
+	//map
+	}@else{
+		#{$propaty} : $_short;
+	}
+}
+
+//
+// private mixin
+// @ hq-write-propaty-view-font
+// - font時mapが複数構造ある場合対応
+//
+@mixin hq-write-propaty-view-font($propaty, $data){
+	//shorthandチェック
+	$_short: hq-css-to-short($propaty, $data);
+	
+	//shortHand
+	@if $_short {
+		@each $key, $value in $data {
+			//line-height
+			@if $key == "line-height"{
+				line-height: $value;
+			//map内にshortHand
+			}@else if $key == "all"{
+				#{$propaty}: $value;
+			//通常map
+			}@else{
+				#{$propaty}-#{$key}: $value;
+			}
+		}
+	//map
+	}@else{
+		#{$propaty} : $_short;
+	}
+}
+
+//
+// private mixin
+// @ hq-write-propaty-view-box
+// - box時mapが複数構造ある場合対応
+//
+@mixin hq-write-propaty-view-box($propaty, $data){
+	@each $key, $value in $data {
+		//box-shadow
+		@if $key == "shadow"{
+			@include box-shadow($value);
+		//box-sizing
+		}@else if $key == "sizing"{
+			@include box-sizing($value);
+		//box-flex
+		}@else if $key == "flex"{
+			@include box-flex($value);
+		//box-flex-group
+		}@else if $key == "flex-group"{
+			@include box-flex-group($value);
+		//box-orient
+		}@else if $key == "orient"{
+			@include box-orient($value);
+		//box-orient-group
+		}@else if $key == "orient-group"{
+			@include box-orient-group($value);
+		//box-align
+		}@else if $key == "align"{
+			@include box-align($value);
+		//box-direction
+		}@else if $key == "direction"{
+			@include box-direction($value);
+		//box-lines
+		}@else if $key == "lines"{
+			@include box-lines($value);
+		//box-pack
+		}@else if $key == "pack"{
+			@include box-pack($value);
+		//通常map
+		}@else{
+			#{$propaty}-#{$key}: $value;
+		}
+	}
+}
+
+
+//
+// publick mixin
+// @ hq-write-propaty
+//
+@mixin hq-write-propaty($propaty, $data){
+	//map指定
+	@if type-of($data) == map {
+
+		//margin padding
+		@if $propaty == margin or $propaty == padding {
+			@include hq-write-propaty-view-margin($propaty, $data);
+		
+		//border
+		}@else if $propaty == border {
+			@include hq-write-propaty-view-border($propaty, $data);
+
+		//background
+		}@else if $propaty == background {
+			@include hq-write-propaty-view-background($propaty, $data);
+
+		//font
+		}@else if $propaty == font {
+			@include hq-write-propaty-view-font($propaty, $data);
+
+		//linkStyles mixin
+		}@else if $propaty == link-styles {
+			@if $data{
+				@include hq-link-styles($data);
+			}
+			
+		//default
+		}@else{
+			@each $key, $value in $data {
+				#{$propaty}-#{$key}: $value;
+			}
+		}
+
+	//通常指定
+	} @else {
+		//valueがcompass対応mixinの場合
+		//display:inline-block
+		@if $key == "display", $value == "inline-block"{
+			@include inline-block;
+		//display:box
+		}@else if $key == "display", $value == "box"{
+			@include display-box;
+		//compass非対応
+		}@else{
+			#{$propaty} : $data;
+		}
+	}
+}

@@ -1,0 +1,36 @@
+@charset "utf-8";
+// ------------------------------
+// [name] _sprite-core v1.0.0
+// [path] /hisho/helper/_sprite-core
+// [desc]
+//   spriteを指定する要素に指定。
+//     $cursor : cursol Style指定
+//     $hover  : bool指定 hover時にopacity0.8にする
+// [exsample]
+//   @include sprite-core($cursor:pointer, $hover:true);
+// ------------------------------
+@mixin sprite-core($cursor:null, $hover:false){
+	@include inline-block();
+	overflow:hidden;
+	border:none;
+	vertical-align:top;
+	white-space: nowrap;
+	text-indent: 100%;
+
+	//width:0;
+	//height:0;
+
+	//text-indent:-126em;
+	//white-space: nowrap;
+	//*text-indent:0;
+	//*line-height:9999px;
+	//*word-wrap:normal;
+	//*vertical-align:middle;
+
+	@if $cursor {
+		cursor:$cursor;
+	}
+	@if $hover == true {
+		opacity:0.8;
+	}
+}

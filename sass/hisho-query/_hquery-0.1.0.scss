@@ -458,10 +458,10 @@
 		@return (width: $value);
 	
 	}@else if type-of($value) == string and hq-str-match($value,"/thin|medium|thick/"){
-		@return (type: $value);
+		@return (width: $value);
 
 	}@else if type-of($value) == string{
-		@return (type: $value);
+		@return (style: $value);
 
 	}@else{
 		@return ();
@@ -598,6 +598,46 @@
 	@return $_result;
 }
 
+// ------------------------------
+// [name] hq-css-to-map-list-style
+// [desc] ショートハンド指定されているfontリストをmapに変換
+// [return] map
+// ------------------------------
+@function hq-css-to-map-list-style-setter($value){
+
+	
+	@if type-of($value) == string and hq-str-match($value,"/outside|inside/"){
+		@return (position: $value);
+
+	}@else if type-of($value) == string and hq-str-match($value,"/url\(.*\)/"){
+		@return (image: $value);
+
+	}@else if type-of($value) == string{
+		@return (type: $value);
+
+	}@else{
+		@return ();
+	}
+}
+@function hq-css-to-map-list-style($list){
+	$_result: (
+		type:    null,
+		image:  null,
+		position: null
+	);
+	
+	//list形式
+	@if type-of($list) == list{
+		@each $_v in $list{
+			$_result: hq-map-extend($_result, hq-css-to-map-list-style-setter($_v));
+		}
+	//単一指定
+	}@else{
+		$_result: hq-map-extend($_result, hq-css-to-map-list-style-setter($list));
+	}
+	@return $_result;
+}
+
 
 // ------------------------------
 // [name] hq-css-to-map
@@ -612,20 +652,285 @@
 		@return hq-css-to-map-margin($list);
 
 	//border
-	}@else if $type == border{
+	}@else if $type == border or $type == outline{
 		@return hq-css-to-map-border($list);
 
-	//border
+	//background
 	}@else if $type == background{
 		@return hq-css-to-map-background($list);
 
-	//border
+	//font
 	}@else if $type == font{
 		@return hq-css-to-map-font($list);
+	
+	//list-style
+	}@else if $type == list-style{
+		@return hq-css-to-map-list-style($list);
 
 	//非対応のtypeはまま返す
 	}@else{
 		@return $list;
+	}
+}
+
+
+// ------------------------------
+// [name] hq-css-to-short v1.0.0
+// [path] /hisho-query/hq-css/_to-short-map
+// [desc] map指定されているcssをショートハンドに変換
+//        対応: margin,padding,border,background,font
+// [return] map, list, null
+// [exsample]
+//   hq-css-to-short("margin", 0 10px 2px 5px)
+// ------------------------------
+
+
+// ------------------------------
+// [name] hq-css-to-short-margin
+// [desc] map指定されているmargin,paddingリストをショートハンドに変換
+// ------------------------------
+@function hq-css-to-short-margin($map){
+	$_target: top,right,left,bottom;
+	$_isSet: true;
+	$_result: ();
+	
+	//map内容をチェック
+	@each $_v in $_target{
+		@if map-get($map,$_v) == null{
+			$_isSet: false;
+		}
+	}
+	
+	//対象
+	@if $_isSet{
+
+		$_top: map-get($map,"top");
+		$_right: map-get($map,"right");
+		$_bottom: map-get($map,"bottom");
+		$_left: map-get($map,"left");
+
+		$_isAll: if( $_left == $_right and $_top == $_bottom and $_top == $_right, true, false );
+		$_isX: if( $_left == $_right, true, false );
+		$_isY: if( $_top == $_bottom, true, false );
+		$_type: null;
+
+		//値が全て一致
+		@if $_isAll == true{
+			@return $_top;
+		//値が不一致
+		}@else if $_isX == false and $_isY == false{
+			$_result: append($_result, $_top);
+			$_result: append($_result, $_right);
+			$_result: append($_result, $_bottom);
+			$_result: append($_result, $_left);
+			$_result: join((), $_result, space);
+			@return $_result;
+		//横のみ一致
+		}@else if $_isX == true and $_isY == false{
+			$_result: append($_result, $_top);
+			$_result: append($_result, $_right);
+			$_result: append($_result, $_bottom);
+			$_result: join((), $_result, space);
+			@return $_result;
+		//縦のみ一致
+		}@else if $_isX == false and $_isY == true{
+			$_result: append($_result, $_top);
+			$_result: append($_result, $_right);
+			$_result: append($_result, $_bottom);
+			$_result: append($_result, $_left);
+			$_result: join((), $_result, space);
+			@return $_result;
+		//縦一致＆横一致
+		}@else if $_isX == true and $_isY == true{
+			$_result: append($_result, $_top);
+			$_result: append($_result, $_right);
+			$_result: join((), $_result, space);
+			@return $_result;
+		}
+	
+	//非対象
+	}@else{
+		@return null;
+	}
+}
+
+// ------------------------------
+// [name] hq-css-to-short-border
+// [desc] ショートハンド指定されているborderリストをmapに変換
+// [return] map
+// ------------------------------
+@function hq-css-to-short-border($map){
+	$_target: style,width,color;
+	$_isSet: true;
+	$_result: ();
+	
+	//対象以外の値があるかチェック
+	@each $_k, $_v in $map{
+		@if index($_target,$_k) == false{
+			$_isSet: false;
+		}
+	}
+	//対象
+	@if $_isSet {
+		@each $_v in $_target{
+			@if map-get($map,$_v) {
+				$_result: append($_result, map-get($map,$_v));
+			}
+		}
+		$_result: join((), $_result, space);
+		@return $_result;
+	//非対象
+	}@else{
+		@return null;
+	}
+}
+
+// ------------------------------
+// [name] hq-css-to-short-background
+// [desc] ショートハンド指定されているリストをmapに変換
+// [return] map
+// ------------------------------
+@function hq-css-to-short-background($map){
+	$_target: image,repeat,position,attachment,color;
+	$_isSet: true;
+	$_result: ();
+	
+	//対象以外の値があるかチェック
+	@each $_k, $_v in $map{
+		@if index($_target,$_k) == false{
+			$_isSet: false;
+		}
+	}
+	//対象
+	@if $_isSet {
+		@each $_v in $_target{
+			@if map-get($map,$_v) {
+				$_result: append($_result, map-get($map,$_v));
+			}
+		}
+		$_result: join((), $_result, space);
+		@return $_result;
+	//非対象
+	}@else{
+		@return null;
+	}
+}
+
+// ------------------------------
+// [name] hq-css-to-short-font
+// [desc] ショートハンド指定されているfontリストをmapに変換
+// [return] map
+// ------------------------------
+@function hq-css-to-short-font($map){
+	$_target: style,variant,weight,size,line-height,family;
+	$_isSet: true;
+	$_result: ();
+	
+	//対象以外の値があるかチェック
+	@each $_k, $_v in $map{
+		@if index($_target,$_k) == false{
+			$_isSet: false;
+		}
+	}
+	//対象
+	@if $_isSet {
+		$_style: map-get($map,"style");
+		$_variant: map-get($map,"variant");
+		$_weight: map-get($map,"weight");
+		$_size: map-get($map,"size");
+		$_line: map-get($map,"line-height");
+		$_family: map-get($map,"family");
+
+		@if $_style{
+			$_result: append($_result, $_style);
+		}
+		@if $_variant{
+			$_result: append($_result, $_variant);
+		}
+		@if$_weight{
+			$_result: append($_result, $_weight);
+		}
+
+		@if $_size and $_line{
+			$_result: append($_result, $_size + "/" + $_line);
+		}@else if $_size and $_line == null{
+			$_result: append($_result, $_size);
+		}
+
+		@if $_family{
+			$_result: append($_result, $_family);
+		}
+		
+		$_result: join((), $_result, space);
+		@return $_result;
+	//非対象
+	}@else{
+		@return null;
+	}
+}
+
+// ------------------------------
+// [name] hq-css-to-short-list-style
+// [desc] ショートハンド指定されているリストをmapに変換
+// [return] map
+// ------------------------------
+@function hq-css-to-short-list-style($map){
+	$_target: image,type,position;
+	$_isSet: true;
+	$_result: ();
+	
+	//対象以外の値があるかチェック
+	@each $_k, $_v in $map{
+		@if index($_target,$_k) == false{
+			$_isSet: false;
+		}
+	}
+	//対象
+	@if $_isSet {
+		@each $_v in $_target{
+			@if map-get($map,$_v) {
+				$_result: append($_result, map-get($map,$_v));
+			}
+		}
+		$_result: join((), $_result, space);
+		@return $_result;
+	//非対象
+	}@else{
+		@return null;
+	}
+}
+
+// ------------------------------
+// [name] hq-css-to-short
+// ------------------------------
+@function hq-css-to-short($type, $map){
+	//listの場合
+	@if type-of($map) == list{
+		@return $map;
+
+	//margin-padding
+	}@else if $type == margin or $type == padding {
+		@return hq-css-to-short-margin($map);
+
+	//border
+	}@else if $type == border or $type == outline{
+		@return hq-css-to-short-border($map);
+
+	//background
+	}@else if $type == background{
+		@return hq-css-to-short-background($map);
+
+	//font
+	}@else if $type == font{
+		@return hq-css-to-short-font($map);
+
+	//list-style
+	}@else if $type == list-style{
+		@return hq-css-to-short-list-style($map);
+
+	//非対応のtypeはまま返す
+	}@else{
+		@return $map;
 	}
 }
 
@@ -977,8 +1282,13 @@ $cssHelp: '
 - method -
 [custom]  $toMap : hq-css("toMap", "border", solid 1px #ccc);
           -> shorthandで指定した値をmap形式に変換
+
+[custom]  $toMap : hq-css("toShort", $map);
+          -> mapで指定した値をshorthand形式に変換
+
 [custom]  $getWidth  : hq-css("getWidth", 500px, solid 1px #ccc, 0 2px 3px);
           -> padding borderを省いたwidthを取得
+
 [custom]  $getHeight : hq-css("getHeight", 500px, solid 1px #ccc, 0 2px 3px);
           -> padding borderを省いたheightを取得
 ';
@@ -986,6 +1296,7 @@ $cssHelp: '
 @function hq-css($argument...){
 	$_api: (
 		toMap     : hq-css-to-map,
+		toShort   : hq-css-to-short,
 		getWidth  : hq-css-get-width,
 		getHeight : hq-css-get-height
 	);
@@ -1005,12 +1316,53 @@ $cssHelp: '
 // ------------------------------
 // #mixin
 // @include hq("write", $map);
-// @include hq("writePropaty", $map);
-// @include hq("spriteCore", $options);
-// @include hq("spriteImage", $options);
-// @include hq("moduleCore", $map);
-// @include hq("cloud", 12px);
-// @include hq("linkStyle", $map);
-// @include hq("console", $map);
+// @include hq("write.propaty", $map);
+// @include hq("sprite", $options);
+// @include hq("sprite.core", $options);
+// @include hq("sprite.image", $options);
+// @include hq("module", $map);
+// @include hq("module.core", $map);
+// @include hq("font.cloud", 12px);
+// @include hq("link.style", $map);
 // @include hq("help", $map);
 // ------------------------------
+/*
+@mixin hq($argument...){
+	$_name: nth($argument,1);
+	$_arg: hq-list-slice($argument,2);
+	
+	@if $_name == "write"{
+		@include hq-wite($_arg...);
+
+	}@else if $_name == "write.propaty"{
+		@include hq-write-propaty($_arg...);
+
+	}@else if $_name == "sprite"{
+		@include hq-sprite($_arg...);
+
+	}@else if $_name == "sprite.core"{
+		@include hq-sprite-core($_arg...);
+
+	}@else if $_name == "sprite.image"{
+		@include hq-sprite-image($_arg...);
+
+	}@else if $_name == "module"{
+		@include hq-module($_arg...);
+
+	}@else if $_name == "module.core"{
+		@include hq-module-core($_arg...);
+
+	}@else if $_name == "font.cloud"{
+		@include hq-font-cloud($_arg...);
+
+	}@else if $_name == "link.style"{
+		@include hq-link-style($_arg...);
+
+	}@else if $_name == "help"{
+		@include hq-help($_arg...);
+		$test: hq-str-puts($mixinHelp);
+		@return null;
+	}
+
+}
+*/

@@ -267,8 +267,13 @@ $cssHelp: '
 - method -
 [custom]  $toMap : hq-css("toMap", "border", solid 1px #ccc);
           -> shorthandで指定した値をmap形式に変換
+
+[custom]  $toMap : hq-css("toShort", $map);
+          -> mapで指定した値をshorthand形式に変換
+
 [custom]  $getWidth  : hq-css("getWidth", 500px, solid 1px #ccc, 0 2px 3px);
           -> padding borderを省いたwidthを取得
+
 [custom]  $getHeight : hq-css("getHeight", 500px, solid 1px #ccc, 0 2px 3px);
           -> padding borderを省いたheightを取得
 ';
@@ -276,6 +281,7 @@ $cssHelp: '
 @function hq-css($argument...){
 	$_api: (
 		toMap     : hq-css-to-map,
+		toShort   : hq-css-to-short,
 		getWidth  : hq-css-get-width,
 		getHeight : hq-css-get-height
 	);
@@ -295,12 +301,53 @@ $cssHelp: '
 // ------------------------------
 // #mixin
 // @include hq("write", $map);
-// @include hq("writePropaty", $map);
-// @include hq("spriteCore", $options);
-// @include hq("spriteImage", $options);
-// @include hq("moduleCore", $map);
-// @include hq("cloud", 12px);
-// @include hq("linkStyle", $map);
-// @include hq("console", $map);
+// @include hq("write.propaty", $map);
+// @include hq("sprite", $options);
+// @include hq("sprite.core", $options);
+// @include hq("sprite.image", $options);
+// @include hq("module", $map);
+// @include hq("module.core", $map);
+// @include hq("font.cloud", 12px);
+// @include hq("link.style", $map);
 // @include hq("help", $map);
 // ------------------------------
+/*
+@mixin hq($argument...){
+	$_name: nth($argument,1);
+	$_arg: hq-list-slice($argument,2);
+	
+	@if $_name == "write"{
+		@include hq-wite($_arg...);
+
+	}@else if $_name == "write.propaty"{
+		@include hq-write-propaty($_arg...);
+
+	}@else if $_name == "sprite"{
+		@include hq-sprite($_arg...);
+
+	}@else if $_name == "sprite.core"{
+		@include hq-sprite-core($_arg...);
+
+	}@else if $_name == "sprite.image"{
+		@include hq-sprite-image($_arg...);
+
+	}@else if $_name == "module"{
+		@include hq-module($_arg...);
+
+	}@else if $_name == "module.core"{
+		@include hq-module-core($_arg...);
+
+	}@else if $_name == "font.cloud"{
+		@include hq-font-cloud($_arg...);
+
+	}@else if $_name == "link.style"{
+		@include hq-link-style($_arg...);
+
+	}@else if $_name == "help"{
+		@include hq-help($_arg...);
+		$test: hq-str-puts($mixinHelp);
+		@return null;
+	}
+
+}
+*/
