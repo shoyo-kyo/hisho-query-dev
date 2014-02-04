@@ -25,16 +25,16 @@ compass 1.0.0.alpha.17
 
 2. 上記にファイルを配置 
 
-  /sass/hisho-query/_hquery-0.1.0.scss
-  /sass/hisho-query/_hquery-function-0.1.0.rb
+	/sass/hisho-query/_hquery-0.1.0.scss
+	/sass/hisho-query/_hquery-function-0.1.0.rb
 
 3. compassの"config.rb"内に追記  
   
-  require "./sass/hisho-query/_hquery-function-0.1.0.rb"
+	require "./sass/hisho-query/_hquery-function-0.1.0.rb"
 
 4. sass内でinclude  
 
-  @import "hisho-query/_hquery-0.1.0";
+	@import "hisho-query/_hquery-0.1.0";
 
 
 method list (ざっくり)
@@ -43,45 +43,45 @@ method list (ざっくり)
 各typeを処理する為のfunctionを用意。  
 第一引数にmethod名、第二引数以降はmethodで使う引数を指定  
 
-  $hoge: hq-css("method name",$argument);
-  $hoge: hq-is("method name",$argument);
-  $hoge: hq-list("method name",$argument);
-  $hoge: hq-map("method name",$argument);
-  $hoge: hq-num("method name",$argument);
-  $hoge: hq-str("method name",$argument);
+	$hoge: hq-css("method name",$argument);
+	$hoge: hq-is("method name",$argument);
+	$hoge: hq-list("method name",$argument);
+	$hoge: hq-map("method name",$argument);
+	$hoge: hq-num("method name",$argument);
+	$hoge: hq-str("method name",$argument);
 
 
 下記を記載しcompassでコンパイルすると、利用できるmethod一覧がプロンプト（ターミナル）に表示される。  
 methodの役割はmethod名から判断してくださいw  
 
 -scss
-  $hoge: hq-css("help");
+	$hoge: hq-css("help");
 
 -プロンプト（ターミナル）
-  - method -
-  [custom]  $toMap : hq-css("toMap", "border", solid 1px #ccc);
-            -> shorthandで指定した値をmap形式に変換
-  
-  [custom]  $toMap : hq-css("toShort", $map);
-            -> mapで指定した値をshorthand形式に変換
-  
-  [custom]  $getWidth  : hq-css("getWidth", 500px, solid 1px #ccc, 0 2px 3px);
-            -> padding borderを省いたwidthを取得
-  
-  [custom]  $getHeight : hq-css("getHeight", 500px, solid 1px #ccc, 0 2px 3px);
-            -> padding borderを省いたheightを取得
+	- method -
+	[custom]  $toMap : hq-css("toMap", "border", solid 1px #ccc);
+	        -> shorthandで指定した値をmap形式に変換
+
+	[custom]  $toMap : hq-css("toShort", $map);
+	        -> mapで指定した値をshorthand形式に変換
+
+	[custom]  $getWidth  : hq-css("getWidth", 500px, solid 1px #ccc, 0 2px 3px);
+	        -> padding borderを省いたwidthを取得
+
+	[custom]  $getHeight : hq-css("getHeight", 500px, solid 1px #ccc, 0 2px 3px);
+	        -> padding borderを省いたheightを取得
 
 
 あと下記のfunctionで、指定した変数の値の型がプロンプト（ターミナル）に表示される。  
 
 -scss
-  $hoge: hq-console($value);
+	$hoge: hq-console($value);
 
 -プロンプト（ターミナル）
 
-  - CONSOLE -
-  Sass::Script::Value::String
-  "hogehogehoge"
+	- CONSOLE -
+	Sass::Script::Value::String
+	"hogehogehoge"
 
 
 
