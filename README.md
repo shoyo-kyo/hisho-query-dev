@@ -1,12 +1,12 @@
 hisho-query
 ===========
-Sass3.3 and compass1.0 Library
+Sass3.3 and compass1.0 Library  
 
-sass3.3(RC)とcompassで動作する、sass function Library
+sass3.3(RC)とcompassで動作する、sass function Library  
 
-※※※※※※※※※※※※
-まだ制作中(バグ有り)
-※※※※※※※※※※※※
+※※※※※※※※※※※※  
+まだ制作中(バグ有り)  
+※※※※※※※※※※※※  
 
 バージョン
 ------
@@ -23,22 +23,25 @@ compass 1.0.0.alpha.17
 
 1. sassフォルダ内に"hisho-query"フォルダを作成
 
-2. 上記にファイルを配置
-/sass/hisho-query/_hquery-0.1.0.scss
-/sass/hisho-query/_hquery-function-0.1.0.rb
+2. 上記にファイルを配置 
 
-3. compassの"config.rb"内に追記
+  /sass/hisho-query/_hquery-0.1.0.scss
+  /sass/hisho-query/_hquery-function-0.1.0.rb
+
+3. compassの"config.rb"内に追記  
+  
   require "./sass/hisho-query/_hquery-function-0.1.0.rb"
 
-4. sass内でinclude
+4. sass内でinclude  
+
   @import "hisho-query/_hquery-0.1.0";
 
 
 method list (ざっくり)
 ------
 
-各typeを処理する為のfunctionを用意。
-第一引数にmethod名、第二引数以降はmethodで使う引数を指定
+各typeを処理する為のfunctionを用意。  
+第一引数にmethod名、第二引数以降はmethodで使う引数を指定  
 
   $hoge: hq-css("method name",$argument);
   $hoge: hq-is("method name",$argument);
@@ -48,8 +51,8 @@ method list (ざっくり)
   $hoge: hq-str("method name",$argument);
 
 
-下記を記載しcompassでコンパイルすると、利用できるmethod一覧がプロンプト（ターミナル）に表示される。
-methodの役割はmethod名から判断してくださいw
+下記を記載しcompassでコンパイルすると、利用できるmethod一覧がプロンプト（ターミナル）に表示される。  
+methodの役割はmethod名から判断してくださいw  
 
 -scss
   $hoge: hq-css("help");
@@ -69,7 +72,7 @@ methodの役割はmethod名から判断してくださいw
             -> padding borderを省いたheightを取得
 
 
-あと下記のfunctionで、指定した変数の値の型がプロンプト（ターミナル）に表示される。
+あと下記のfunctionで、指定した変数の値の型がプロンプト（ターミナル）に表示される。  
 
 -scss
   $hoge: hq-console($value);
