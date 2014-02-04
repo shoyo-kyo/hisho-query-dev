@@ -1,0 +1,18 @@
+// ------------------------------
+// [name] hq-list-slice v1.0.0
+// [path] /hisho-query/hq-map/_slice.scss
+// [desc] listの先頭を削除します
+// [return] list
+// [exsample]
+//   hq-list-slice($list,3,5);
+// ------------------------------
+@function hq-list-slice($list,$start,$end:null){
+	$_result: ();
+	@if $end == null{
+		$end: length($list);
+	}
+	@for $i from $start through $end{
+		$_result: append($_result, nth($list, $i));
+	}
+	@return $_result;
+}

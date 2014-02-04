@@ -1,0 +1,11 @@
+// ------------------------------
+// [name] hq-list-toSpace v1.0.0
+// [path] /hisho-query/hq-map/_toComma.scss
+// [desc] listのseparatorをCommaに変換
+// [return] list
+// [exsample]
+//   hq-list-toSpace($list);
+// ------------------------------
+@function hq-list-toComma($list){
+	@return join((),$list,comma);
+}

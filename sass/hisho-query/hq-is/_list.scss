@@ -1,0 +1,11 @@
+// ------------------------------
+// [name] hq-is-list v1.0.0
+// [path] /hisho-query/hq-is/_list.scss
+// [desc] list判定
+// [return] bool
+// [exsample]
+//   hq-is-list("aaaa");
+// ------------------------------
+@function hq-is-list($str){
+	@return if(type-of($str) == list, true, false);
+}

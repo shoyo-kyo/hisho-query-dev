@@ -1,0 +1,50 @@
+// ------------------------------
+// [name] hq-css-get-height v1.0.0
+// [path] /hisho-query/hq-css/_get-height.scss
+// [desc] padding&borderを元にheightを算出
+// [exsample]
+//   hq-css-get-height($height,$border,$padding)
+// ------------------------------
+@function hq-css-get-height($height:null,$border:null,$padding:null){
+	@if $height == null{
+		@return null;
+	}
+	
+	$_result: $height;
+
+	//border
+	@if type-of($border) != map{
+		$border: hq-css-to-map("border", $border);
+	}@else if map-has-key($border,"all"){
+		$border: hq-css-to-map("border", map-get($_border, "all"));
+	}
+
+	@if map-has-key($border,"top") or map-has-key($border,"bottom"){
+		
+		@if map-has-key($border,"top") and map-get($border, "top"){
+			$_borderT : hq-css-to-map("border", map-get($border, "top"));
+			$_result: $_result - map-get($_borderT, "width");
+		}
+		@if map-has-key($border,"bottom") and map-get($border, "bottom"){
+			$_borderB : hq-css-to-map("border", map-get($border, "bottom"));
+			$_result: $_result - map-get($_borderB, "width");
+		}
+
+	}@else if map-has-key($border,"width") and map-get($border, "width"){
+		$_result: $_result - ( map-get($border, "width") * 2 );
+	}
+
+	//padding
+	@if type-of($padding) != map{
+		$padding: hq-css-to-map("padding", $padding);
+	}
+
+	@if map-get($padding, "top"){
+		$_result: $_result - map-get($padding, "top");
+	}
+	@if map-get($padding, "bottom"){
+		$_result: $_result - map-get($padding, "bottom");
+	}
+
+	@return $_result;
+}

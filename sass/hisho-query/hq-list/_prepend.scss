@@ -1,0 +1,13 @@
+// ------------------------------
+// [name] hq-list-prepend v1.0.0
+// [path] /hisho-query/hq-map/_prepend.scss
+// [desc] listの先頭に追加する
+// [return] list
+// [exsample]
+//   hq-list-prepend($list);
+// ------------------------------
+@function hq-list-prepend($list,$value){
+	$_valueList: ();
+	$_valueList: append($_valueList, $value);
+	@return join($_valueList, $list);
+}

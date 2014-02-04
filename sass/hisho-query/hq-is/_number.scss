@@ -1,0 +1,11 @@
+// ------------------------------
+// [name] hq-is-number v1.0.0
+// [path] /hisho-query/hq-is/_number.scss
+// [desc] number判定
+// [return] bool
+// [exsample]
+//   hq-is-number("aaaa");
+// ------------------------------
+@function hq-is-number($str){
+	@return if(type-of($str) == number, true, false);
+}

@@ -1,0 +1,16 @@
+// ------------------------------
+// [name] hq-map-get-deep v1.0.0
+// [path] /hisho-query/hq-map/_get-deep.scss
+// [desc] 深い階層にある値を取得
+// [return] map
+// [exsample]
+//   hq-map-get-deep($map, color.test.A);
+// ------------------------------
+@function hq-map-get-deep($map, $key){
+	$keyList: hq-str-sprit($key, ".");
+	$_result: $map;
+	@each $v in $keyList{
+		$_result: map-get($_result,$v);
+	}
+	@return $_result;
+}

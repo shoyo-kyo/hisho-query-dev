@@ -1,0 +1,32 @@
+// ------------------------------
+// [name] hq-map-merge-deep v1.0.0
+// [path] /hisho-query/hq-map/_hq-map-merge-deep.scss
+// [desc] mapのdeep_margeを行う
+// [return] map
+// [exsample]
+//   hq-map-merge-deep($map1, $map2);
+// ------------------------------
+@function hq-map-merge-deep($self:null, $target:null){
+	$_result: $self;
+	
+	@if type-of($target) == map{
+		@each $k, $v in $target{
+			//初期化
+			@if type-of($_result) != map{
+				$_result: ();
+			}
+			
+			//map形式の場合再loop
+			@if type-of($v) == map{
+				$_rSelf: if(map-get($_result, $k), map-get($_result, $k), () );
+				$_rValue: hq-map-merge-deep( $_rSelf, $v );
+				//$_result: map-merge($_result, $_rValue);
+				$_result: hq-map-set($_result, $k, $_rValue);
+			//値の場合上書き
+			}@else{
+				$_result: hq-map-set($_result, $k, $v);
+			}
+		}
+	}
+	@return $_result;
+}

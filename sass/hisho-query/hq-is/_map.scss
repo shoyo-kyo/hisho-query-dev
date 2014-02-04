@@ -1,0 +1,11 @@
+// ------------------------------
+// [name] hq-is-map v1.0.0
+// [path] /hisho-query/hq-is/_map.scss
+// [desc] map判定
+// [return] bool
+// [exsample]
+//   hq-is-map("aaaa");
+// ------------------------------
+@function hq-is-map($str){
+	@return if(type-of($str) == map, true, false);
+}

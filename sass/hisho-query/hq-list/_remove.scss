@@ -1,0 +1,14 @@
+// ------------------------------
+// [name] hq-list-remove v1.0.0
+// [path] /hisho-query/hq-map/_remove.scss
+// [desc] 指定の値を削除
+// [return] list
+// [exsample]
+//   hq-list-remove($list);
+// ------------------------------
+@function hq-list-remove($list, $value){
+	$_index: index($list, $value);
+	$_result1: hq-list-slice($list, 1, $_index - 1);
+	$_result2: hq-list-slice($list, $_index + 1, length($list));
+	@return join($_result1, $_result2);
+}

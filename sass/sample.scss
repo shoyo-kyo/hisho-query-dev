@@ -1,0 +1,170 @@
+@charset "utf-8";
+
+@import "hisho-query/_hquery-0.1.0";
+
+//--------------------------------
+// hq-str
+//--------------------------------
+
+$str: "abcdefg.hijklmn";
+
+.hq-str{
+	unquote   : hq-str("unquote", $str);
+	quote     : hq-str("quote", $str);
+	length    : hq-str("length", $str);
+	insert    : hq-str("insert", $str, hoge, 3);
+	index     : hq-str("index", $str, fg);
+	slice     : hq-str("slice", $str, 1, 3);
+	upperCase : hq-str("upperCase", $str);
+	lowerCase : hq-str("lowerCase", $str);
+	strip     : hq-str("strip", $str);
+	succ      : hq-str("succ", $str);
+	match     : hq-str("match", $str, "bc");
+	replace   : hq-str("replace", $str, "bc", "xa");
+	sprit     : hq-str("sprit", $str, ".");
+	puts      : hq-str("puts", $str);
+	getId     : hq-str("getId");
+	help      : hq-str("help");
+}
+
+//--------------------------------
+// hq-num
+//--------------------------------
+
+.hq-num{
+	percentage : hq-num("percentage", (100px / 50px) );
+	round      : hq-num("round", 10.4px);
+	ceil       : hq-num("ceil", 10.4px);
+	floor      : hq-num("floor", 10.4px);
+	abs        : hq-num("abs", -15px);
+	min        : hq-num("min", 10px, 5px, 2px, 15px, 18px);
+	max        : hq-num("max", 10px, 5px, 2px, 15px, 18px);
+	unit       : hq-num("unit", 20em);
+	unitless   : hq-num("unitless", 20em);
+	comparable : hq-num("comparable", 15em, 15px);
+}
+
+//--------------------------------
+// hq-list
+//--------------------------------
+
+$list1: a b c d e f g h i j k;
+$list2: l m n o p q r;
+
+.hq-list{
+	get      : hq-list("get", $list1, 1);
+	set      : hq-list("set", $list1, 3, hoge);
+	length   : hq-list("length", $list1);
+	index    : hq-list("index", $list1, e);
+	push     : hq-list("push", $list1, x);
+	unshift  : hq-list("unshift", $list1, x);
+	shift    : hq-list("shift", $list1);
+	pop      : hq-list("pop", $list1);
+	slice    : hq-list("slice", $list1, 3);
+	remove   : hq-list("remove", $list1, c);
+	join     : hq-list("join", $list1, $list2, comma);
+	zip      : hq-list("zip", $list1);
+	toSpace  : hq-list("toSpace", $list1);
+	toComma  : hq-list("toComma", $list1);
+	separator  : hq-list("separator", $list1);
+	reverse  : hq-list("reverse", $list1);
+	help     : hq-list("help");
+}
+
+//--------------------------------
+// hq-map
+//--------------------------------
+
+$map: (
+	cat: (
+		text: good,
+		colorType: black,
+		count: 3
+	),
+	Lion: (
+		text: bad,
+		colorType: orange,
+		count: 5
+	)
+);
+$map1: $map;
+
+$map2: (
+	Lion: (
+		text: good,
+		colorType: orange,
+		count: 20,
+		option: (
+			box: 2
+		)
+	),
+	bird: (
+		text: good,
+		colorType: blue,
+		count: 20,
+		option: (
+			box: 1
+		)
+	)
+);
+
+$map3: (
+	hoge: 2,
+	fuga: e
+);
+$map4: (
+	hoges: 20000,
+	fugas: testtests
+);
+
+.hq-map{
+	get       : hq-map("get", $map, "cat.colorType");
+	set       : hq-map("toString", hq-map("set", $map, "cat.colorType", "blue") );
+	extend    : hq-map("toString", hq-map("extend", $map1, $map2) );
+	extend    : hq-map("toString", hq-map("extend", true, $map1, $map2) ); //deepCopy
+	merge     : hq-map("toString", hq-map("merge", $map1, $map2) );
+	mergeDeep : hq-map("toString", hq-map("mergeDeep", $map1, $map2) );
+	keys      : hq-map("keys", $map3);
+	values    : hq-map("values", $map3);
+	hasKey    : hq-map("hasKey", $map3, "hoge");
+	nth       : hq-map("nth", $map3, 2);
+	length    : hq-map("length", $map);
+	push      : hq-map("toString", hq-map("push", $map, foo hoge) );
+	join      : hq-map("join", $map3, $map4, comma);
+	zip       : hq-map("zip", $map3);
+	toString  : hq-map("toString", $map);
+	help      : hq-map("help");
+}
+
+//--------------------------------
+// hq-is
+//--------------------------------
+$gvalue: test;
+.hq-is{
+	$fuga: hogehoge;
+	gValue   : hq-is("gValue", gvalue);
+	function : hq-is("function", hq-is);
+	mixin    : hq-is("mixin", hq);
+	string   : hq-is("string", "border");
+	number   : hq-is("number", 5px);
+	color    : hq-is("color", #ff0000);
+	map      : hq-is("map", $map);
+	list     : hq-is("list", $list1);
+	bool     : hq-is("bool", true);
+	help     : hq-is("help");
+}
+
+//--------------------------------
+// hq-css
+//--------------------------------
+.hq-css{
+	toMap     : hq-map("toString", hq-css("toMap", "border", solid 1px #ccc) );
+	toMap     : hq-map("toString", hq-css("toMap", "padding", 0 2px 3px 4px) );
+	toMap     : hq-map("toString", hq-css("toMap", "margin", 0 2px 3px 4px) );
+	toMap     : hq-map("toString", hq-css("toMap", "font", 12px/1.5 bold) );
+	toMap     : hq-map("toString", hq-css("toMap", "background", url(../img.jpg) #ccc 0 50%) );
+	getWidth  : hq-css("getWidth", 500px, solid 1px #ccc, 0 2px 3px 4px);
+	getHeight : hq-css("getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px);
+	help      : hq-css("help");
+}
+

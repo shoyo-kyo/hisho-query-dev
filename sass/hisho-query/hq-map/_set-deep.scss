@@ -1,0 +1,26 @@
+// ------------------------------
+// [name] hq-map-set-deep v1.0.0
+// [path] /hisho-query/hq-map/_set-deep.scss
+// [desc] 深い階層にある値を変更し、mapをreturn
+// [return] map
+// [exsample]
+//   hq-map-set-deep($map, "color.test.A", #000);
+// ------------------------------
+@function hq-map-set-deep($map, $key, $value){
+	$_keyList: hq-str-sprit($key, ".");
+	$_length: length($_keyList);
+	
+	//mapSet
+	$_sMap: null;
+	@for $i from 0 through $_length - 1 {
+		$_num: $_length - $i;
+		$_key: nth($_keyList, $_num);
+		@if $_sMap {
+			$_sMap: ( #{$_key} : $value );
+		}@else{
+			$_sMap: ( #{$_key} : $_sMap );
+		}
+	}
+	$_result: hq-map-merge-deep($map, $_sMap);
+	@return $_result;
+}

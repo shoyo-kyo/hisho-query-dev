@@ -1,0 +1,104 @@
+/*!
+ * hisho-query v0.1.0
+ * Sass3 and compass1 Library
+ * http://query.hisho.com
+ * 
+ * Copyright 2014 shoyo kyo
+ * Released under the MIT license
+ * http://query.hisho.com/license/n * 
+ * Date: 2014-02-04
+ */
+/* line 11, ../sass/sample.scss */
+.hq-str {
+  unquote: abcdefg.hijklmn;
+  quote: "abcdefg.hijklmn";
+  length: 15;
+  insert: "abhogecdefg.hijklmn";
+  index: 6;
+  slice: "abc";
+  upperCase: "ABCDEFG.HIJKLMN";
+  lowerCase: "abcdefg.hijklmn";
+  strip: abcdefg.hijklmn;
+  succ: abcdefg.hijklmo;
+  match: true;
+  replace: axadefg.hijklmn;
+  sprit: abcdefg, hijklmn;
+  getId: uw80ow3u3;
+}
+
+/* line 34, ../sass/sample.scss */
+.hq-num {
+  percentage: 200%;
+  round: 10px;
+  ceil: 11px;
+  floor: 10px;
+  abs: 15px;
+  min: 2px;
+  max: 18px;
+  unit: "em";
+  unitless: false;
+  comparable: false;
+}
+
+/* line 54, ../sass/sample.scss */
+.hq-list {
+  get: a;
+  set: a b hoge d e f g h i j k;
+  length: 11;
+  index: 5;
+  push: a b c d e f g h i j k x;
+  unshift: x a b c d e f g h i j k;
+  shift: b c d e f g h i j k;
+  pop: a b c d e f g h i j;
+  slice: c d e f g h i j k;
+  remove: a b d e f g h i j k;
+  join: a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r;
+  zip: a, b, c, d, e, f, g, h, i, j, k;
+  toSpace: a b c d e f g h i j k;
+  toComma: a, b, c, d, e, f, g, h, i, j, k;
+  separator: space;
+  reverse: k j i h g f e d c b a;
+}
+
+/* line 120, ../sass/sample.scss */
+.hq-map {
+  get: black;
+  set: {"cat"=>"blue", "Lion"=>(text: bad, colorType: orange, count: 5)};
+  extend: {"cat"=>(text: good, colorType: black, count: 3), "Lion"=>(text: good, colorType: orange, count: 20, option: ((box: 2))), "bird"=>(text: good, colorType: blue, count: 20, option: ((box: 1)))};
+  extend: {"cat"=>(text: good, colorType: black, count: 3), "Lion"=>(text: good, colorType: orange, count: 20, option: ((box: 2))), "bird"=>(text: good, colorType: blue, count: 20, option: ((box: 1)))};
+  merge: {"cat"=>(text: good, colorType: black, count: 3), "Lion"=>(text: good, colorType: orange, count: 20, option: ((box: 2))), "bird"=>(text: good, colorType: blue, count: 20, option: ((box: 1)))};
+  mergeDeep: {"cat"=>(text: good, colorType: black, count: 3), "Lion"=>(text: good, colorType: orange, count: 20, option: ((box: 2))), "bird"=>(text: good, colorType: blue, count: 20, option: ((box: 1)))};
+  keys: hoge, fuga;
+  values: 2, e;
+  hasKey: true;
+  nth: fuga e;
+  length: 2;
+  push: {"cat"=>(text: good, colorType: black, count: 3), "Lion"=>(text: bad, colorType: orange, count: 5), "foo"=>"hoge"};
+  join: hoge 2, fuga e, hoges 20000, fugas testtests;
+  zip: hoge 2, fuga e;
+  toString: {"cat"=>(text: good, colorType: black, count: 3), "Lion"=>(text: bad, colorType: orange, count: 5)};
+}
+
+/* line 143, ../sass/sample.scss */
+.hq-is {
+  gValue: true;
+  function: true;
+  mixin: false;
+  string: true;
+  number: true;
+  color: true;
+  map: true;
+  list: true;
+  bool: true;
+}
+
+/* line 160, ../sass/sample.scss */
+.hq-css {
+  toMap: {"style"=>null, "width"=>1px, "color"=>#cccccc, "type"=>"solid"};
+  toMap: {"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px};
+  toMap: {"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px};
+  toMap: {"size"=>8px, "line-height"=>null, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null};
+  toMap: {"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)};
+  getWidth: 492px;
+  getHeight: 495px;
+}
