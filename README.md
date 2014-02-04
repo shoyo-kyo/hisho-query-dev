@@ -14,25 +14,25 @@ sass3.3(RC)とcompassで動作する、sass function Library
 
 開発環境
 ------
-Sass 3.3.0.rc.2
-compass 1.0.0.alpha.17
+Sass 3.3.0.rc.2  
+compass 1.0.0.alpha.17  
 
 
 利用方法
 ------
 
-1. sassフォルダ内に"hisho-query"フォルダを作成
+[1]sassフォルダ内に"hisho-query"フォルダを作成  
 
-2. 上記にファイルを配置 
+[2]上記にファイルを配置  
 
 	/sass/hisho-query/_hquery-0.1.0.scss
 	/sass/hisho-query/_hquery-function-0.1.0.rb
 
-3. compassの"config.rb"内に追記  
-  
+[3]compassの"config.rb"内に追記  
+
 	require "./sass/hisho-query/_hquery-function-0.1.0.rb"
 
-4. sass内でinclude  
+[4]sass内でinclude  
 
 	@import "hisho-query/_hquery-0.1.0";
 
@@ -54,10 +54,12 @@ method list (ざっくり)
 下記を記載しcompassでコンパイルすると、利用できるmethod一覧がプロンプト（ターミナル）に表示される。  
 methodの役割はmethod名から判断してくださいw  
 
--scss
+-scss  
+
 	$hoge: hq-css("help");
 
--プロンプト（ターミナル）
+-プロンプト（ターミナル）  
+
 	- method -
 	[custom]  $toMap : hq-css("toMap", "border", solid 1px #ccc);
 	        -> shorthandで指定した値をmap形式に変換
@@ -74,10 +76,11 @@ methodの役割はmethod名から判断してくださいw
 
 あと下記のfunctionで、指定した変数の値の型がプロンプト（ターミナル）に表示される。  
 
--scss
+-scss  
+
 	$hoge: hq-console($value);
 
--プロンプト（ターミナル）
+-プロンプト（ターミナル）  
 
 	- CONSOLE -
 	Sass::Script::Value::String
