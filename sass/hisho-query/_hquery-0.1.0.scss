@@ -8,7 +8,7 @@
  * Released under the MIT license
  * https://github.com/syouyou/hisho-query/blob/master/LICENSE
  * 
- * Date: 2014-02-05
+ * Date: 2014-02-06
  */
 
 // ------------------------------
@@ -1684,6 +1684,137 @@
 // [path] /hisho-query/_hisho-query.scss
 // [desc] function mixin ライブラリ
 // ==============================
+
+// ------------------------------
+// #hq-function
+// ------------------------------
+
+@function hq($argument...){
+	$_api: (
+		str: (
+			help      : 0 hq-str-help,
+			unquote   : 1 unquote,
+			quote     : 1 quote,
+			length    : 1 str-length,
+			insert    : 3 str-insert,
+			index     : 2 str-index,
+			slice     : 3 str-slice,
+			upcase    : 1 to-upper-case,
+			downcase  : 1 to-lower-case,
+			capitalize: 1 hq-str-capitalize,
+			flUpcase  : 1 hq-str-first-letter-upper-case,
+			flDowncase: 1 hq-str-first-letter-lower-case,
+			strip     : 1 hq-str-strip,
+			succ      : 1 hq-str-succ,
+			match     : 2 hq-str-match,
+			replace   : 3 hq-str-replace,
+			split     : 2 hq-str-split,
+			puts      : 1 hq-str-puts,
+			getId     : 1 unique-id,
+			reverse   : 1 hq-str-reverse,
+		),
+		num: (
+			help       : 0 hq-num-help,
+			percentage : 1 percentage,
+			per        : 1 percentage,
+			round      : 1 round,
+			ceil       : 1 ceil,
+			floor      : 1 floor,
+			abs        : 1 abs,
+			min        : i min,
+			max        : i max,
+			unit       : 1 unit,
+			unitless   : 1 unitless,
+			comparable : 2 comparable,
+		),
+		list: (
+			help     : 0 hq-list-help,
+			nth      : 2 nth,
+			get      : 2 nth,
+			setNth   : 3 set-nth,
+			set      : 3 set-nth,
+			length   : 1 length,
+			index    : 2 index,
+			append   : 2 append,
+			push     : 2 append,
+			prepend  : 2 hq-list-prepend,
+			unshift  : 2 hq-list-prepend,
+			shift    : 1 hq-list-shift,
+			pop      : 1 hq-list-pop,
+			slice    : 3 hq-list-slice,
+			remove   : 2 hq-list-remove,
+			join     : 3 join,
+			zip      : 1 zip,
+			toSpace  : 1 hq-list-toSpace,
+			toComma  : 1 hq-list-toComma,
+			separator: 1 list-separator,
+			reverse  : 1 hq-list-reverse,
+		),
+		map: (
+			help      : 0 hq-map-help,
+			get       : 2 hq-map-get-deep,
+			set       : 3 hq-map-set-deep,
+			extend    : i hq-map-extend,
+			merge     : 2 map-merge,
+			mergeDeep : 2 hq-map-merge-deep,
+			keys      : 1 map-keys,
+			values    : 1 map-values,
+			hasKey    : 2 map-has-key,
+			nth       : 2 nth,
+			length    : 1 length,
+			append    : 2 append,
+			push      : 2 append,
+			join      : 3 join,
+			zip       : 1 zip,
+			toString  : 1 hq-map-to-string,
+		),
+		is: (
+			help       : 0 hq-is-help,
+			globalValue: 1 global-variable-exists,
+			gValue     : 1 global-variable-exists,
+			function   : 1 function-exists,
+			mixin      : 1 mixin-exists,
+			string     : 1 hq-is-string,
+			number     : 1 hq-is-number,
+			color      : 1 hq-is-color,
+			map        : 1 hq-is-map,
+			list       : 1 hq-is-list,
+			bool       : 1 hq-is-bool,
+		),
+		css: (
+			help      : 0 hq-css-help,
+			toMap     : 1 hq-css-to-map,
+			toShort   : 1 hq-css-to-short,
+			getWidth  : 3 hq-css-get-width,
+			getHeight : 3 hq-css-get-height,
+		)
+	);
+	
+	$_query: nth($argument,1);
+	$_qList: hq-str-split($_query,"->");
+	$_arg: hq-list-slice($argument,2);
+	$_result: null;
+
+	@each $_name in $_qList{
+		$_name: hq-str-strip($_name);
+		$_data: hq-map-get-deep($_api, $_name);
+		$_method: nth($_data,2);
+		$_argNum: nth($_data,1);
+		//error
+		@if $_method == null{
+			$_error: "    error hisho-query undefined　method '" + $_name + "'";
+			$_puts: hq-str-puts($_error);
+			$_result: $_error;
+		//default
+		}@else{
+			$_setArg: hq-list-slice($_arg, 1, $_argNum);
+			$_result: call($_method, $_setArg...);
+		}
+	}
+	@return $_result;
+}
+
+
 
 // ------------------------------
 // #string-function

@@ -9,6 +9,7 @@
 $str: "abcdefg.Hijklmn";
 
 .hq-str{
+	aa: hq("str.length",$str);
 	unquote   : hq-str("unquote", $str);
 	quote     : hq-str("quote", $str);
 	length    : hq-str("length", $str);

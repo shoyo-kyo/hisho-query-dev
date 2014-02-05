@@ -7,7 +7,7 @@ require "sass"
 # Released under the MIT license
 # https://github.com/syouyou/hisho-query/blob/master/LICENSE
 # 
-# Date: 2014-02-05
+# Date: 2014-02-06
 # 
 
 #
