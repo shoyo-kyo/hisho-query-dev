@@ -1,20 +1,20 @@
 @charset "utf-8";
 // ------------------------------
-// [name] font-cloud v1.0.0
-// [path] /hisho/helper/_font-cloud.scss
+// [name] hq-mixin-font-cloud v1.0.0
+// [path] /hisho-query/hq/_hq-mixin-font-cloud.scss
 // [desc] 各種fontsize用class s,l,xl,xxl等を生成。map指定する事で任意の値を設定可能
 // [exsample]
 //
-//   @include font-cloud(12px);
+//   @include hq-mixin-font-cloud(12px);
 //
-//   @include font-cloud(
+//   @include hq-mixin-font-cloud(
 //     xxs: 8px,
 //     l: 18px
 //   );
 // ------------------------------
 
-@mixin font-cloud($size){
-	$_baseSize: if(type-of($size) == map , map-get($size,m) , $size);
+@mixin hq-mixin-font-cloud($size){
+	$_baseSize: if(hq-is("map",$size) , hq-map("get", $size, m) , $size);
 
 	$_sizeMap : (
 		xxs : $_baseSize / 2,
@@ -26,8 +26,8 @@
 		xxl : 2 * $_baseSize
 	);
 	//mapの場合extend
-	@if type-of($size) == map{
-		$_sizeMap: map-extend($_sizeMap, $size);
+	@if hq-is("map",$size){
+		$_sizeMap: hq-map("marge", $_sizeMap, $size);
 	}
 
 	@each $_k, $_v in $_sizeMap {

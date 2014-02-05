@@ -1,0 +1,47 @@
+@charset "utf-8";
+// ------------------------------
+// [name] hq-mixin-module v1.0.0
+// [path] /hisho/helper/mixin/_module.scss
+// [desc] mapの指定を基にCSS生成
+// [exsample]
+//
+//   @include hq-mixin-module($map);
+// ------------------------------
+
+//publick mixin
+@mixin hq-mixin-module($options){
+
+	//-----------------
+	// options
+	//-----------------
+	$options: hq-map("mergeDeep", (
+		name    : null,  //[str]moduleのClass名指定
+		display : null,  //[int]moduleのdisplayを指定
+		width   : auto,  //[int]moduleのwidth指定
+		align   : null,  //[str]moduleのセンタリング位置を指定
+		margin  : null,   //[int]moduleのmargin指定
+		//style
+		core: ()
+	), $options);
+
+	$_nameUp: hq-str("flUpcase", hq-map("get",$options,"name") );
+	$_nameDw: hq-str("flDowncase", hq-map("get",$options,"name") );
+
+	//-----------------
+	// view
+	//-----------------
+	.#{$_nameUp}{
+		@include hq-mixin-module-core($options);
+		@include hq-mixin-write(hq-map("get", $options, "core"));
+
+		@each $k,$v in $options{
+			@if hq-is("map",$v) and $k != "core" {
+				$key: hq-str("flUpcase", $k);
+				.#{$_nameDw}#{$key}{
+					@include hq-mixin-write($v);
+				}
+			}
+		}
+	}
+
+}

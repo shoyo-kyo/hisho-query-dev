@@ -7,7 +7,7 @@
 //   hq-map-set-deep($map, "color.test.A", #000);
 // ------------------------------
 @function hq-map-set-deep($map, $key, $value){
-	$_keyList: hq-str-sprit($key, ".");
+	$_keyList: hq-str-split($key, ".");
 	$_length: length($_keyList);
 	
 	//mapSet

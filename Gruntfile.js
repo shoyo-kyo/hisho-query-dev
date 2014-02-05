@@ -49,6 +49,15 @@ module.exports = function(grunt){
 					'sass/hisho-query/hq-is/_map.scss',
 					'sass/hisho-query/hq-is/_list.scss',
 					'sass/hisho-query/hq-is/_bool.scss',
+					'sass/hisho-query/hq-mixin/_font-cloud.scss',
+					'sass/hisho-query/hq-mixin/_link-styles.scss',
+					'sass/hisho-query/hq-mixin/_module.scss',
+					'sass/hisho-query/hq-mixin/_module-core.scss',
+					'sass/hisho-query/hq-mixin/_sprite.scss',
+					'sass/hisho-query/hq-mixin/_sprite-core.scss',
+					'sass/hisho-query/hq-mixin/_sprite-image.scss',
+					'sass/hisho-query/hq-mixin/_write.scss',
+					'sass/hisho-query/hq-mixin/_write-propaty.scss',
 					'sass/hisho-query/_core.scss'
 				]
 			},

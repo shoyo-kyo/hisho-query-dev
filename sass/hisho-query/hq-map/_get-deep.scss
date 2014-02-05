@@ -7,7 +7,7 @@
 //   hq-map-get-deep($map, color.test.A);
 // ------------------------------
 @function hq-map-get-deep($map, $key){
-	$keyList: hq-str-sprit($key, ".");
+	$keyList: hq-str-split($key, ".");
 	$_result: $map;
 	@each $v in $keyList{
 		$_result: map-get($_result,$v);

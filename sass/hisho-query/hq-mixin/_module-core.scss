@@ -1,0 +1,62 @@
+@charset "utf-8";
+// ------------------------------
+// [name] hq-mixin-module-core v1.0.0
+// [path] /hisho-query/hq/_hq-mixin-module-core.scss
+// [desc] hishoModuleの基本styleを指定
+// [exsample]
+//
+//   @include hq-mixin-module-core();
+//
+//   @include hq-mixin-module-core(
+//     width : 500px,
+//     align : center
+//   );
+// ------------------------------
+
+//publick mixin
+@mixin hq-mixin-module-core($options){
+
+	//-----------------
+	// options
+	//-----------------
+	$options: hq-map("merge", (
+		display : null,
+		width   : auto,
+		align   : left,
+		margin  : 0
+	), $options);
+	
+	$_display : hq-map("get", $options, "display");
+	$_width   : if(hq-map("get", $options, "width") == auto, null, hq-map("get", $options, "width"));
+	$_align   : hq-map("get", $options, "align");
+	$_margin  : hq-css("toMap", "margin", hq-map("get", $options, "margin") );
+	
+	//inlineBlockの場合
+	@if $_width and $_display == "inline-block"{
+		@include hq-mixin-write-propaty("text-align", $_align);
+
+	}@else{
+		//align center
+		@if $_width and $_align == "center"{
+			$_margin: hq-map("merge", $_margin, (
+				right:  auto,
+				left:   auto
+			));
+		
+		//align right
+		}@else if $_width and map-get($_options, align) == "right"{
+			$_margin: hq-map("merge", $_margin, (
+				right:  0,
+				left:   auto
+			));
+		}
+	}
+
+	//-----------------
+	// view
+	//-----------------
+	@include hq-mixin-write-propaty("display", $_display);
+	@include hq-mixin-write-propaty("width", $_width);
+	@include hq-mixin-write-propaty("margin", $_margin);
+
+}

@@ -93,6 +93,7 @@ methodの役割はmethod名から判断してくださいw
 * functionの他にもmixinも作っているので出来次第release
 * 2日で適当に作ったので、コードが冗長化してる。どこかのタイミングでリファクタリングする
 * color系のfunctionはめんどくさいので、要望ない限り実装しない。
+* method chain風なことやりたい。
 
 
 

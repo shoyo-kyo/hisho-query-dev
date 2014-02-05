@@ -8,67 +8,30 @@
  * Released under the MIT license
  * https://github.com/syouyou/hisho-query/blob/master/LICENSE
  * 
- * Date: 2014-02-04
+ * Date: 2014-02-05
  */
-/*
-@mixin hq($argument...){
-	$_name: nth($argument,1);
-	$_arg: hq-list-slice($argument,2);
-	
-	@if $_name == "write"{
-		@include hq-wite($_arg...);
-
-	}@else if $_name == "write.propaty"{
-		@include hq-write-propaty($_arg...);
-
-	}@else if $_name == "sprite"{
-		@include hq-sprite($_arg...);
-
-	}@else if $_name == "sprite.core"{
-		@include hq-sprite-core($_arg...);
-
-	}@else if $_name == "sprite.image"{
-		@include hq-sprite-image($_arg...);
-
-	}@else if $_name == "module"{
-		@include hq-module($_arg...);
-
-	}@else if $_name == "module.core"{
-		@include hq-module-core($_arg...);
-
-	}@else if $_name == "font.cloud"{
-		@include hq-font-cloud($_arg...);
-
-	}@else if $_name == "link.style"{
-		@include hq-link-style($_arg...);
-
-	}@else if $_name == "help"{
-		@include hq-help($_arg...);
-		$test: hq-str-puts($mixinHelp);
-		@return null;
-	}
-
-}
-*/
 /* line 11, ../sass/sample.scss */
 .hq-str {
-  unquote: abcdefg.hijklmn;
-  quote: "abcdefg.hijklmn";
+  unquote: abcdefg.Hijklmn;
+  quote: "abcdefg.Hijklmn";
   length: 15;
-  insert: "abhogecdefg.hijklmn";
+  insert: "abhogecdefg.Hijklmn";
   index: 6;
   slice: "abc";
   upperCase: "ABCDEFG.HIJKLMN";
   lowerCase: "abcdefg.hijklmn";
-  strip: abcdefg.hijklmn;
-  succ: abcdefg.hijklmo;
+  capitalize: Abcdefg.hijklmn;
+  FlUpcase: Abcdefg.Hijklmn;
+  FlDowncase: abcdefg.Hijklmn;
+  strip: abcdefg.Hijklmn;
+  succ: abcdefg.Hijklmo;
   match: true;
-  replace: axadefg.hijklmn;
-  sprit: abcdefg, hijklmn;
-  getId: uy04bt2x7;
+  replace: axadefg.Hijklmn;
+  getId: u986mxrml;
+  reverse: nmlkjiH.gfedcba;
 }
 
-/* line 34, ../sass/sample.scss */
+/* line 38, ../sass/sample.scss */
 .hq-num {
   percentage: 200%;
   round: 10px;
@@ -82,7 +45,7 @@
   comparable: false;
 }
 
-/* line 54, ../sass/sample.scss */
+/* line 58, ../sass/sample.scss */
 .hq-list {
   get: a;
   set: a b hoge d e f g h i j k;
@@ -102,7 +65,7 @@
   reverse: k j i h g f e d c b a;
 }
 
-/* line 120, ../sass/sample.scss */
+/* line 124, ../sass/sample.scss */
 .hq-map {
   get: black;
   set: {"cat"=>"blue", "Lion"=>(text: bad, colorType: orange, count: 5)};
@@ -121,7 +84,7 @@
   toString: {"cat"=>(text: good, colorType: black, count: 3), "Lion"=>(text: bad, colorType: orange, count: 5)};
 }
 
-/* line 143, ../sass/sample.scss */
+/* line 147, ../sass/sample.scss */
 .hq-is {
   gValue: true;
   function: true;
@@ -134,7 +97,7 @@
   bool: true;
 }
 
-/* line 160, ../sass/sample.scss */
+/* line 164, ../sass/sample.scss */
 .hq-css {
   toMap: {"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px};
   toMap: {"top"=>0, "right"=>2px, "bottom"=>0, "left"=>2px};
@@ -152,4 +115,141 @@
   toShort: url(../img/test.jpg) square outside;
   getWidth: 492px;
   getHeight: 495px;
+}
+
+/* line 56, test/*.png */
+.test-sprite {
+  background-image: url('/hisho-query/img/test-s19798cba55.png');
+  background-repeat: no-repeat;
+}
+
+/*hqm("module")*/
+/* line 1187, ../sass/hisho-query/_hquery-0.1.0.scss */
+.PtHqmModule01 {
+  width: 500px;
+  margin: 0 auto 20px;
+  background: red;
+}
+/* line 1194, ../sass/hisho-query/_hquery-0.1.0.scss */
+.PtHqmModule01 .ptHqmModule01Li {
+  border: solid 1px #cccccc;
+}
+
+/* line 249, ../sass/sample.scss */
+.hqm-write {
+  /*hqm("write")*/
+  background: #cccccc;
+  border: solid 1px #cccccc;
+  margin: 0 0 20px 0;
+  /*hqm(write.propaty)*/
+  padding: 10px;
+}
+
+/* line 265, ../sass/sample.scss */
+.hqm-sprite {
+  /*hqm("sprite")*/
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *zoom: 1;
+  *display: inline;
+  overflow: hidden;
+  border: none;
+  vertical-align: top;
+  white-space: nowrap;
+  text-indent: 100%;
+  cursor: pointer;
+  background-position: 0 0;
+  /*hqm("sprite.core")*/
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  *zoom: 1;
+  *display: inline;
+  overflow: hidden;
+  border: none;
+  vertical-align: top;
+  white-space: nowrap;
+  text-indent: 100%;
+  cursor: pointer;
+  /*hqm("sprite.image")*/
+  background-image: url('/hisho-query/img/test-s19798cba55.png');
+  background-repeat: no-repeat;
+  height: 28px;
+  width: 30px;
+  background-position: 0 0;
+}
+/* line 1352, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-sprite:hover {
+  background-position: 0 -28px;
+}
+/* line 1352, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-sprite:hover {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+}
+
+/* line 291, ../sass/sample.scss */
+.hqm-link-styles {
+  /*hqm("link.styles")*/
+  color: #333333;
+  text-decoration: underline;
+}
+/* line 1116, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-link-styles:link {
+  color: #cc33cc;
+  text-decoration: underline;
+}
+/* line 1123, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-link-styles:visited {
+  color: #cc33cc;
+  text-decoration: underline;
+}
+/* line 1130, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-link-styles:hover {
+  color: #cc33cc;
+  text-decoration: none;
+}
+/* line 1137, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-link-styles:active {
+  color: #cc33cc;
+  text-decoration: none;
+}
+/* line 1144, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-link-styles:focus {
+  color: #cc33cc;
+  text-decoration: none;
+}
+
+/* line 313, ../sass/sample.scss */
+.hqm-font-cloud {
+  /*hqm("font.cloud")*/
+}
+/* line 1049, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-font-cloud.xxs {
+  font-size: 6px;
+}
+/* line 1049, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-font-cloud.xs {
+  font-size: 8px;
+}
+/* line 1049, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-font-cloud.s {
+  font-size: 9px;
+}
+/* line 1049, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-font-cloud.m {
+  font-size: 12px;
+}
+/* line 1049, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-font-cloud.l {
+  font-size: 16px;
+}
+/* line 1049, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-font-cloud.xl {
+  font-size: 18px;
+}
+/* line 1049, ../sass/hisho-query/_hquery-0.1.0.scss */
+.hqm-font-cloud.xxl {
+  font-size: 24px;
 }

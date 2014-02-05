@@ -8,7 +8,7 @@
  * Released under the MIT license
  * https://github.com/syouyou/hisho-query/blob/master/LICENSE
  * 
- * Date: 2014-02-04
+ * Date: 2014-02-05
  */
 
 // ------------------------------
@@ -150,7 +150,7 @@
 //   hq-map-get-deep($map, color.test.A);
 // ------------------------------
 @function hq-map-get-deep($map, $key){
-	$keyList: hq-str-sprit($key, ".");
+	$keyList: hq-str-split($key, ".");
 	$_result: $map;
 	@each $v in $keyList{
 		$_result: map-get($_result,$v);
@@ -183,7 +183,7 @@
 //   hq-map-set-deep($map, "color.test.A", #000);
 // ------------------------------
 @function hq-map-set-deep($map, $key, $value){
-	$_keyList: hq-str-sprit($key, ".");
+	$_keyList: hq-str-split($key, ".");
 	$_length: length($_keyList);
 	
 	//mapSet
@@ -567,8 +567,8 @@
 		@return (variant: $value);
 
 	}@else if type-of($value) == string and hq-str-match($value,"/\//"){
-		@return (size: str-sprit($value, "/", 0));
-		@return (line-height: str-sprit($value, "/", 1));
+		@return (size: hq-str-split($value, "/", 0));
+		@return (line-height: hq-str-split($value, "/", 1));
 
 	}@else if type-of($value) == string{
 		@return (family: $value);
@@ -648,23 +648,23 @@
 		@return $list;
 
 	//margin-padding
-	}@else if $type == margin or $type == padding {
+	}@else if $type == "margin" or $type == "padding" {
 		@return hq-css-to-map-margin($list);
 
 	//border
-	}@else if $type == border or $type == outline{
+	}@else if $type == "border" or $type == "outline"{
 		@return hq-css-to-map-border($list);
 
 	//background
-	}@else if $type == background{
+	}@else if $type == "background"{
 		@return hq-css-to-map-background($list);
 
 	//font
-	}@else if $type == font{
+	}@else if $type == "font"{
 		@return hq-css-to-map-font($list);
 	
 	//list-style
-	}@else if $type == list-style{
+	}@else if $type == "list-style"{
 		@return hq-css-to-map-list-style($list);
 
 	//非対応のtypeはまま返す
@@ -1013,6 +1013,672 @@
 }
 
 
+@charset "utf-8";
+// ------------------------------
+// [name] hq-mixin-font-cloud v1.0.0
+// [path] /hisho-query/hq/_hq-mixin-font-cloud.scss
+// [desc] 各種fontsize用class s,l,xl,xxl等を生成。map指定する事で任意の値を設定可能
+// [exsample]
+//
+//   @include hq-mixin-font-cloud(12px);
+//
+//   @include hq-mixin-font-cloud(
+//     xxs: 8px,
+//     l: 18px
+//   );
+// ------------------------------
+
+@mixin hq-mixin-font-cloud($size){
+	$_baseSize: if(hq-is("map",$size) , hq-map("get", $size, m) , $size);
+
+	$_sizeMap : (
+		xxs : $_baseSize / 2,
+		xs  : 2 * $_baseSize / 3,
+		s   : 3 * $_baseSize / 4,
+		m   : $_baseSize,
+		l   : 4 * $_baseSize / 3,
+		xl  : 3 * $_baseSize / 2,
+		xxl : 2 * $_baseSize
+	);
+	//mapの場合extend
+	@if hq-is("map",$size){
+		$_sizeMap: hq-map("marge", $_sizeMap, $size);
+	}
+
+	@each $_k, $_v in $_sizeMap {
+		&.#{$_k} {
+			font-size : $_v;
+		}
+	}
+}
+
+
+
+@charset "utf-8";
+// ------------------------------
+// [name] hq-mixin-link-styles v1.0.0
+// [path] /hisho-query/hq/_hq-mixin-link-styles.scss
+// [desc] linkのcolorとunderlineを指定
+// [exsample]
+//
+//   @include hq-mixin-link-styles($map);
+//
+//   @include hq-mixin-link-styles(
+//     linkColor : #333,
+//     linkUnderline : false
+//   );
+// ------------------------------
+
+//private mixin
+@mixin hq-mixin-link-styles-view($color:null, $underline:null){
+	@if $color {
+		color: $color;
+	}
+	@if $underline != null{
+		text-decoration: if($underline, underline, none);
+	}
+}
+
+//publick mixin
+@mixin hq-mixin-link-styles($options){
+
+	//-----------------
+	// options
+	//-----------------
+	$options: hq-map("mergeDeep", (
+		color: (
+			default : #333,
+			link    : #CC33CC,
+			visited : #CC33CC,
+			hover   : #CC33CC,
+			active  : #CC33CC,
+			focus   : #CC33CC
+		),
+		underline: (
+			default : true,
+			link    : true,
+			visited : true,
+			hover   : false,
+			active  : false,
+			focus   : false
+		)
+	), $options);
+	
+	//-----------------
+	// view
+	//-----------------
+ 
+	@include hq-mixin-link-styles-view(
+		$color     : hq-map("get",$options, "color.default"),
+		$underline : hq-map("get",$options, "underline.default")
+	);
+
+	&:link{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.link"),
+			$underline : hq-map("get",$options, "underline.link")
+		);
+	}
+
+	&:visited{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.visited"),
+			$underline : hq-map("get",$options, "underline.visited")
+		);
+	}
+
+	&:hover{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.hover"),
+			$underline : hq-map("get",$options, "underline.hover")
+		);
+	}
+
+	&:active{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.active"),
+			$underline : hq-map("get",$options, "underline.active")
+		);
+	}
+
+	&:focus{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.focus"),
+			$underline : hq-map("get",$options, "underline.focus")
+		);
+	}
+
+}
+
+
+
+@charset "utf-8";
+// ------------------------------
+// [name] hq-mixin-module v1.0.0
+// [path] /hisho/helper/mixin/_module.scss
+// [desc] mapの指定を基にCSS生成
+// [exsample]
+//
+//   @include hq-mixin-module($map);
+// ------------------------------
+
+//publick mixin
+@mixin hq-mixin-module($options){
+
+	//-----------------
+	// options
+	//-----------------
+	$options: hq-map("mergeDeep", (
+		name    : null,  //[str]moduleのClass名指定
+		display : null,  //[int]moduleのdisplayを指定
+		width   : auto,  //[int]moduleのwidth指定
+		align   : null,  //[str]moduleのセンタリング位置を指定
+		margin  : null,   //[int]moduleのmargin指定
+		//style
+		core: ()
+	), $options);
+
+	$_nameUp: hq-str("flUpcase", hq-map("get",$options,"name") );
+	$_nameDw: hq-str("flDowncase", hq-map("get",$options,"name") );
+
+	//-----------------
+	// view
+	//-----------------
+	.#{$_nameUp}{
+		@include hq-mixin-module-core($options);
+		@include hq-mixin-write(hq-map("get", $options, "core"));
+
+		@each $k,$v in $options{
+			@if hq-is("map",$v) and $k != "core" {
+				$key: hq-str("flUpcase", $k);
+				.#{$_nameDw}#{$key}{
+					@include hq-mixin-write($v);
+				}
+			}
+		}
+	}
+
+}
+
+
+
+@charset "utf-8";
+// ------------------------------
+// [name] hq-mixin-module-core v1.0.0
+// [path] /hisho-query/hq/_hq-mixin-module-core.scss
+// [desc] hishoModuleの基本styleを指定
+// [exsample]
+//
+//   @include hq-mixin-module-core();
+//
+//   @include hq-mixin-module-core(
+//     width : 500px,
+//     align : center
+//   );
+// ------------------------------
+
+//publick mixin
+@mixin hq-mixin-module-core($options){
+
+	//-----------------
+	// options
+	//-----------------
+	$options: hq-map("merge", (
+		display : null,
+		width   : auto,
+		align   : left,
+		margin  : 0
+	), $options);
+	
+	$_display : hq-map("get", $options, "display");
+	$_width   : if(hq-map("get", $options, "width") == auto, null, hq-map("get", $options, "width"));
+	$_align   : hq-map("get", $options, "align");
+	$_margin  : hq-css("toMap", "margin", hq-map("get", $options, "margin") );
+	
+	//inlineBlockの場合
+	@if $_width and $_display == "inline-block"{
+		@include hq-mixin-write-propaty("text-align", $_align);
+
+	}@else{
+		//align center
+		@if $_width and $_align == "center"{
+			$_margin: hq-map("merge", $_margin, (
+				right:  auto,
+				left:   auto
+			));
+		
+		//align right
+		}@else if $_width and map-get($_options, align) == "right"{
+			$_margin: hq-map("merge", $_margin, (
+				right:  0,
+				left:   auto
+			));
+		}
+	}
+
+	//-----------------
+	// view
+	//-----------------
+	@include hq-mixin-write-propaty("display", $_display);
+	@include hq-mixin-write-propaty("width", $_width);
+	@include hq-mixin-write-propaty("margin", $_margin);
+
+}
+
+
+
+@charset "utf-8";
+// ------------------------------
+// [name] hq-mixin-sprite v1.0.0
+// [path] /hisho/helper/_hq-mixin-sprite.scss
+// [desc]
+//   sprite生成
+// [options]
+//     spriteMap    : sprite-map指定
+//     name         : 表示する画像のfile名指定。:区切りで複数指定する事でhover時のsprite指定可能
+//     positionOnly : "all" or "position"
+//     btn          : ボタンorリンクとして使用する場合true
+//     hover        : hover時のstyle指定
+// [exsample]
+//   @include hq-mixin-sprite((spriteMap:$spriteMap, name:"list01:list01_hover"));
+// ------------------------------
+@mixin hq-mixin-sprite($options){
+
+	$options: hq-map("mergeDeep",(
+		spriteMap: null,
+		name: null,
+		positionOnly: false,
+		btn: false,
+		hover: null
+	) ,$options);
+
+	$_name: hq-map("get",$options,"name");
+
+	//複数指定の場合,options変更
+	@if hq-str("match", $_name, ":"){
+		$_nameList: hq-str("split", $_name, ":");
+		$_hoverPos: sprite-position(hq-map("get",$options,"spriteMap"), hq-list("get",$_nameList,2));
+		$_newData: (
+			name : hq-list("get", $_nameList, 1),
+			hover: (
+				background-position: $_hoverPos
+			)
+		);
+		$options: hq-map("mergeDeep",$options,$_newData);
+	}
+
+	//実行
+	@include hq-mixin-sprite-core($options);
+	@include hq-mixin-sprite-image($options);
+}
+
+
+
+// ------------------------------
+// [name] hq-mixin-sprite-core v1.0.0
+// [path] /hisho-query/hq/hq-mixin-sprite-core.scss
+// [desc]
+//   spriteを指定する要素に指定。
+//     btn    : ボタンorリンクとして使用する場合true
+//     hover  : hover時のstyle指定
+// [exsample]
+//   @include hq-mixin-sprite-core((cursor:true));
+// ------------------------------
+@mixin hq-mixin-sprite-core($options){
+
+	$options: hq-map("mergeDeep",(
+		btn: false,
+		hover: null
+	) ,$options);
+	
+	//view
+	@include inline-block();
+	overflow:hidden;
+	border:none;
+	vertical-align:top;
+	white-space: nowrap;
+	text-indent: 100%;
+
+	//text-indent:-126em;
+	//white-space: nowrap;
+	//*text-indent:0;
+	//*line-height:9999px;
+	//*word-wrap:normal;
+	//*vertical-align:middle;
+	
+	//curor
+	@if hq-map("get",$options,"btn"){
+		cursor: pointer;
+		&:hover{
+			@include hq-mixin-write(hq-map("get",$options,"hover"));
+		}
+	}
+	
+}
+
+
+
+// ------------------------------
+// [name] hq-mixin-sprite-image v1.0.0
+// [path] /hisho/helper/_hq-mixin-sprite-image.scss
+// [desc]
+//   spriteの画像表示用style生成
+//     spriteMap    : sprite-map指定
+//     name         : 表示する画像のfile名指定
+//     positionOnly : "all" or "position"
+// [exsample]
+//   @include hq-mixin-sprite-image((spriteMap:$spriteMap, name:"list01"));
+// ------------------------------
+@mixin hq-mixin-sprite-image($options){
+	
+	$options: hq-map("mergeDeep",(
+		spriteMap: null,
+		name: null,
+		positionOnly: false
+	) ,$options);
+
+	$_spriteMap: hq-map("get",$options, "spriteMap");
+	$_name: hq-map("get",$options, "name");
+
+	//view
+	@if hq-map("get",$options, "positionOnly") != false {
+		background-image: sprite-url($_spriteMap);
+		background-repeat: no-repeat;
+		height: image-height(sprite-file($_spriteMap, $_name));
+		width: image-width(sprite-file($_spriteMap, $_name));
+	}
+	background-position: sprite-position($_spriteMap, $_name);
+}
+
+
+
+// ------------------------------
+// [name] hq-mixin-write v1.0.0
+// [path] /hisho-query/hq/_hq-mixin-write.scss
+// [desc] mapに指定されたプロパティデータを全て反映
+// [exsample]
+//
+//   @include hq-mixin-write(map);
+// ------------------------------
+@mixin hq-mixin-write($map){
+	@if $map and hq-is-map($map) and length($map) != 0{
+		@each $key, $value in $map {
+			@include hq-mixin-write-propaty($key, $value);
+		}
+	}
+}
+
+
+
+// ------------------------------
+// [name] hq-mixin-write-propaty v1.0.0
+// [path] /hisho-query/hq/_hq-mixin-write-propaty.scss
+// [desc] 指定内容を基にプロパティと値を生成
+//        通常指定の場合はショートハンド、map指定の場合は複数プロパティで返す
+// [exsample]
+//   @include hq-mixin-write-propaty("border",solid 1px #ccc);
+//
+//   @include hq-mixin-write-propaty("border",(
+//     style : solid,
+//     width : 1px
+//   ));
+// ------------------------------
+
+//
+// publick mixin
+// @ hq-mixin-write-propaty
+//
+@mixin hq-mixin-write-propaty($propaty, $value){
+	//map指定
+	@if hq-is-map($value) {
+
+		//margin padding
+		@if $propaty == "margin" or $propaty == "padding" {
+			@include hq-mixin-write-propaty-map-margin($propaty, $value);
+		
+		//border
+		}@else if $propaty == "border" {
+			@include hq-mixin-write-propaty-map-border($propaty, $value);
+
+		//background
+		}@else if $propaty == "background" {
+			@include hq-mixin-write-propaty-map-background($propaty, $value);
+
+		//font
+		}@else if $propaty == "font" {
+			@include hq-mixin-write-propaty-map-font($propaty, $value);
+		
+		//box
+		}@else if $propaty == "box" {
+			@include hq-mixin-write-propaty-map-box($propaty, $value);
+
+		//linkStyles mixin
+		}@else if $propaty == "link-styles" {
+			@if $value{
+				@include hq-link-styles($value);
+			}
+			
+		//default
+		}@else{
+			@include hq-mixin-write-propaty-map($propaty, $value);
+		}
+
+	//map以外の通常指定
+	} @else {
+		@include hq-mixin-write-propaty-value($propaty, $value);
+	}
+}
+
+
+//
+// private mixin
+// @ hq-mixin-write-propaty-value
+// - valueがmapでは無いときの処理
+//
+@mixin hq-mixin-write-propaty-value($propaty, $value){
+	//valueがcompass対応mixinの場合
+	//display:inline-block
+	@if $propaty == "display" and $value == "inline-block"{
+		@include inline-block;
+	//display:box
+	}@else if $propaty == "display" and $value == "box"{
+		@include display-box;
+	//display:box
+	}@else if $propaty == "opacity"{
+		@include opacity($value);
+	//compass非対応
+	}@else{
+		#{$propaty} : $value;
+	}
+}
+
+
+//
+// private mixin
+// @ hq-mixin-write-propaty-map
+// - valueがmapの時のデフォルト処理
+//
+@mixin hq-mixin-write-propaty-map($propaty, $value){
+	@each $key, $value in $value {
+		#{$propaty}-#{$key}: $value;
+	}
+}
+
+
+//
+// private mixin
+// @ hq-mixin-write-propaty-map-margin
+// - margin,padding時、map指定で値が全て指定されている場合、ショートハンドに変換し生成。
+//
+@mixin hq-mixin-write-propaty-map-margin($propaty, $map){
+	$_isNull: false;
+	$map: hq-map("merge",(
+		top: null,
+		right: null,
+		bottom: null,
+		left: null
+	) ,$map);
+
+	//shorthandチェック
+	$_short: hq-css-to-short($propaty, $map);
+	
+	//shortHand
+	@if $_short {
+		#{$propaty} : $_short;
+	//map
+	}@else{
+		@include hq-mixin-write-propaty-map($propaty, $value);
+	}
+}
+
+//
+// private mixin
+// @ hq-mixin-write-propaty-map-border
+// - border時mapが複数構造ある場合対応
+//
+@mixin hq-mixin-write-propaty-map-border($propaty, $map){
+	//shorthandチェック
+	$_short: hq-css-to-short($propaty, $map);
+	
+	//shortHand
+	@if $_short {
+		#{$propaty} : $_short;
+	//map
+	}@else{
+		@each $key, $value in $map {
+			//border-radius
+			@if $key == "radius"{
+				@include border-radius($value);
+			//border-image
+			}@else if $key == "image"{
+				@include border-image($value);
+			//map内にshortHand
+			}@else if $key == "all"{
+				#{$propaty}: $value;
+			//left->styleの様なdeep指定
+			}@else if type-of($value) == map{
+				@each $_k2, $_v2 in $value {
+					#{$propaty}-#{$key}-#{$_k2}: $_v2;
+				}
+			//通常map
+			}@else{
+				#{$propaty}-#{$key}: $value;
+			}
+		}
+	}
+}
+
+//
+// private mixin
+// @ hq-mixin-write-propaty-map-background
+// - background時mapが複数構造ある場合対応
+//
+@mixin hq-mixin-write-propaty-map-background($propaty, $map){
+	//shorthandチェック
+	$_short: hq-css-to-short($propaty, $map);
+	
+	//shortHand
+	@if $_short {
+		#{$propaty} : $_short;
+	//map
+	}@else{
+		@each $key, $value in $map {
+			//background-clip
+			@if $key == "clip"{
+				@include background-clip($value);
+			//background-origin
+			}@else if $key == "origin"{
+				@include background-origin($value);
+			//background-size
+			}@else if $key == "size"{
+				@include background-size($value);
+			//map内にshortHand
+			}@else if $key == "all"{
+				#{$propaty}: $value;
+			//通常map
+			}@else{
+				#{$propaty}-#{$key}: $value;
+			}
+		}
+	}
+}
+
+//
+// private mixin
+// @ hq-mixin-write-propaty-map-font
+// - font時mapが複数構造ある場合対応
+//
+@mixin hq-mixin-write-propaty-map-font($propaty, $map){
+	//shorthandチェック
+	$_short: hq-css-to-short($propaty, $map);
+	
+	//shortHand
+	@if $_short {
+		#{$propaty} : $_short;
+	//map
+	}@else{
+		@each $key, $value in $map {
+			//line-height
+			@if $key == "line-height"{
+				line-height: $value;
+			//map内にshortHand
+			}@else if $key == "all"{
+				#{$propaty}: $value;
+			//通常map
+			}@else{
+				#{$propaty}-#{$key}: $value;
+			}
+		}
+	}
+}
+
+//
+// private mixin
+// @ hq-mixin-write-propaty-map-box
+// - box時mapが複数構造ある場合対応
+//
+@mixin hq-mixin-write-propaty-map-box($propaty, $map){
+	@each $key, $value in $map {
+		//box-shadow
+		@if $key == "shadow"{
+			@include box-shadow($value);
+		//box-sizing
+		}@else if $key == "sizing"{
+			@include box-sizing($value);
+		//box-flex
+		}@else if $key == "flex"{
+			@include box-flex($value);
+		//box-flex-group
+		}@else if $key == "flex-group"{
+			@include box-flex-group($value);
+		//box-orient
+		}@else if $key == "orient"{
+			@include box-orient($value);
+		//box-orient-group
+		}@else if $key == "orient-group"{
+			@include box-orient-group($value);
+		//box-align
+		}@else if $key == "align"{
+			@include box-align($value);
+		//box-direction
+		}@else if $key == "direction"{
+			@include box-direction($value);
+		//box-lines
+		}@else if $key == "lines"{
+			@include box-lines($value);
+		//box-pack
+		}@else if $key == "pack"{
+			@include box-pack($value);
+		//通常map
+		}@else{
+			#{$propaty}-#{$key}: $value;
+		}
+	}
+}
+
+
+
+
 // ==============================
 // [name] hisho-query v0.1.1
 // [path] /hisho-query/_hisho-query.scss
@@ -1024,22 +1690,26 @@
 //
 $strHelp: '
 - method -
-[default] $unquote   : hq-str("unquote", $str);
-[default] $quote     : hq-str("quote", $str);
-[default] $length    : hq-str("length", $str);
-[default] $insert    : hq-str("insert", $str, hoge, 3);
-[default] $index     : hq-str("index", $str, fg);
-[default] $slice     : hq-str("slice", $str, 1, 3);
-[default] $upperCase : hq-str("upperCase", $str);
-[default] $lowerCase : hq-str("lowerCase", $str);
-[custom]  $strip     : hq-str("strip", $str);
-[custom]  $succ      : hq-str("succ", $str);
-[custom]  $match     : hq-str("match", $str, "bc");
-[custom]  $replace   : hq-str("replace", $str, "bc", "xa");
-[custom]  $sprit     : hq-str("sprit", $str, ".");
-[custom]  $puts      : hq-str("puts", $str);
-[default] $getId     : hq-str("getId"); //unique-id()
-[custom]  $help      : hq-str("help");
+[default] unquote   : hq-str("unquote", $str);
+[default] quote     : hq-str("quote", $str);
+[default] length    : hq-str("length", $str);
+[default] insert    : hq-str("insert", $str, hoge, 3);
+[default] index     : hq-str("index", $str, fg);
+[default] slice     : hq-str("slice", $str, 1, 3);
+[default] upcase    : hq-str("upcase", $str);
+[default] downcase  : hq-str("lowerCase", $str);
+[custom]  capitalize: hq-str("capitalize", $str);
+[custom]  FlUpcase  : hq-str("flUpcase", $str);
+[custom]  FlDowncase: hq-str("flDowncase", $str);
+[custom]  strip     : hq-str("strip", $str);
+[custom]  succ      : hq-str("succ", $str);
+[custom]  match     : hq-str("match", $str, "bc");
+[custom]  replace   : hq-str("replace", $str, "bc", "xa");
+[custom]  split     : hq-str("split", $str, ".");
+[custom]  puts      : hq-str("puts", $str);
+[default] getId     : hq-str("getId"); //unique-id()
+[custom]  reverse   : hq-str("reverse", $str);
+[custom]  help      : hq-str("help");
 ';
 // ------------------------------
 @function hq-str($argument...){
@@ -1050,24 +1720,34 @@ $strHelp: '
 		insert    : str-insert,
 		index     : str-index,
 		slice     : str-slice,
-		upperCase : to-upper-case,
-		lowerCase : to-lower-case,
+		upcase    : to-upper-case,
+		downcase  : to-lower-case,
+		capitalize: hq-str-capitalize,
+		flUpcase  : hq-str-first-letter-upper-case,
+		flDowncase: hq-str-first-letter-lower-case,
 		strip     : hq-str-strip,
 		succ      : hq-str-succ,
 		match     : hq-str-match,
 		replace   : hq-str-replace,
-		sprit     : hq-str-sprit,
+		split     : hq-str-split,
 		puts      : hq-str-puts,
-		getId     : unique-id
+		getId     : unique-id,
+		reverse   : hq-str-reverse
 	);
 	
 	$_name: nth($argument,1);
 	$_method: hq-map-get-deep($_api, $_name);
 	$_arg: hq-list-slice($argument,2);
-
+	
+	//help
 	@if $_name == "help"{
 		$test: hq-str-puts($strHelp);
 		@return null;
+	//error
+	}@else if $_method == null{
+		$error: hq-str-puts("[error]hq-str no method '" + $_name + "'");
+		@return null;
+	//default
 	}@else{
 		@return call($_method, $_arg...);
 	}
@@ -1078,16 +1758,16 @@ $strHelp: '
 //
 $numHelp: '
 - method -
-[default] $percentage : hq-num("percentage", (100px / 50px) );
-[default] $round      : hq-num("round", 10.4px);
-[default] $ceil       : hq-num("ceil", 10.4px);
-[default] $floor      : hq-num("floor", 10.4px);
-[default] $abs        : hq-num("abs", -15px);
-[default] $min        : hq-num("min", 10px, 5px, 2px, 15px, 18px);
-[default] $max        : hq-num("max", 10px, 5px, 2px, 15px, 18px);
-[default] $unit       : hq-num("unit", 20em);
-[default] $unitless   : hq-num("unitless", 20em);
-[default] $comparable : hq-num("comparable", 15em, 15px);
+[default] percentage : hq-num("percentage", (100px / 50px) );
+[default] round      : hq-num("round", 10.4px);
+[default] ceil       : hq-num("ceil", 10.4px);
+[default] floor      : hq-num("floor", 10.4px);
+[default] abs        : hq-num("abs", -15px);
+[default] min        : hq-num("min", 10px, 5px, 2px, 15px, 18px);
+[default] max        : hq-num("max", 10px, 5px, 2px, 15px, 18px);
+[default] unit       : hq-num("unit", 20em);
+[default] unitless   : hq-num("unitless", 20em);
+[default] comparable : hq-num("comparable", 15em, 15px);
 ';
 // ------------------------------
 @function hq-num($argument...){
@@ -1108,10 +1788,16 @@ $numHelp: '
 	$_name: nth($argument,1);
 	$_method: hq-map-get-deep($_api, $_name);
 	$_arg: hq-list-slice($argument,2);
-
+	
+	//help
 	@if $_name == "help"{
 		$test: hq-str-puts($numHelp);
 		@return null;
+	//error
+	}@else if $_method == null{
+		$error: hq-str-puts("[error]hq-num no method '" + $_name + "'");
+		@return null;
+	//default
 	}@else{
 		@return call($_method, $_arg...);
 	}
@@ -1123,22 +1809,22 @@ $numHelp: '
 //
 $listHelp: '
 - method -
-[default] $get       : hq-list("get", $list, 1);
-[default] $length    : hq-list("length", $list);
-[default] $index     : hq-list("index", $list, e);
-[default] $push      : hq-list("push", $list, x);
-[custom]  $unshift   : hq-list("unshift", $list, x);
-[custom]  $shift     : hq-list("shift", $list, x);
-[custom]  $pop       : hq-list("pop", $list, x);
-[custom]  $slice     : hq-list("slice", $list, 3);
-[custom]  $remove    : hq-list("remove", $list, c);
-[default] $join      : hq-list("join", $list1, $list2, comma);
-[default] $zip       : hq-list("zip", $list);
-[custom]  $toSpace   : hq-list("toSpace", $list);
-[custom]  $toComma   : hq-list("toComma", $list);
-[custom]  $separator : hq-list("separator", $list);
-[custom]  $reverse   : hq-list("reverse", $list);
-[custom]  $help      : hq-list("help");
+[default] get       : hq-list("get", $list, 1);
+[default] length    : hq-list("length", $list);
+[default] index     : hq-list("index", $list, e);
+[default] push      : hq-list("push", $list, x);
+[custom]  unshift   : hq-list("unshift", $list, x);
+[custom]  shift     : hq-list("shift", $list, x);
+[custom]  pop       : hq-list("pop", $list, x);
+[custom]  slice     : hq-list("slice", $list, 3);
+[custom]  remove    : hq-list("remove", $list, c);
+[default] join      : hq-list("join", $list1, $list2, comma);
+[default] zip       : hq-list("zip", $list);
+[custom]  toSpace   : hq-list("toSpace", $list);
+[custom]  toComma   : hq-list("toComma", $list);
+[custom]  separator : hq-list("separator", $list);
+[custom]  reverse   : hq-list("reverse", $list);
+[custom]  help      : hq-list("help");
 ';
 // ------------------------------
 @function hq-list($argument...){
@@ -1168,10 +1854,16 @@ $listHelp: '
 	$_name: nth($argument,1);
 	$_method: hq-map-get-deep($_api, $_name);
 	$_arg: hq-list-slice($argument,2);
-
+	
+	//help
 	@if $_name == "help"{
 		$test: hq-str-puts($listHelp);
 		@return null;
+	//error
+	}@else if $_method == null{
+		$error: hq-str-puts("[error]hq-list no method '" + $_name + "'");
+		@return null;
+	//default
 	}@else{
 		@return call($_method, $_arg...);
 	}
@@ -1182,22 +1874,22 @@ $listHelp: '
 // #map-function
 $mapHelp: '
 - method -
-[custom]  $get       : hq-map("get", $map, "cat.colorType");
-[custom]  $set       : hq-map("set", $map, "cat.colorType", "blue");
-[custom]  $extend    : hq-map("extend", $map1, $map2);
-[custom]  $extend    : hq-map("extend", true, $map1, $map2);  //deepCopy
-[default] $merge     : hq-map("merge", $map1, $map2);         //deepMap×
-[custom]  $mergeDeep : hq-map("mergeDeep", $map1, $map2);
-[default] $keys      : hq-map("keys", $map);                  //deepMap×
-[default] $values    : hq-map("values", $map);                //deepMap×
-[default] $hasKey    : hq-map("hasKey", $map, "hoge");
-[default] $nth       : hq-map("nth", $map, 2);                //deepMap×
-[default] $length    : hq-map("length", $map);
-[default] $push      : hq-map("push", $map, foo hoge);
-[default] $join      : hq-map("join", $map3, $map4, comma);   //deepMap×
-[default] $zip       : hq-map("zip", $map);                   //deepMap×
-[custom]  $toString  : hq-map("toString", $map);
-[custom]  $help      : hq-map("help");
+[custom]  get       : hq-map("get", $map, "cat.colorType");
+[custom]  set       : hq-map("set", $map, "cat.colorType", "blue");
+[custom]  extend    : hq-map("extend", $map1, $map2);
+[custom]  extend    : hq-map("extend", true, $map1, $map2);  //deepCopy
+[default] merge     : hq-map("merge", $map1, $map2);         //deepMap×
+[custom]  mergeDeep : hq-map("mergeDeep", $map1, $map2);
+[default] keys      : hq-map("keys", $map);                  //deepMap×
+[default] values    : hq-map("values", $map);                //deepMap×
+[default] hasKey    : hq-map("hasKey", $map, "hoge");
+[default] nth       : hq-map("nth", $map, 2);                //deepMap×
+[default] length    : hq-map("length", $map);
+[default] push      : hq-map("push", $map, foo hoge);
+[default] join      : hq-map("join", $map3, $map4, comma);   //deepMap×
+[default] zip       : hq-map("zip", $map);                   //deepMap×
+[custom]  toString  : hq-map("toString", $map);
+[custom]  help      : hq-map("help");
 ';
 // ------------------------------
 @function hq-map($argument...){
@@ -1223,10 +1915,16 @@ $mapHelp: '
 	$_name: nth($argument,1);
 	$_method: hq-map-get-deep($_api, $_name);
 	$_arg: hq-list-slice($argument,2);
-
+	
+	//help
 	@if $_name == "help"{
 		$test: hq-str-puts($mapHelp);
 		@return null;
+	//error
+	}@else if $_method == null{
+		$error: hq-str-puts("[error]hq-map no method '" + $_name + "'");
+		@return null;
+	//default
 	}@else{
 		@return call($_method, $_arg...);
 	}
@@ -1236,16 +1934,16 @@ $mapHelp: '
 // #is-function
 $isHelp: '
 - method -
-[default] $gValue   : hq-is("gValue", gvalue);
-[default] $function : hq-is("function", hq-is);
-[default] $mixin    : hq-is("mixin", hq);
-[custom]  $string   : hq-is("string", "border");
-[custom]  $number   : hq-is("number", 5px);
-[custom]  $color    : hq-is("color", #ff0000);
-[custom]  $map      : hq-is("map", $map);
-[custom]  $list     : hq-is("list", $list1);
-[custom]  $bool     : hq-is("bool", true);
-[custom]  $help     : hq-is("help");
+[default] gValue   : hq-is("gValue", gvalue);
+[default] function : hq-is("function", hq-is);
+[default] mixin    : hq-is("mixin", hq);
+[custom]  string   : hq-is("string", "border");
+[custom]  number   : hq-is("number", 5px);
+[custom]  color    : hq-is("color", #ff0000);
+[custom]  map      : hq-is("map", $map);
+[custom]  list     : hq-is("list", $list1);
+[custom]  bool     : hq-is("bool", true);
+[custom]  help     : hq-is("help");
 ';
 // ------------------------------
 @function hq-is($argument...){
@@ -1267,10 +1965,16 @@ $isHelp: '
 	$_name: nth($argument,1);
 	$_method: hq-map-get-deep($_api, $_name);
 	$_arg: hq-list-slice($argument,2);
-
+	
+	//help
 	@if $_name == "help"{
 		$test: hq-str-puts($isHelp);
 		@return null;
+	//error
+	}@else if $_method == null{
+		$error: hq-str-puts("[error]hq-is no method '" + $_name + "'");
+		@return null;
+	//default
 	}@else{
 		@return call($_method, $_arg...);
 	}
@@ -1280,16 +1984,16 @@ $isHelp: '
 // #css-function
 $cssHelp: '
 - method -
-[custom]  $toMap : hq-css("toMap", "border", solid 1px #ccc);
+[custom]  toMap : hq-css("toMap", "border", solid 1px #ccc);
           -> shorthandで指定した値をmap形式に変換
 
-[custom]  $toMap : hq-css("toShort", $map);
+[custom]  toMap : hq-css("toShort", $map);
           -> mapで指定した値をshorthand形式に変換
 
-[custom]  $getWidth  : hq-css("getWidth", 500px, solid 1px #ccc, 0 2px 3px);
+[custom]  getWidth  : hq-css("getWidth", 500px, solid 1px #ccc, 0 2px 3px);
           -> padding borderを省いたwidthを取得
 
-[custom]  $getHeight : hq-css("getHeight", 500px, solid 1px #ccc, 0 2px 3px);
+[custom]  getHeight : hq-css("getHeight", 500px, solid 1px #ccc, 0 2px 3px);
           -> padding borderを省いたheightを取得
 ';
 // ------------------------------
@@ -1305,9 +2009,15 @@ $cssHelp: '
 	$_method: hq-map-get-deep($_api, $_name);
 	$_arg: hq-list-slice($argument,2);
 
+	//help
 	@if $_name == "help"{
 		$test: hq-str-puts($cssHelp);
 		@return null;
+	//error
+	}@else if $_method == null{
+		$error: hq-str-puts("[error]hq-css no method '" + $_name + "'");
+		@return null;
+	//default
 	}@else{
 		@return call($_method, $_arg...);
 	}
@@ -1326,43 +2036,41 @@ $cssHelp: '
 // @include hq("link.style", $map);
 // @include hq("help", $map);
 // ------------------------------
-/*
-@mixin hq($argument...){
+
+@mixin hqm($argument...){
 	$_name: nth($argument,1);
 	$_arg: hq-list-slice($argument,2);
 	
 	@if $_name == "write"{
-		@include hq-wite($_arg...);
+		@include hq-mixin-write($_arg...);
 
 	}@else if $_name == "write.propaty"{
-		@include hq-write-propaty($_arg...);
+		@include hq-mixin-write-propaty($_arg...);
 
 	}@else if $_name == "sprite"{
-		@include hq-sprite($_arg...);
+		@include hq-mixin-sprite($_arg...);
 
 	}@else if $_name == "sprite.core"{
-		@include hq-sprite-core($_arg...);
+		@include hq-mixin-sprite-core($_arg...);
 
 	}@else if $_name == "sprite.image"{
-		@include hq-sprite-image($_arg...);
+		@include hq-mixin-sprite-image($_arg...);
 
 	}@else if $_name == "module"{
-		@include hq-module($_arg...);
+		@include hq-mixin-module($_arg...);
 
 	}@else if $_name == "module.core"{
-		@include hq-module-core($_arg...);
+		@include hq-mixin-module-core($_arg...);
 
 	}@else if $_name == "font.cloud"{
-		@include hq-font-cloud($_arg...);
+		@include hq-mixin-font-cloud($_arg...);
 
-	}@else if $_name == "link.style"{
-		@include hq-link-style($_arg...);
+	}@else if $_name == "link.styles"{
+		@include hq-mixin-link-styles($_arg...);
 
 	}@else if $_name == "help"{
-		@include hq-help($_arg...);
+		@include hq-mixin-help($_arg...);
 		$test: hq-str-puts($mixinHelp);
-		@return null;
 	}
 
 }
-*/

@@ -1,0 +1,15 @@
+// ------------------------------
+// [name] hq-mixin-write v1.0.0
+// [path] /hisho-query/hq/_hq-mixin-write.scss
+// [desc] mapに指定されたプロパティデータを全て反映
+// [exsample]
+//
+//   @include hq-mixin-write(map);
+// ------------------------------
+@mixin hq-mixin-write($map){
+	@if $map and hq-is-map($map) and length($map) != 0{
+		@each $key, $value in $map {
+			@include hq-mixin-write-propaty($key, $value);
+		}
+	}
+}

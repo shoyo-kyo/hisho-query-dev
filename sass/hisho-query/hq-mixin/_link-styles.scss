@@ -1,0 +1,95 @@
+@charset "utf-8";
+// ------------------------------
+// [name] hq-mixin-link-styles v1.0.0
+// [path] /hisho-query/hq/_hq-mixin-link-styles.scss
+// [desc] linkのcolorとunderlineを指定
+// [exsample]
+//
+//   @include hq-mixin-link-styles($map);
+//
+//   @include hq-mixin-link-styles(
+//     linkColor : #333,
+//     linkUnderline : false
+//   );
+// ------------------------------
+
+//private mixin
+@mixin hq-mixin-link-styles-view($color:null, $underline:null){
+	@if $color {
+		color: $color;
+	}
+	@if $underline != null{
+		text-decoration: if($underline, underline, none);
+	}
+}
+
+//publick mixin
+@mixin hq-mixin-link-styles($options){
+
+	//-----------------
+	// options
+	//-----------------
+	$options: hq-map("mergeDeep", (
+		color: (
+			default : #333,
+			link    : #CC33CC,
+			visited : #CC33CC,
+			hover   : #CC33CC,
+			active  : #CC33CC,
+			focus   : #CC33CC
+		),
+		underline: (
+			default : true,
+			link    : true,
+			visited : true,
+			hover   : false,
+			active  : false,
+			focus   : false
+		)
+	), $options);
+	
+	//-----------------
+	// view
+	//-----------------
+ 
+	@include hq-mixin-link-styles-view(
+		$color     : hq-map("get",$options, "color.default"),
+		$underline : hq-map("get",$options, "underline.default")
+	);
+
+	&:link{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.link"),
+			$underline : hq-map("get",$options, "underline.link")
+		);
+	}
+
+	&:visited{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.visited"),
+			$underline : hq-map("get",$options, "underline.visited")
+		);
+	}
+
+	&:hover{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.hover"),
+			$underline : hq-map("get",$options, "underline.hover")
+		);
+	}
+
+	&:active{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.active"),
+			$underline : hq-map("get",$options, "underline.active")
+		);
+	}
+
+	&:focus{
+		@include hq-mixin-link-styles-view(
+			$color     : hq-map("get",$options, "color.focus"),
+			$underline : hq-map("get",$options, "underline.focus")
+		);
+	}
+
+}

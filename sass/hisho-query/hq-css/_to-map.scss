@@ -190,8 +190,8 @@
 		@return (variant: $value);
 
 	}@else if type-of($value) == string and hq-str-match($value,"/\//"){
-		@return (size: str-sprit($value, "/", 0));
-		@return (line-height: str-sprit($value, "/", 1));
+		@return (size: hq-str-split($value, "/", 0));
+		@return (line-height: hq-str-split($value, "/", 1));
 
 	}@else if type-of($value) == string{
 		@return (family: $value);
@@ -271,23 +271,23 @@
 		@return $list;
 
 	//margin-padding
-	}@else if $type == margin or $type == padding {
+	}@else if $type == "margin" or $type == "padding" {
 		@return hq-css-to-map-margin($list);
 
 	//border
-	}@else if $type == border or $type == outline{
+	}@else if $type == "border" or $type == "outline"{
 		@return hq-css-to-map-border($list);
 
 	//background
-	}@else if $type == background{
+	}@else if $type == "background"{
 		@return hq-css-to-map-background($list);
 
 	//font
-	}@else if $type == font{
+	}@else if $type == "font"{
 		@return hq-css-to-map-font($list);
 	
 	//list-style
-	}@else if $type == list-style{
+	}@else if $type == "list-style"{
 		@return hq-css-to-map-list-style($list);
 
 	//非対応のtypeはまま返す

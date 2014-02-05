@@ -1,0 +1,41 @@
+// ------------------------------
+// [name] hq-mixin-sprite-core v1.0.0
+// [path] /hisho-query/hq/hq-mixin-sprite-core.scss
+// [desc]
+//   spriteを指定する要素に指定。
+//     btn    : ボタンorリンクとして使用する場合true
+//     hover  : hover時のstyle指定
+// [exsample]
+//   @include hq-mixin-sprite-core((cursor:true));
+// ------------------------------
+@mixin hq-mixin-sprite-core($options){
+
+	$options: hq-map("mergeDeep",(
+		btn: false,
+		hover: null
+	) ,$options);
+	
+	//view
+	@include inline-block();
+	overflow:hidden;
+	border:none;
+	vertical-align:top;
+	white-space: nowrap;
+	text-indent: 100%;
+
+	//text-indent:-126em;
+	//white-space: nowrap;
+	//*text-indent:0;
+	//*line-height:9999px;
+	//*word-wrap:normal;
+	//*vertical-align:middle;
+	
+	//curor
+	@if hq-map("get",$options,"btn"){
+		cursor: pointer;
+		&:hover{
+			@include hq-mixin-write(hq-map("get",$options,"hover"));
+		}
+	}
+	
+}

@@ -7,7 +7,7 @@ require "sass"
 # Released under the MIT license
 # https://github.com/syouyou/hisho-query/blob/master/LICENSE
 # 
-# Date: 2014-02-04
+# Date: 2014-02-05
 # 
 
 #
@@ -67,6 +67,54 @@ module HishoQueryStr
   end
 
   #
+  # [name] hq-str-reverse v1.0.0
+  # [desc] 文字反転
+  # [return] string
+  # [exsample] hq-str-reverse("AbC")
+  #
+  def hq_str_reverse(str)
+    assert_type str, :String
+    result = str.value.reverse
+    Sass::Script::String.new(result)
+  end
+
+  #
+  # [name] hq-str-capitalize v1.0.0
+  # [desc] 先頭大文字化(以外は小文字に)
+  # [return] string
+  # [exsample] hq-str-capitalize("aBC")
+  #
+  def hq_str_capitalize(str)
+    assert_type str, :String
+    result = str.value.capitalize
+    Sass::Script::String.new(result)
+  end
+
+  #
+  # [name] hq-str-first-letter-upper-case v1.0.0
+  # [desc] 先頭のみ大文字化
+  # [return] string
+  # [exsample] hq_str_first_letter_upper_case("aBC")
+  #
+  def hq_str_first_letter_upper_case(str)
+    assert_type str, :String
+    result = str.value.gsub(/^\w/){|word| word.upcase}
+    Sass::Script::String.new(result)
+  end
+
+  #
+  # [name] hq-str-first-letter-lower-case v1.0.0
+  # [desc]先頭のみ小文字化
+  # [return] string
+  # [exsample] hq-str-first-letter-lower-case("ABC")
+  #
+  def hq_str_first_letter_lower_case(str)
+    assert_type str, :String
+    result = str.value.gsub(/^\w/){|word| word.downcase}
+    Sass::Script::String.new(result)
+  end
+
+  #
   # [name] hq-str-match v1.0.0
   # [desc] 文字列の検索
   # [return] string
@@ -105,12 +153,12 @@ module HishoQueryStr
   end
 
   #
-  # [name] hq-str-sprit v1.0.0
+  # [name] hq-str-split v1.0.0
   # [desc] 指定した区切り文字で分割
   # [return] string
-  # [exsample] hq-str-sprit("aa|bb|cc", "|", 2)
+  # [exsample] hq-str-split("aa|bb|cc", "|", 2)
   #
-  def hq_str_sprit(*args)
+  def hq_str_split(*args)
     str = args[0]
     find = args[1]
     index = args[2]
