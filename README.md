@@ -48,11 +48,11 @@ hq functionの使い方
 jqueryで使われている"method chain"のように一括で処理する為に、  
 「method query」「method map」と言うインターフェイスを用意。  
 
-- 今までは
+-今までは
 
 	$hoge: hq("str.quote", hq("map.get", $map)　);
 
-- method query
+-method query
 
 	//指定したmethodを順番に処理し結果を返す
 	$hoge: hq("map.get->str.quote", $map);
@@ -60,7 +60,7 @@ jqueryで使われている"method chain"のように一括で処理する為に
 	//引数は第三引数以降に順番に設定していく
 	$hoge: hq("str.split->list.get->str.insert->str.quote", $str, ".", 1, "hoge", 3);
 
-- method map
+-method map
 
 	hoge: hq($str, (
 		"str.split" : "." ,
@@ -88,7 +88,6 @@ methodの役割はmethod名から判断してくださいw
 
 -プロンプト（ターミナル）  
 
-- map method -
 	-------------------------------------------------------
 	| method        | query | return |deep| 説明
 	-------------------------------------------------------
