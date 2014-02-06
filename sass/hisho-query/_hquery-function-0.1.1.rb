@@ -1,6 +1,6 @@
 require "sass"
 #
-# hisho-query support functions v0.1.0
+# hisho-query support functions v0.1.1
 # http://query.hisho.com
 # 
 # Copyright 2014 shoyo kyo

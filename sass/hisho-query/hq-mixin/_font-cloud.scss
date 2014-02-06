@@ -14,7 +14,7 @@
 // ------------------------------
 
 @mixin hq-mixin-font-cloud($size){
-	$_baseSize: if(hq-is("map",$size) , hq-map("get", $size, m) , $size);
+	$_baseSize: if(hq("is.map",$size) , hq("map.get", $size, "m") , $size);
 
 	$_sizeMap : (
 		xxs : $_baseSize / 2,
@@ -26,8 +26,8 @@
 		xxl : 2 * $_baseSize
 	);
 	//mapの場合extend
-	@if hq-is("map",$size){
-		$_sizeMap: hq-map("marge", $_sizeMap, $size);
+	@if hq("is.map",$size){
+		$_sizeMap: hq("map.marge", $_sizeMap, $size);
 	}
 
 	@each $_k, $_v in $_sizeMap {

@@ -18,7 +18,7 @@
 //
 @mixin hq-mixin-write-propaty($propaty, $value){
 	//map指定
-	@if hq-is-map($value) {
+	@if hq("is.map",$value) {
 
 		//margin padding
 		@if $propaty == "margin" or $propaty == "padding" {
@@ -100,7 +100,7 @@
 //
 @mixin hq-mixin-write-propaty-map-margin($propaty, $map){
 	$_isNull: false;
-	$map: hq-map("merge",(
+	$map: hq("map.extend",(
 		top: null,
 		right: null,
 		bottom: null,
@@ -108,14 +108,14 @@
 	) ,$map);
 
 	//shorthandチェック
-	$_short: hq-css-to-short($propaty, $map);
+	$_short: hq("css.toShort",$propaty, $map);
 	
 	//shortHand
 	@if $_short {
 		#{$propaty} : $_short;
 	//map
 	}@else{
-		@include hq-mixin-write-propaty-map($propaty, $value);
+		@include hq-mixin-write-propaty-map($propaty, $map);
 	}
 }
 
@@ -126,7 +126,7 @@
 //
 @mixin hq-mixin-write-propaty-map-border($propaty, $map){
 	//shorthandチェック
-	$_short: hq-css-to-short($propaty, $map);
+	$_short: hq("css.toShort",$propaty, $map);
 	
 	//shortHand
 	@if $_short {
@@ -163,7 +163,7 @@
 //
 @mixin hq-mixin-write-propaty-map-background($propaty, $map){
 	//shorthandチェック
-	$_short: hq-css-to-short($propaty, $map);
+	$_short: hq("css.toShort",$propaty, $map);
 	
 	//shortHand
 	@if $_short {
@@ -198,7 +198,7 @@
 //
 @mixin hq-mixin-write-propaty-map-font($propaty, $map){
 	//shorthandチェック
-	$_short: hq-css-to-short($propaty, $map);
+	$_short: hq("css.toShort",$propaty, $map);
 	
 	//shortHand
 	@if $_short {

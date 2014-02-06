@@ -29,7 +29,7 @@
 	//-----------------
 	// options
 	//-----------------
-	$options: hq-map("mergeDeep", (
+	$options: hq("map.mergeDeep", (
 		color: (
 			default : #333,
 			link    : #CC33CC,
@@ -53,42 +53,42 @@
 	//-----------------
  
 	@include hq-mixin-link-styles-view(
-		$color     : hq-map("get",$options, "color.default"),
-		$underline : hq-map("get",$options, "underline.default")
+		$color     : hq("map.get", $options, "color.default"),
+		$underline : hq("map.get", $options, "underline.default")
 	);
 
 	&:link{
 		@include hq-mixin-link-styles-view(
-			$color     : hq-map("get",$options, "color.link"),
-			$underline : hq-map("get",$options, "underline.link")
+			$color     : hq("map.get", $options, "color.link"),
+			$underline : hq("map.get", $options, "underline.link")
 		);
 	}
 
 	&:visited{
 		@include hq-mixin-link-styles-view(
-			$color     : hq-map("get",$options, "color.visited"),
-			$underline : hq-map("get",$options, "underline.visited")
+			$color     : hq("map.get", $options, "color.visited"),
+			$underline : hq("map.get", $options, "underline.visited")
 		);
 	}
 
 	&:hover{
 		@include hq-mixin-link-styles-view(
-			$color     : hq-map("get",$options, "color.hover"),
-			$underline : hq-map("get",$options, "underline.hover")
+			$color     : hq("map.get", $options, "color.hover"),
+			$underline : hq("map.get", $options, "underline.hover")
 		);
 	}
 
 	&:active{
 		@include hq-mixin-link-styles-view(
-			$color     : hq-map("get",$options, "color.active"),
-			$underline : hq-map("get",$options, "underline.active")
+			$color     : hq("map.get", $options, "color.active"),
+			$underline : hq("map.get", $options, "underline.active")
 		);
 	}
 
 	&:focus{
 		@include hq-mixin-link-styles-view(
-			$color     : hq-map("get",$options, "color.focus"),
-			$underline : hq-map("get",$options, "underline.focus")
+			$color     : hq("map.get", $options, "color.focus"),
+			$underline : hq("map.get", $options, "underline.focus")
 		);
 	}
 

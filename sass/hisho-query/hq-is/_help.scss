@@ -1,0 +1,40 @@
+// ------------------------------
+// [name] hq-is-help v1.0.0
+// [path] /hisho-query/hq-is/_help.scss
+// [desc] hq("is.xxx")のhelpをターミナルに表示
+// [exsample]
+//   hq-is-help()
+// ------------------------------
+@function hq-is-help(){
+
+$help: '
+- is method -
+-------------------------------------------------------
+| method      | query | return | 説明
+-------------------------------------------------------
+| is.gValue   | false |  bool  | gloval変数チェック
+| is.function | false |  bool  | functionの存在チェック
+| is.mixin    | false |  bool  | mixinの存在チェック
+| is.string   | false |  bool  | stringチェック
+| is.number   | false |  bool  | numberチェック
+| is.color    | false |  bool  | colorチェック
+| is.map      | false |  bool  | mapチェック
+| is.list     | false |  bool  | listチェック
+| is.bool     | false |  bool  | boolチェック
+-------------------------------------------------------
+$gvalue: hoge
+$h: hq( "is.gValue", gvalue );    -> true
+$h: hq( "is.function", hq );      -> true
+$h: hq( "is.mixin", hqm );        -> true
+$h: hq( "is.string", "border" );  -> true
+$h: hq( "is.number", 5px );       -> true
+$h: hq( "is.color", #ff0000 );    -> true
+$h: hq( "is.map", (test:hoge) );  -> true
+$h: hq( "is.list", 0 2 3 5 );     -> true
+$h: hq( "is.bool", true );        -> true
+-------------------------------------------------------
+';
+	
+	$a: hq-str-puts($help);
+	@return null;
+}

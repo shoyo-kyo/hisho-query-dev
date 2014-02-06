@@ -15,7 +15,7 @@
 // ------------------------------
 @mixin hq-mixin-sprite($options){
 
-	$options: hq-map("mergeDeep",(
+	$options: hq("map.mergeDeep",(
 		spriteMap: null,
 		name: null,
 		positionOnly: false,
@@ -23,19 +23,19 @@
 		hover: null
 	) ,$options);
 
-	$_name: hq-map("get",$options,"name");
+	$_name: hq("map.get",$options,"name");
 
 	//複数指定の場合,options変更
-	@if hq-str("match", $_name, ":"){
-		$_nameList: hq-str("split", $_name, ":");
-		$_hoverPos: sprite-position(hq-map("get",$options,"spriteMap"), hq-list("get",$_nameList,2));
+	@if hq("str.match", $_name, ":"){
+		$_nameList: hq("str.split", $_name, ":");
+		$_hoverPos: sprite-position(hq("map.get",$options,"spriteMap"), hq("list.get",$_nameList,2));
 		$_newData: (
-			name : hq-list("get", $_nameList, 1),
+			name : hq("list.get", $_nameList, 1),
 			hover: (
 				background-position: $_hoverPos
 			)
 		);
-		$options: hq-map("mergeDeep",$options,$_newData);
+		$options: hq("map.mergeDeep", $options, $_newData);
 	}
 
 	//実行

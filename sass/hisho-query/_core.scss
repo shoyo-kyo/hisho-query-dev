@@ -7,7 +7,6 @@
 // ------------------------------
 // #hq-function
 // ------------------------------
-
 @function hq($argument...){
 	$_api: (
 		str: (
@@ -29,7 +28,7 @@
 			replace   : 3 hq-str-replace,
 			split     : 2 hq-str-split,
 			puts      : 1 hq-str-puts,
-			getId     : 1 unique-id,
+			getId     : 0 unique-id,
 			reverse   : 1 hq-str-reverse,
 		),
 		num: (
@@ -63,7 +62,7 @@
 			slice    : 3 hq-list-slice,
 			remove   : 2 hq-list-remove,
 			join     : 3 join,
-			zip      : 1 zip,
+			zip      : i zip,
 			toSpace  : 1 hq-list-toSpace,
 			toComma  : 1 hq-list-toComma,
 			separator: 1 list-separator,
@@ -102,23 +101,42 @@
 		),
 		css: (
 			help      : 0 hq-css-help,
-			toMap     : 1 hq-css-to-map,
-			toShort   : 1 hq-css-to-short,
+			toMap     : 2 hq-css-to-map,
+			toShort   : 2 hq-css-to-short,
 			getWidth  : 3 hq-css-get-width,
 			getHeight : 3 hq-css-get-height,
-		)
+		),
+		help : 0 hq-help,
 	);
-	
-	$_query: nth($argument,1);
-	$_qList: hq-str-split($_query,"->");
-	$_arg: hq-list-slice($argument,2);
-	$_result: null;
 
-	@each $_name in $_qList{
+	//method query
+	$_data1: nth($argument,1);
+	$_data2: if( length($argument) < 2, null, nth($argument,2) );
+	$_data3: hq-list-slice($argument,3);
+	$_isMMap: length($argument) == 2 and hq-is-map($_data2) and hq-str-match(nth(nth($_data2, 1), 1), "\.");
+	
+	//method map
+	@if $_isMMap {
+		@return hq-core-method-map($_api, $_data1, $_data2);
+	//method query
+	}@else{
+		@return hq-core-method-query($_api, $_data1, $_data2, $_data3...);
+	}
+}
+
+// ------------------------------
+// method map
+// ------------------------------
+@function hq-core-method-map($api, $input, $map){
+	$_result: $input;
+
+	@each $_name, $_arg in $map{
 		$_name: hq-str-strip($_name);
-		$_data: hq-map-get-deep($_api, $_name);
+		$_data: hq-map-get-deep($api, $_name);
 		$_method: nth($_data,2);
 		$_argNum: nth($_data,1);
+		$_arg: hq-list-toComma($_arg);
+
 		//error
 		@if $_method == null{
 			$_error: "    error hisho-query undefined　method '" + $_name + "'";
@@ -126,12 +144,68 @@
 			$_result: $_error;
 		//default
 		}@else{
-			$_setArg: hq-list-slice($_arg, 1, $_argNum);
-			$_result: call($_method, $_setArg...);
+			@if $_argNum == 0{
+				$_result: call($_method);
+			}@else if $_argNum == 1{
+				$_result: call($_method, $_result);
+			}@else{
+				$_result: call($_method, $_result, $_arg...);
+			}
 		}
 	}
 	@return $_result;
 }
+
+
+// ------------------------------
+// method query
+// ------------------------------
+@function hq-core-method-query($api, $query, $input, $arg...){
+	$_qList: hq-str-split($query,"->");
+	$_result: $input;
+	$_startNum: 1;
+	
+	@each $_name in $_qList{
+		$_name: hq-str-strip($_name);
+		$_data: hq-map-get-deep($api, $_name);
+		$_method: nth($_data,2);
+		$_argNum: nth($_data,1);
+
+		//error
+		@if $_method == null{
+			$_error: "    error hisho-query undefined method '" + $_name + "'";
+			$_puts: hq-str-puts($_error);
+			$_result: $_error;
+		//default
+		}@else{
+			//可変長引数
+			@if $_argNum == i{
+				$_result: call($_method, $_result, $arg...);
+			//引数不要
+			}@else if $_argNum == 0{
+				$_result: call($_method);
+			//引数1
+			}@else if $_argNum == 1{
+				$_result: call($_method, $_result);
+			//引数複数
+			}@else{
+				$_endNum: $_startNum + ($_argNum - 1) - 1;
+
+				//可変長引数の状況チェック
+				@if $_name == "str.slice" or $_name == "list.slice"{
+					@if length($arg) < 2 or hq-is-number(nth($arg,2)) == false{
+						$_endNum: $_endNum - 1;
+					}
+				}
+				$_setArg: hq-list-slice($arg, $_startNum, $_endNum);
+				$_result: call($_method, $_result, $_setArg...);
+				$_startNum: $_endNum + 1;
+			}
+		}
+	}
+	@return $_result;
+}
+
 
 
 
@@ -162,46 +236,6 @@ $strHelp: '
 [custom]  help      : hq-str("help");
 ';
 // ------------------------------
-@function hq-str($argument...){
-	$_api: (
-		unquote   : unquote,
-		quote     : quote,
-		length    : str-length,
-		insert    : str-insert,
-		index     : str-index,
-		slice     : str-slice,
-		upcase    : to-upper-case,
-		downcase  : to-lower-case,
-		capitalize: hq-str-capitalize,
-		flUpcase  : hq-str-first-letter-upper-case,
-		flDowncase: hq-str-first-letter-lower-case,
-		strip     : hq-str-strip,
-		succ      : hq-str-succ,
-		match     : hq-str-match,
-		replace   : hq-str-replace,
-		split     : hq-str-split,
-		puts      : hq-str-puts,
-		getId     : unique-id,
-		reverse   : hq-str-reverse
-	);
-	
-	$_name: nth($argument,1);
-	$_method: hq-map-get-deep($_api, $_name);
-	$_arg: hq-list-slice($argument,2);
-	
-	//help
-	@if $_name == "help"{
-		$test: hq-str-puts($strHelp);
-		@return null;
-	//error
-	}@else if $_method == null{
-		$error: hq-str-puts("[error]hq-str no method '" + $_name + "'");
-		@return null;
-	//default
-	}@else{
-		@return call($_method, $_arg...);
-	}
-}
 
 // ------------------------------
 // #number-function
@@ -220,39 +254,6 @@ $numHelp: '
 [default] comparable : hq-num("comparable", 15em, 15px);
 ';
 // ------------------------------
-@function hq-num($argument...){
-	$_api: (
-		percentage : percentage,
-		per   : percentage,
-		round : round,
-		ceil  : ceil,
-		floor : floor,
-		abs   : abs,
-		min   : min,
-		max   : max,
-		unit  : unit,
-		unitless : unitless,
-		comparable: comparable
-	);
-	
-	$_name: nth($argument,1);
-	$_method: hq-map-get-deep($_api, $_name);
-	$_arg: hq-list-slice($argument,2);
-	
-	//help
-	@if $_name == "help"{
-		$test: hq-str-puts($numHelp);
-		@return null;
-	//error
-	}@else if $_method == null{
-		$error: hq-str-puts("[error]hq-num no method '" + $_name + "'");
-		@return null;
-	//default
-	}@else{
-		@return call($_method, $_arg...);
-	}
-}
-
 
 // ------------------------------
 // #list-function
@@ -277,48 +278,6 @@ $listHelp: '
 [custom]  help      : hq-list("help");
 ';
 // ------------------------------
-@function hq-list($argument...){
-	$_api: (
-		nth       : nth,
-		get       : nth,
-		setNth    : set-nth,
-		set       : set-nth,
-		length    : length,
-		index     : index,
-		append    : append,
-		push      : append,
-		prepend   : hq-list-prepend,
-		unshift   : hq-list-prepend,
-		shift     : hq-list-shift,
-		pop       : hq-list-pop,
-		slice     : hq-list-slice,
-		remove    : hq-list-remove,
-		join      : join,
-		zip       : zip,
-		toSpace   : hq-list-toSpace,
-		toComma   : hq-list-toComma,
-		separator : list-separator,
-		reverse   : hq-list-reverse
-	);
-	
-	$_name: nth($argument,1);
-	$_method: hq-map-get-deep($_api, $_name);
-	$_arg: hq-list-slice($argument,2);
-	
-	//help
-	@if $_name == "help"{
-		$test: hq-str-puts($listHelp);
-		@return null;
-	//error
-	}@else if $_method == null{
-		$error: hq-str-puts("[error]hq-list no method '" + $_name + "'");
-		@return null;
-	//default
-	}@else{
-		@return call($_method, $_arg...);
-	}
-}
-
 
 // ------------------------------
 // #map-function
@@ -342,43 +301,6 @@ $mapHelp: '
 [custom]  help      : hq-map("help");
 ';
 // ------------------------------
-@function hq-map($argument...){
-	$_api: (
-		get       : hq-map-get-deep,
-		set       : hq-map-set-deep,
-		extend    : hq-map-extend,
-		merge     : map-merge,
-		mergeDeep : hq-map-merge-deep,
-		keys      : map-keys,
-		values    : map-values,
-		hasKey    : map-has-key,
-		nth       : nth,
-		length    : length,
-		index     : index,
-		append    : append,
-		push      : append,
-		zip       : zip,
-		join      : join,
-		toString  : hq-map-to-string,
-	);
-	
-	$_name: nth($argument,1);
-	$_method: hq-map-get-deep($_api, $_name);
-	$_arg: hq-list-slice($argument,2);
-	
-	//help
-	@if $_name == "help"{
-		$test: hq-str-puts($mapHelp);
-		@return null;
-	//error
-	}@else if $_method == null{
-		$error: hq-str-puts("[error]hq-map no method '" + $_name + "'");
-		@return null;
-	//default
-	}@else{
-		@return call($_method, $_arg...);
-	}
-}
 
 // ------------------------------
 // #is-function
@@ -396,39 +318,6 @@ $isHelp: '
 [custom]  help     : hq-is("help");
 ';
 // ------------------------------
-@function hq-is($argument...){
-	$_api: (
-		//local変数の判別ができない為、非対応（function wrapが原因？）
-		//value       : variable-exists,
-		globalValue : global-variable-exists,
-		gValue      : global-variable-exists,
-		function    : function-exists,
-		mixin       : mixin-exists,
-		string      : hq-is-string,
-		number      : hq-is-number,
-		color       : hq-is-color,
-		map         : hq-is-map,
-		list        : hq-is-list,
-		bool        : hq-is-bool
-	);
-	
-	$_name: nth($argument,1);
-	$_method: hq-map-get-deep($_api, $_name);
-	$_arg: hq-list-slice($argument,2);
-	
-	//help
-	@if $_name == "help"{
-		$test: hq-str-puts($isHelp);
-		@return null;
-	//error
-	}@else if $_method == null{
-		$error: hq-str-puts("[error]hq-is no method '" + $_name + "'");
-		@return null;
-	//default
-	}@else{
-		@return call($_method, $_arg...);
-	}
-}
 
 // ------------------------------
 // #css-function
@@ -447,31 +336,7 @@ $cssHelp: '
           -> padding borderを省いたheightを取得
 ';
 // ------------------------------
-@function hq-css($argument...){
-	$_api: (
-		toMap     : hq-css-to-map,
-		toShort   : hq-css-to-short,
-		getWidth  : hq-css-get-width,
-		getHeight : hq-css-get-height
-	);
-	
-	$_name: nth($argument,1);
-	$_method: hq-map-get-deep($_api, $_name);
-	$_arg: hq-list-slice($argument,2);
 
-	//help
-	@if $_name == "help"{
-		$test: hq-str-puts($cssHelp);
-		@return null;
-	//error
-	}@else if $_method == null{
-		$error: hq-str-puts("[error]hq-css no method '" + $_name + "'");
-		@return null;
-	//default
-	}@else{
-		@return call($_method, $_arg...);
-	}
-}
 
 // ------------------------------
 // #mixin

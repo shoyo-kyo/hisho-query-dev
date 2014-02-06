@@ -1,0 +1,38 @@
+// ------------------------------
+// [name] hq-css-help v1.0.0
+// [path] /hisho-query/hq-css/_help.scss
+// [desc] hq("css.xxx")のhelpをターミナルに表示
+// [exsample]
+//   hq-css-help()
+// ------------------------------
+@function hq-css-help(){
+
+$help: '
+- css method -
+-------------------------------------------------------
+| method        | query | return | 説明                
+-------------------------------------------------------
+| css.toMap     | true  | map    | shorthandをMapに変換
+| css.toShort   | true  | list   | Mapをshorthandに変換  
+| css.getWidth  | true  | number | width算出            
+| css.getHeight | true  | number | height算出           
+-------------------------------------------------------
+
+$h: hq( "css.toMap", "margin", 0 2px 3px 4px );
+    -> (top:0,right:2,bottom:3px,left:4px)
+
+$h: hq( "css.toMap", "margin", (top:0,right:5px,bottom:9px,left:5px) );
+    -> 0 5px 9px
+
+$h: hq( "css.getWidth",  500px, solid 1px #ccc, 0 2px 3px 4px );
+    -> 492px
+
+$h: hq( "css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px );
+    -> 495px
+
+-------------------------------------------------------
+';
+	
+	$a: hq-str-puts($help);
+	@return null;
+}

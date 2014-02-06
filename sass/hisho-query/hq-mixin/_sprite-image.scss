@@ -11,17 +11,17 @@
 // ------------------------------
 @mixin hq-mixin-sprite-image($options){
 	
-	$options: hq-map("mergeDeep",(
+	$options: hq("map.mergeDeep",(
 		spriteMap: null,
 		name: null,
 		positionOnly: false
 	) ,$options);
 
-	$_spriteMap: hq-map("get",$options, "spriteMap");
-	$_name: hq-map("get",$options, "name");
+	$_spriteMap: hq("map.get",$options, "spriteMap");
+	$_name: hq("map.get",$options, "name");
 
 	//view
-	@if hq-map("get",$options, "positionOnly") != false {
+	@if hq("map.get",$options, "positionOnly") != false {
 		background-image: sprite-url($_spriteMap);
 		background-repeat: no-repeat;
 		height: image-height(sprite-file($_spriteMap, $_name));

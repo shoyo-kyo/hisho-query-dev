@@ -9,8 +9,16 @@
 @function hq-map-extend( $argument... ){
 	$_result: null;
 	$_length: length($argument);
-	$_isDeep: if( type-of(nth($argument,1)) == bool, nth($argument,1), false );
+	$_isDeep: false;
 
+	//deep setting check
+	@each $v in $argument{
+		@if hq-is-bool($v) {
+			$_isDeep: $v;
+		}
+	}
+
+	//merge
 	@for $i from 0 through $_length - 1 {
 		$_num: $_length - $i;
 		$_value: nth($argument, $_num);

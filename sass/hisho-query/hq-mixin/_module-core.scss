@@ -19,17 +19,17 @@
 	//-----------------
 	// options
 	//-----------------
-	$options: hq-map("merge", (
+	$options: hq("map.extend", (
 		display : null,
 		width   : auto,
 		align   : left,
 		margin  : 0
 	), $options);
 	
-	$_display : hq-map("get", $options, "display");
-	$_width   : if(hq-map("get", $options, "width") == auto, null, hq-map("get", $options, "width"));
-	$_align   : hq-map("get", $options, "align");
-	$_margin  : hq-css("toMap", "margin", hq-map("get", $options, "margin") );
+	$_display : hq("map.get", $options, "display");
+	$_width   : if(hq("map.get", $options, "width") == auto, null, hq("map.get", $options, "width"));
+	$_align   : hq("map.get", $options, "align");
+	$_margin  : hq("map.get -> css.toMap", $options, "margin", "margin" );
 	
 	//inlineBlockの場合
 	@if $_width and $_display == "inline-block"{
@@ -38,14 +38,14 @@
 	}@else{
 		//align center
 		@if $_width and $_align == "center"{
-			$_margin: hq-map("merge", $_margin, (
+			$_margin: hq("map.extend", $_margin, (
 				right:  auto,
 				left:   auto
 			));
 		
 		//align right
 		}@else if $_width and map-get($_options, align) == "right"{
-			$_margin: hq-map("merge", $_margin, (
+			$_margin: hq("map.extend", $_margin, (
 				right:  0,
 				left:   auto
 			));

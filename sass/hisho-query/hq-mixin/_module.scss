@@ -14,7 +14,7 @@
 	//-----------------
 	// options
 	//-----------------
-	$options: hq-map("mergeDeep", (
+	$options: hq("map.mergeDeep", (
 		name    : null,  //[str]moduleのClass名指定
 		display : null,  //[int]moduleのdisplayを指定
 		width   : auto,  //[int]moduleのwidth指定
@@ -24,19 +24,19 @@
 		core: ()
 	), $options);
 
-	$_nameUp: hq-str("flUpcase", hq-map("get",$options,"name") );
-	$_nameDw: hq-str("flDowncase", hq-map("get",$options,"name") );
+	$_nameUp: hq("map.get -> str.flUpcase", $options,"name" );
+	$_nameDw: hq("map.get -> str.flDowncase", $options,"name" );
 
 	//-----------------
 	// view
 	//-----------------
 	.#{$_nameUp}{
 		@include hq-mixin-module-core($options);
-		@include hq-mixin-write(hq-map("get", $options, "core"));
+		@include hq-mixin-write(hq("map.get", $options, "core"));
 
 		@each $k,$v in $options{
-			@if hq-is("map",$v) and $k != "core" {
-				$key: hq-str("flUpcase", $k);
+			@if hq("is.map",$v) and $k != "core" {
+				$key: hq("str.flUpcase", $k);
 				.#{$_nameDw}#{$key}{
 					@include hq-mixin-write($v);
 				}

@@ -4,7 +4,7 @@
 // [desc] listのseparatorをCommaに変換
 // [return] list
 // [exsample]
-//   hq-list-toSpace($list);
+//   hq-list-toComma($list);
 // ------------------------------
 @function hq-list-toComma($list){
 	@return join((),$list,comma);

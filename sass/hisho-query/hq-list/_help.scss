@@ -1,0 +1,56 @@
+// ------------------------------
+// [name] hq-list-help v1.0.0
+// [path] /hisho-query/hq-list/_help.scss
+// [desc] hq("is.xxx")のhelpをターミナルに表示
+// [exsample]
+//   hq-list-help()
+// ------------------------------
+@function hq-list-help(){
+
+$help: '
+- list method -
+-------------------------------------------------------
+| method         | query | return | 説明
+-------------------------------------------------------
+| list.get       | true  |  other | 値を取得
+| list.set       | true  |  list  | 値を設定
+| list.length    | true  | number | list数をチェック
+| list.index     | true  | number | 指定した値の位置を取得
+| list.push      | true  |  list  | 値を最後尾に追加
+| list.unshift   | true  |  list  | 値を先頭に追加
+| list.pop       | true  |  list  | 最後尾の値を削除
+| list.shift     | true  |  list  | 先頭の値を削除
+| list.slice     | true  |  list  | 指定範囲を抜き出す
+| list.remove    | true  |  list  | 指定した値を削除
+| list.join      | true  |  list  | 指定したリストを結合
+| list.zip       | false |  list  | リストを統合
+| list.toSpace   | true  |  list  | リスト形式をspaceに変換
+| list.toComma   | true  |  list  | リスト形式をCommaに変換
+| list.separator | true  | string | セパレータの形式を返す
+| list.reverse   | true  |  list  | リストの位置を反転する
+-------------------------------------------------------
+$list: a b c d ;
+$list2: e f g h i j k;
+
+$h: hq( "list.get", $list, 1 );       -> a
+$h: hq( "list.set", $list, 3, hoge ); -> a b hoge d
+$h: hq( "list.length", $list );       -> 4
+$h: hq( "list.index", $list, b );     -> 2
+$h: hq( "list.push", $list, x );      -> a b c d x
+$h: hq( "list.unshift", $list, x );   -> x a b c d
+$h: hq( "list.pop", $list );          -> a b c
+$h: hq( "list.shift", $list );        -> b c d
+$h: hq( "list.slice", $list, 2, 3 );  -> b c
+$h: hq( "list.remove", $list, c );    -> a b d
+$h: hq( "list.join", $list1, $list2, comma );  -> a, b, c, d, e, f, g, h, i, j
+$h: hq( "list.zip", $list );          -> a e a, b f b, c g c, d h d
+$h: hq( "list.toSpace", $list );      -> a b c d
+$h: hq( "list.toComma", $list );      -> a, b, c, d
+$h: hq( "list.separator", $list );    -> space
+$h: hq( "list.reverse", $list );      -> d c b a
+-------------------------------------------------------
+';
+	
+	$a: hq-str-puts($help);
+	@return null;
+}

@@ -7,7 +7,7 @@
 //   @include hq-mixin-write(map);
 // ------------------------------
 @mixin hq-mixin-write($map){
-	@if $map and hq-is-map($map) and length($map) != 0{
+	@if $map and hq("is.map",$map) and length($map) != 0{
 		@each $key, $value in $map {
 			@include hq-mixin-write-propaty($key, $value);
 		}
