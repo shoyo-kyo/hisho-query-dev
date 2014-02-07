@@ -1,0 +1,14 @@
+// ------------------------------
+// [name] hq-error-method v1.0.0
+// [path] /hisho-query/hq-error/_method.scss
+// [desc] method用error message
+// ------------------------------
+@function hq-error-method($method){
+	@if $method == null{
+		$_error: "    error hisho-query undefined method '" + $_name + "'";
+		$_puts: hq-str-puts($_error);
+		@return true;
+	}@else{
+		@return false;
+	}
+}

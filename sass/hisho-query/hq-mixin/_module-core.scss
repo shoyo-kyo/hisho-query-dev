@@ -1,4 +1,3 @@
-@charset "utf-8";
 // ------------------------------
 // [name] hq-mixin-module-core v1.0.0
 // [path] /hisho-query/hq/_hq-mixin-module-core.scss
@@ -14,7 +13,7 @@
 // ------------------------------
 
 //publick mixin
-@mixin hq-mixin-module-core($options){
+@mixin hq-mixin-module-core($options:()){
 
 	//-----------------
 	// options
@@ -44,7 +43,7 @@
 			));
 		
 		//align right
-		}@else if $_width and map-get($_options, align) == "right"{
+		}@else if $_width and $_align == "right"{
 			$_margin: hq("map.extend", $_margin, (
 				right:  0,
 				left:   auto

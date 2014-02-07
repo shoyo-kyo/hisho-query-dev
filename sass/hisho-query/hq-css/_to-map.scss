@@ -265,7 +265,7 @@
 // ------------------------------
 // [name] hq-css-to-map
 // ------------------------------
-@function hq-css-to-map($type, $list){
+@function hq-css-to-map($list, $type){
 	//mapの場合
 	@if type-of($list) == map{
 		@return $list;

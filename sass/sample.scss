@@ -145,17 +145,17 @@ $mapd2: (
 
 .hq-map{
 	get       : hq("map.get", $mapd, "cat.colorType");
-	set       : hq("map.toString", hq("map.set", $mapd, "cat.colorType", "blue") );
-	extend    : hq("map.toString", hq("map.extend", $mapd, $mapd2) );
-	extend    : hq("map.toString", hq("map.extend", $mapd, $mapd2, true) ); //deepCopy
-	merge     : hq("map.toString", hq("map.merge", $mapd, $mapd2) );
-	mergeDeep : hq("map.toString", hq("map.mergeDeep", $mapd, $mapd2) );
+	set       : hq("map.set -> map.toString", $mapd, "cat.colorType", "blue");
+	extend    : hq("map.extend -> map.toString", $mapd, $mapd2);
+	extend    : hq("map.extend -> map.toString", $mapd, $mapd2, true); //deepCopy
+	merge     : hq("map.merge -> map.toString", $mapd, $mapd2);
+	mergeDeep : hq("map.mergeDeep -> map.toString", $mapd, $mapd2);
 	keys      : hq("map.keys", $map);
 	values    : hq("map.values", $map);
 	hasKey    : hq("map.hasKey", $map, "hoge");
 	nth       : hq("map.nth", $map, 2);
 	length    : hq("map.length", $mapd);
-	push      : hq("map.toString", hq("map.push", $mapd, foo hoge) );
+	push      : hq("map.push -> map.toString", $mapd, foo hoge);
 	join      : hq("map.join", $map, $map2, comma);
 	zip       : hq("map.zip", $map, $map2);
 	toString  : hq("map.toString", $mapd);
@@ -186,58 +186,58 @@ $gvalue: test;
 // css method
 //--------------------------------
 .hq-css{
-	toMap     : hq("map.toString", hq("css.toMap", "margin", 0 2px 3px 4px) );
-	toMap     : hq("map.toString", hq("css.toMap", "padding", 0 2px) );
-	toMap     : hq("map.toString", hq("css.toMap", "border", solid 1px #ccc) );
-	toMap     : hq("map.toString", hq("css.toMap", "outline", dotted) );
-	toMap     : hq("map.toString", hq("css.toMap", "background", url(../img.jpg) #ccc 0 50%) );
-	toMap     : hq("map.toString", hq("css.toMap", "font", 12px/1.5 bold) );
-	toMap     : hq("map.toString", hq("css.toMap", "list-style", url(../img.jpg) outside square) );
+	toMap     : hq("css.toMap -> map.toString", 0 2px 3px 4px, "margin");
+	toMap     : hq("css.toMap -> map.toString", 0 2px, "padding");
+	toMap     : hq("css.toMap -> map.toString", solid 1px #ccc, "border");
+	toMap     : hq("css.toMap -> map.toString", dotted, "outline");
+	toMap     : hq("css.toMap -> map.toString", url(../img.jpg) #ccc 0 50%, "background");
+	toMap     : hq("css.toMap -> map.toString", 12px/1.5 bold, "font");
+	toMap     : hq("css.toMap -> map.toString", url(../img.jpg) outside square, "list-style");
 
-	toShort   : hq("css.toShort", "margin", (
+	toShort   : hq("css.toShort", (
 					top: 8px,
 					right: 2px,
 					bottom: 7px,
 					left: 2px
-				));
+				), "margin");
 	
-	toShort   : hq("css.toShort", "padding", (
+	toShort   : hq("css.toShort", (
 					top: 8px,
 					right: 2px,
 					bottom: 8px,
 					left: 2px
-				));
+				), "padding");
 
-	toShort   : hq("css.toShort", "border", (
+	toShort   : hq("css.toShort", (
 					style: solid,
 					width: 6px,
 					color: #ccc
-				));
+				), "border");
 
-	toShort   : hq("css.toShort", "border", (
+	toShort   : hq("css.toShort", (
 					style: dotted,
 					color: #ccc
-				));
+				), "border");
 
-	toShort   : hq("css.toShort", "background", (
+	toShort   : hq("css.toShort", (
 					image: url(../img/test.jpg),
 					repeat: no-repeat,
 					position: 0 0,
 					color: #ccc
-				));
+				), "background");
 
-	toShort   : hq("css.toShort", "font", (
+	toShort   : hq("css.toShort", (
 					weight: bold,
 					size: 12px,
 					line-height: 1.5,
 					family: "ＭＳ 明朝"
-				));
+				), "font");
 	
-	toShort   : hq("css.toShort", "list-style", (
+	toShort   : hq("css.toShort", (
 					type:    square,
 					image: url(../img/test.jpg),
 					position: outside
-				));
+				), "list-style");
 
 	getWidth  : hq("css.getWidth", 500px, solid 1px #ccc, 0 2px 3px 4px);
 	getHeight : hq("css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px);

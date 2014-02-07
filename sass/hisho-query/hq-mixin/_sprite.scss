@@ -1,4 +1,3 @@
-@charset "utf-8";
 // ------------------------------
 // [name] hq-mixin-sprite v1.0.0
 // [path] /hisho/helper/_hq-mixin-sprite.scss
@@ -13,7 +12,7 @@
 // [exsample]
 //   @include hq-mixin-sprite((spriteMap:$spriteMap, name:"list01:list01_hover"));
 // ------------------------------
-@mixin hq-mixin-sprite($options){
+@mixin hq-mixin-sprite($options:()){
 
 	$options: hq("map.mergeDeep",(
 		spriteMap: null,

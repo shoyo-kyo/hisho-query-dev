@@ -57,6 +57,9 @@ module.exports = function(grunt){
 					'sass/hisho-query/hq-is/_list.scss',
 					'sass/hisho-query/hq-is/_bool.scss',
 
+					'sass/hisho-query/hq-error/_method.scss',
+					'sass/hisho-query/hq-error/_type.scss',
+
 					'sass/hisho-query/hq-mixin/_font-cloud.scss',
 					'sass/hisho-query/hq-mixin/_link-styles.scss',
 					'sass/hisho-query/hq-mixin/_module.scss',

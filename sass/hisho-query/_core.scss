@@ -171,11 +171,9 @@
 		$_method: nth($_data,2);
 		$_argNum: nth($_data,1);
 
-		//error
-		@if $_method == null{
-			$_error: "    error hisho-query undefined method '" + $_name + "'";
-			$_puts: hq-str-puts($_error);
-			$_result: $_error;
+		//method
+		@if hq-error-method($_method) or hq-error-type($_name, $input){
+			$_result: null;
 		//default
 		}@else{
 			//可変長引数

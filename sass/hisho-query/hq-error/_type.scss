@@ -1,0 +1,17 @@
+// ------------------------------
+// [name] hq-error-type v1.0.0
+// [path] /hisho-query/hq-error/_type.scss
+// [desc] type用error message
+// ------------------------------
+@function hq-error-type($name, $input){
+	$_type: nth( hq-str-split($name,".") ,1 );
+	$_value: type-of($input);
+
+	@if $_value != $_value and $_type != "css" and $_type != "is"{
+		$_error: "    error support not valutype '" + $_name + "' in ' " + $_value + " '";
+		$_puts: hq-str-puts($_error);
+		@return true;
+	}@else{
+		@return false;
+	}
+}

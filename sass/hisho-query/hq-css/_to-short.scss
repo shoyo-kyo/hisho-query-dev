@@ -227,29 +227,29 @@
 // ------------------------------
 // [name] hq-css-to-short
 // ------------------------------
-@function hq-css-to-short($type, $map){
+@function hq-css-to-short($map, $type){
 	//listの場合
-	@if type-of($map) == list{
+	@if type-of($map) == "list"{
 		@return $map;
 
 	//margin-padding
-	}@else if $type == margin or $type == padding {
+	}@else if $type == "margin" or $type == "padding" {
 		@return hq-css-to-short-margin($map);
 
 	//border
-	}@else if $type == border or $type == outline{
+	}@else if $type == "border" or $type == "outline"{
 		@return hq-css-to-short-border($map);
 
 	//background
-	}@else if $type == background{
+	}@else if $type == "background"{
 		@return hq-css-to-short-background($map);
 
 	//font
-	}@else if $type == font{
+	}@else if $type == "font"{
 		@return hq-css-to-short-font($map);
 
 	//list-style
-	}@else if $type == list-style{
+	}@else if $type == "list-style"{
 		@return hq-css-to-short-list-style($map);
 
 	//非対応のtypeはまま返す

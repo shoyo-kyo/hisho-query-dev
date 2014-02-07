@@ -8,7 +8,7 @@
 // [exsample]
 //   @include hq-mixin-sprite-core((cursor:true));
 // ------------------------------
-@mixin hq-mixin-sprite-core($options){
+@mixin hq-mixin-sprite-core($options:()){
 
 	$options: hq("map.mergeDeep",(
 		btn: false,

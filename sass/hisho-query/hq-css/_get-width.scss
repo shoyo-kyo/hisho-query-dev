@@ -14,19 +14,19 @@
 
 	//border
 	@if type-of($border) != map{
-		$border: hq-css-to-map("border", $border);
+		$border: hq-css-to-map($border,"border");
 	}@else if map-has-key($border,"all"){
-		$border: hq-css-to-map("border", map-get($_border, "all"));
+		$border: hq-css-to-map(map-get($_border, "all"),"border");
 	}
 
 	@if map-has-key($border,"left") or map-has-key($border,"right"){
 		
 		@if map-has-key($border,"left") and map-get($border, "left") {
-			$_borderL : hq-css-to-map("border", map-get($border, "left"));
+			$_borderL : hq-css-to-map(map-get($border, "left"),"border");
 			$_result: $_result - map-get($_borderL, "width");
 		}
 		@if map-has-key($border,"right") and map-get($border, "right"){
-			$_borderR : hq-css-to-map("border", map-get($border, "right"));
+			$_borderR : hq-css-to-map(map-get($border, "right"),"border");
 			$_result: $_result - map-get($_borderR, "width");
 		}
 
@@ -36,7 +36,7 @@
 
 	//padding
 	@if type-of($padding) != map{
-		$padding: hq-css-to-map("padding", $padding);
+		$padding: hq-css-to-map($padding,"padding");
 	}
 
 	@if map-get($padding, "left"){

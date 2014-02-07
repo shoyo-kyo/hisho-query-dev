@@ -9,7 +9,7 @@
 // [exsample]
 //   @include hq-mixin-sprite-image((spriteMap:$spriteMap, name:"list01"));
 // ------------------------------
-@mixin hq-mixin-sprite-image($options){
+@mixin hq-mixin-sprite-image($options:()){
 	
 	$options: hq("map.mergeDeep",(
 		spriteMap: null,
