@@ -1,0 +1,202 @@
+// ==============================
+// [name] hq-core v0.1.1
+// [path] /hisho-query/_hq-core.scss
+// [desc] hq function Interface
+// ==============================
+
+@function hq($argument...){
+	$_api: (
+		str: (
+			help      : 0 hq-str-help,
+			quote     : 1 quote,
+			unquote   : 1 unquote,
+			length    : 1 str-length,
+			insert    : 3 str-insert,
+			index     : 2 str-index,
+			slice     : 3 str-slice,
+			upcase    : 1 to-upper-case,
+			downcase  : 1 to-lower-case,
+			capitalize: 1 hq-str-capitalize,
+			flUpcase  : 1 hq-str-first-letter-upper-case,
+			flDowncase: 1 hq-str-first-letter-lower-case,
+			strip     : 1 hq-str-strip,
+			succ      : 1 hq-str-succ,
+			match     : 2 hq-str-match,
+			replace   : 3 hq-str-replace,
+			split     : 2 hq-str-split,
+			puts      : 1 hq-str-puts,
+			getId     : 0 unique-id,
+			reverse   : 1 hq-str-reverse,
+		),
+		num: (
+			help       : 0 hq-num-help,
+			percentage : 1 percentage,
+			per        : 1 percentage,
+			round      : 1 round,
+			ceil       : 1 ceil,
+			floor      : 1 floor,
+			abs        : 1 abs,
+			min        : i min,
+			max        : i max,
+			unit       : 1 unit,
+			unitless   : 1 unitless,
+			comparable : 2 comparable,
+		),
+		list: (
+			help     : 0 hq-list-help,
+			nth      : 2 nth,
+			get      : 2 nth,
+			setNth   : 3 set-nth,
+			set      : 3 set-nth,
+			length   : 1 length,
+			index    : 2 index,
+			prepend  : 2 hq-list-prepend,
+			unshift  : 2 hq-list-prepend,
+			append   : 2 append,
+			push     : 2 append,
+			shift    : 1 hq-list-shift,
+			pop      : 1 hq-list-pop,
+			slice    : 3 hq-list-slice,
+			remove   : 2 hq-list-remove,
+			join     : 3 join,
+			zip      : i zip,
+			toSpace  : 1 hq-list-toSpace,
+			toComma  : 1 hq-list-toComma,
+			separator: 1 list-separator,
+			reverse  : 1 hq-list-reverse,
+		),
+		map: (
+			help      : 0 hq-map-help,
+			get       : 2 hq-map-get-deep,
+			set       : 3 hq-map-set-deep,
+			extend    : i hq-map-extend,
+			merge     : 2 map-merge,
+			mergeDeep : 2 hq-map-merge-deep,
+			keys      : 1 map-keys,
+			values    : 1 map-values,
+			hasKey    : 2 map-has-key,
+			nth       : 2 nth,
+			length    : 1 length,
+			append    : 2 append,
+			push      : 2 append,
+			join      : 3 join,
+			zip       : 1 zip,
+			toString  : 1 hq-map-to-string,
+		),
+		is: (
+			help       : 0 hq-is-help,
+			globalValue: 1 global-variable-exists,
+			gValue     : 1 global-variable-exists,
+			function   : 1 function-exists,
+			mixin      : 1 mixin-exists,
+			string     : 1 hq-is-string,
+			number     : 1 hq-is-number,
+			color      : 1 hq-is-color,
+			map        : 1 hq-is-map,
+			list       : 1 hq-is-list,
+			bool       : 1 hq-is-bool,
+		),
+		css: (
+			help      : 0 hq-css-help,
+			toMap     : 2 hq-css-to-map,
+			toShort   : 2 hq-css-to-short,
+			getWidth  : 3 hq-css-get-width,
+			getHeight : 3 hq-css-get-height,
+		),
+		help : 0 hq-help,
+	);
+
+	//method query
+	$_data1: nth($argument,1);
+	$_data2: if( length($argument) < 2, null, nth($argument,2) );
+	$_data3: hq-list-slice($argument,3);
+	$_isMMap: length($argument) == 2 and hq-is-map($_data2) and hq-str-match(nth(nth($_data2, 1), 1), "\.");
+	
+	//method map
+	@if $_isMMap {
+		@return hq-core-method-map($_api, $_data1, $_data2);
+	//method query
+	}@else{
+		@return hq-core-method-query($_api, $_data1, $_data2, $_data3...);
+	}
+}
+
+// ------------------------------
+// method map
+// ------------------------------
+@function hq-core-method-map($api, $input, $map){
+	$_result: $input;
+
+	@each $_name, $_arg in $map{
+		$_name: hq-str-strip($_name);
+		$_data: hq-map-get-deep($api, $_name);
+		$_method: nth($_data,2);
+		$_argNum: nth($_data,1);
+		$_arg: hq-list-toComma($_arg);
+
+		//error
+		@if $_method == null{
+			$_error: "    error hisho-query undefined　method '" + $_name + "'";
+			$_puts: hq-str-puts($_error);
+			$_result: $_error;
+		//default
+		}@else{
+			@if $_argNum == 0{
+				$_result: call($_method);
+			}@else if $_argNum == 1{
+				$_result: call($_method, $_result);
+			}@else{
+				$_result: call($_method, $_result, $_arg...);
+			}
+		}
+	}
+	@return $_result;
+}
+
+
+// ------------------------------
+// method query
+// ------------------------------
+@function hq-core-method-query($api, $query, $input, $arg...){
+	$_qList: hq-str-split($query,"->");
+	$_result: $input;
+	$_startNum: 1;
+	
+	@each $_name in $_qList{
+		$_name: hq-str-strip($_name);
+		$_data: hq-map-get-deep($api, $_name);
+		$_method: nth($_data,2);
+		$_argNum: nth($_data,1);
+
+		//method
+		@if hq-error-method($_method) or hq-error-type($_name, $input){
+			$_result: null;
+		//default
+		}@else{
+			//可変長引数
+			@if $_argNum == i{
+				$_result: call($_method, $_result, $arg...);
+			//引数不要
+			}@else if $_argNum == 0{
+				$_result: call($_method);
+			//引数1
+			}@else if $_argNum == 1{
+				$_result: call($_method, $_result);
+			//引数複数
+			}@else{
+				$_endNum: $_startNum + ($_argNum - 1) - 1;
+
+				//可変長引数の状況チェック
+				@if $_name == "str.slice" or $_name == "list.slice"{
+					@if length($arg) < 2 or hq-is-number(nth($arg,2)) == false{
+						$_endNum: $_endNum - 1;
+					}
+				}
+				$_setArg: hq-list-slice($arg, $_startNum, $_endNum);
+				$_result: call($_method, $_result, $_setArg...);
+				$_startNum: $_endNum + 1;
+			}
+		}
+	}
+	@return $_result;
+}

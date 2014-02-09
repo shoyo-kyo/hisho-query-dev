@@ -1,15 +1,5 @@
 @charset "UTF-8";
-/*!
- * hisho-query v0.1.1
- * Sass3 and compass1 Library
- * http://query.hisho.com
- * 
- * Copyright 2014 shoyo kyo
- * Released under the MIT license
- * https://github.com/syouyou/hisho-query/blob/master/LICENSE
- * 
- * Date: 2014-02-08
- */
+/*! hisho-query v0.1.1 */
 /* line 12, ../sass/sample.scss */
 .method-setting {
   /* 通常 */
@@ -40,11 +30,11 @@
   match: true;
   replace: axadefg.Hijklmn;
   sprit: abcdefg, Hijklmn;
-  getId: unwxm14t4;
+  getId: uwy2pw0kb;
   reverse: nmlkjiH.gfedcba;
 }
 
-/* line 64, ../sass/sample.scss */
+/* line 63, ../sass/sample.scss */
 .hq-num {
   percentage: 200%;
   round: 10px;
@@ -58,7 +48,7 @@
   comparable: false;
 }
 
-/* line 84, ../sass/sample.scss */
+/* line 83, ../sass/sample.scss */
 .hq-list {
   get: a;
   set: a b "hoge" d;
@@ -78,7 +68,7 @@
   reverse: d c b a;
 }
 
-/* line 146, ../sass/sample.scss */
+/* line 145, ../sass/sample.scss */
 .hq-map {
   get: black;
   set: {"cat"=>"blue", "Lion"=>(text: bad, colorType: orange)};
@@ -97,7 +87,7 @@
   toString: {"cat"=>(text: good, colorType: black), "Lion"=>(text: bad, colorType: orange)};
 }
 
-/* line 170, ../sass/sample.scss */
+/* line 169, ../sass/sample.scss */
 .hq-is {
   gValue: true;
   function: false;
@@ -110,7 +100,7 @@
   bool: true;
 }
 
-/* line 188, ../sass/sample.scss */
+/* line 187, ../sass/sample.scss */
 .hq-css {
   toMap: {"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px};
   toMap: {"top"=>0, "right"=>2px, "bottom"=>0, "left"=>2px};
@@ -124,7 +114,7 @@
   toShort: solid 6px #cccccc;
   toShort: dotted #cccccc;
   toShort: url(../img/test.jpg) no-repeat 0 0 #cccccc;
-  toShort: bold "12px/1.5" "ＭＳ 明朝";
+  toShort: bold 12px/1.5 "ＭＳ 明朝";
   toShort: url(../img/test.jpg) square outside;
   getWidth: 492px;
   getHeight: 495px;
@@ -137,28 +127,28 @@
 }
 
 /*hqm("module")*/
-/* line 1436, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1437, ../sass/hisho-query/_hquery-0.1.1.scss */
 .PtHqmModule01 {
   width: 500px;
-  margin: "margin";
+  margin: 0 auto 20px;
   background: red;
 }
-/* line 1443, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1444, ../sass/hisho-query/_hquery-0.1.1.scss */
 .PtHqmModule01 .ptHqmModule01Li {
   border: solid 1px #cccccc;
 }
 
-/* line 273, ../sass/sample.scss */
+/* line 272, ../sass/sample.scss */
 .hqm-write {
   /*hqm("write")*/
   background: #cccccc;
-  border: border;
+  border: solid 1px #cccccc;
   margin: 0 0 20px 0;
   /*hqm(write.propaty)*/
   padding: 10px;
 }
 
-/* line 289, ../sass/sample.scss */
+/* line 288, ../sass/sample.scss */
 .hqm-sprite {
   /*hqm("sprite")*/
   display: inline-block;
@@ -192,43 +182,43 @@
   width: 30px;
   background-position: 0 0;
 }
-/* line 1592, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1593, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-sprite:hover {
   background-position: 0 -28px;
 }
-/* line 1592, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1593, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-sprite:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
 }
 
-/* line 315, ../sass/sample.scss */
+/* line 314, ../sass/sample.scss */
 .hqm-link-styles {
   /*hqm("link.styles")*/
   color: #333333;
   text-decoration: underline;
 }
-/* line 1366, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1367, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:link {
   color: #cc33cc;
   text-decoration: underline;
 }
-/* line 1373, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1374, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:visited {
   color: #cc33cc;
   text-decoration: underline;
 }
-/* line 1380, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1381, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:hover {
   color: #cc33cc;
   text-decoration: none;
 }
-/* line 1387, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1388, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:active {
   color: #cc33cc;
   text-decoration: none;
 }
-/* line 1394, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1395, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:focus {
   color: #cc33cc;
   text-decoration: none;
@@ -238,31 +228,31 @@
 .hqm-font-cloud {
   /*hqm("font.cloud")*/
 }
-/* line 1300, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1301, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.xxs {
   font-size: 6px;
 }
-/* line 1300, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1301, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.xs {
   font-size: 8px;
 }
-/* line 1300, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1301, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.s {
   font-size: 9px;
 }
-/* line 1300, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1301, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.m {
   font-size: 12px;
 }
-/* line 1300, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1301, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.l {
   font-size: 16px;
 }
-/* line 1300, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1301, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.xl {
   font-size: 18px;
 }
-/* line 1300, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1301, ../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.xxl {
   font-size: 24px;
 }

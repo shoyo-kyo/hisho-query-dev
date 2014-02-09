@@ -51,7 +51,6 @@ $str: "abcdefg.Hijklmn";
 	match     : hq("str.match", $str, "bc");
 	replace   : hq("str.replace", $str, "bc", "xa");
 	sprit     : hq("str.split", $str, ".");
-	puts      : hq("str.puts", $str);
 	getId     : hq("str.getId");
 	reverse   : hq("str.reverse", $str);
 	//help      : hq("str.help");
@@ -159,7 +158,7 @@ $mapd2: (
 	join      : hq("map.join", $map, $map2, comma);
 	zip       : hq("map.zip", $map, $map2);
 	toString  : hq("map.toString", $mapd);
-	help      : hq("map.help");
+	//help      : hq("map.help");
 }
 
 //--------------------------------
@@ -250,7 +249,7 @@ $gvalue: test;
 //--------------------------------
 
 //compass
-@import "compass/css3/";
+@import "compass";
 
 //sprites
 @import "test/*.png";
@@ -333,6 +332,7 @@ $spriteMap: $test-sprites;
 		)
 	));
 }
+
 
 .hqm-font-cloud{
 	/*hqm("font.cloud")*/

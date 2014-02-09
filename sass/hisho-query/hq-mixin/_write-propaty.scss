@@ -43,9 +43,15 @@
 		//linkStyles mixin
 		}@else if $propaty == "link-styles" {
 			@if $value{
-				@include hq-link-styles($value);
+				@include hqm("link.styles", $value);
 			}
-			
+
+		//fontCloud mixin
+		}@else if $propaty == "font-cloud" {
+			@if $value{
+				@include hqm("font.cloud", $value);
+			}
+		
 		//default
 		}@else{
 			@include hq-mixin-write-propaty-map($propaty, $value);
@@ -108,7 +114,7 @@
 	) ,$map);
 
 	//shorthandチェック
-	$_short: hq("css.toShort",$propaty, $map);
+	$_short: hq("css.toShort",$map, $propaty);
 	
 	//shortHand
 	@if $_short {
@@ -126,7 +132,7 @@
 //
 @mixin hq-mixin-write-propaty-map-border($propaty, $map){
 	//shorthandチェック
-	$_short: hq("css.toShort",$propaty, $map);
+	$_short: hq("css.toShort",$map, $propaty);
 	
 	//shortHand
 	@if $_short {
@@ -163,7 +169,7 @@
 //
 @mixin hq-mixin-write-propaty-map-background($propaty, $map){
 	//shorthandチェック
-	$_short: hq("css.toShort",$propaty, $map);
+	$_short: hq("css.toShort",$map, $propaty);
 	
 	//shortHand
 	@if $_short {
@@ -198,7 +204,7 @@
 //
 @mixin hq-mixin-write-propaty-map-font($propaty, $map){
 	//shorthandチェック
-	$_short: hq("css.toShort",$propaty, $map);
+	$_short: hq("css.toShort",$map, $propaty);
 	
 	//shortHand
 	@if $_short {

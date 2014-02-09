@@ -12,17 +12,16 @@ module.exports = function(grunt){
 					separator: "\n\n\n",
 					stripBanners: true,
 					banner: '@charset "utf-8";\n' +
-					'/*!\n' +
-					' * <%= pkg.name %> v<%= pkg.version %>\n' +
-					' * <%= pkg.description %>\n' +
-					' * http://query.hisho.com\n' +
-					' * \n' +
-					' * Copyright 2014 shoyo kyo\n' +
-					' * Released under the <%= pkg.licenses[0].type %> license\n' +
-					' * <%= pkg.licenses[0].url %>\n' +
-					' * \n' +
-					' * Date: <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-					' */\n\n'
+					'/*! <%= pkg.name %> v<%= pkg.version %> */\n' +
+					'// <%= pkg.description %>\n' +
+					'// http://query.hisho.com\n' +
+					'// \n' +
+					'// Copyright 2014 shoyo kyo\n' +
+					'// Released under the <%= pkg.licenses[0].type %> license\n' +
+					'// <%= pkg.licenses[0].url %>\n' +
+					'// \n' +
+					'// Date: <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+					'\n\n'
 				},
 				dest: 'sass/hisho-query/_hquery-<%= pkg.version %>.scss',
 				src:[
@@ -69,7 +68,9 @@ module.exports = function(grunt){
 					'sass/hisho-query/hq-mixin/_sprite-image.scss',
 					'sass/hisho-query/hq-mixin/_write.scss',
 					'sass/hisho-query/hq-mixin/_write-propaty.scss',
-					'sass/hisho-query/_core.scss'
+					
+					'sass/hisho-query/_hq-core.scss',
+					'sass/hisho-query/_hqm-core.scss'
 				]
 			},
 			hqueryFnction: {
