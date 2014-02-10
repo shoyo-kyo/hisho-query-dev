@@ -140,15 +140,16 @@ module HishoQueryStr
   # [return] null
   # [exsample] hq-console(1 + 2)
   #
-  def hq_console(str)
-    puts "\n- CONSOLE - "
-    puts str.class
-    if str.class == Sass::Script::Value::Map then 
-      puts to_h(str)
-    else
-      puts str
-    end
-    puts "\n"
+  def hq_console( *args )
+    args.each {|v|
+      puts "\n- CONSOLE - "
+      puts v.class
+      if v.class == Sass::Script::Value::Map then
+        puts to_h(v)
+      else
+        puts v
+      end
+    }
     Sass::Script::String.new("")
   end
 
