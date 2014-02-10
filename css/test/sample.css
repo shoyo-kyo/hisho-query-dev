@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*! hisho-query v0.1.1 */
-/* line 14, ../sass/sample.scss */
+/* line 14, ../../sass/test/sample.scss */
 .method-setting {
   /* 通常 */
   method-normal: 15;
@@ -12,7 +12,7 @@
   method-map: "dcbbefg.Hijklmn";
 }
 
-/* line 39, ../sass/sample.scss */
+/* line 39, ../../sass/test/sample.scss */
 .hq-str {
   unquote: abcdefg.Hijklmn;
   quote: "abcdefg.Hijklmn";
@@ -30,11 +30,11 @@
   match: true;
   replace: axadefg.Hijklmn;
   sprit: abcdefg, Hijklmn;
-  getId: uv708ilzj;
+  getId: uv708ilyn;
   reverse: nmlkjiH.gfedcba;
 }
 
-/* line 65, ../sass/sample.scss */
+/* line 65, ../../sass/test/sample.scss */
 .hq-num {
   percentage: 200%;
   round: 10px;
@@ -48,7 +48,7 @@
   comparable: false;
 }
 
-/* line 86, ../sass/sample.scss */
+/* line 86, ../../sass/test/sample.scss */
 .hq-list {
   get: a;
   set: a b "hoge" d;
@@ -68,7 +68,7 @@
   reverse: d c b a;
 }
 
-/* line 148, ../sass/sample.scss */
+/* line 148, ../../sass/test/sample.scss */
 .hq-map {
   get: black;
   set: {"cat"=>"blue", "Lion"=>(text: bad, colorType: orange)};
@@ -87,7 +87,7 @@
   toString: {"cat"=>(text: good, colorType: black), "Lion"=>(text: bad, colorType: orange)};
 }
 
-/* line 172, ../sass/sample.scss */
+/* line 172, ../../sass/test/sample.scss */
 .hq-is {
   gValue: true;
   function: false;
@@ -100,7 +100,7 @@
   bool: true;
 }
 
-/* line 190, ../sass/sample.scss */
+/* line 190, ../../sass/test/sample.scss */
 .hq-css {
   toMap: {"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px};
   toMap: {"top"=>0, "right"=>2px, "bottom"=>0, "left"=>2px};
@@ -127,18 +127,18 @@
 }
 
 /*hqm("module")*/
-/* line 1593, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1592, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .PtHqmModule01 {
   width: 500px;
   margin: 0 auto 20px;
   background: red;
 }
-/* line 1600, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1599, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .PtHqmModule01 .ptHqmModule01Li {
   border: solid 1px #cccccc;
 }
 
-/* line 275, ../sass/sample.scss */
+/* line 275, ../../sass/test/sample.scss */
 .hqm-write {
   /*hqm("write")*/
   background: #cccccc;
@@ -148,7 +148,7 @@
   padding: 10px;
 }
 
-/* line 291, ../sass/sample.scss */
+/* line 291, ../../sass/test/sample.scss */
 .hqm-sprite {
   /*hqm("sprite")*/
   display: inline-block;
@@ -182,77 +182,77 @@
   width: 30px;
   background-position: 0 0;
 }
-/* line 1749, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1748, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-sprite:hover {
   background-position: 0 -28px;
 }
-/* line 1749, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1748, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-sprite:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
 }
 
-/* line 317, ../sass/sample.scss */
+/* line 317, ../../sass/test/sample.scss */
 .hqm-link-styles {
   /*hqm("link.styles")*/
   color: #333333;
   text-decoration: underline;
 }
-/* line 1523, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1522, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:link {
   color: #cc33cc;
   text-decoration: underline;
 }
-/* line 1530, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1529, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:visited {
   color: #cc33cc;
   text-decoration: underline;
 }
-/* line 1537, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1536, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:hover {
   color: #cc33cc;
   text-decoration: none;
 }
-/* line 1544, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1543, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:active {
   color: #cc33cc;
   text-decoration: none;
 }
-/* line 1551, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1550, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-link-styles:focus {
   color: #cc33cc;
   text-decoration: none;
 }
 
-/* line 340, ../sass/sample.scss */
+/* line 340, ../../sass/test/sample.scss */
 .hqm-font-cloud {
   /*hqm("font.cloud")*/
 }
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1456, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.xxs {
   font-size: 6px;
 }
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1456, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.xs {
   font-size: 8px;
 }
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1456, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.s {
   font-size: 9px;
 }
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1456, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.m {
   font-size: 12px;
 }
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1456, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.l {
   font-size: 16px;
 }
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1456, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.xl {
   font-size: 18px;
 }
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
+/* line 1456, ../../sass/hisho-query/_hquery-0.1.1.scss */
 .hqm-font-cloud.xxl {
   font-size: 24px;
 }

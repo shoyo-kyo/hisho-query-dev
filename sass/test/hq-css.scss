@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+@import "hisho-query/_hquery-0.1.1";
+
+
+//--------------------------------
+// hq("css.xxx",$arg)
+// css method
+//--------------------------------
+.hq-css{
+	.toMap{
+		$test:(
+			1: (
+				request : hq("css.toMap -> map.toString", 0 2px 3px 4px, "margin"),
+				result  : '{"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px}',
+			),
+			2: (
+				request : hq("css.toMap -> map.toString", 0 2px, "padding"),
+				result  : '{"top"=>0, "right"=>2px, "bottom"=>0, "left"=>2px}',
+			),
+			3: (
+				request : hq("css.toMap -> map.toString", solid 1px #ccc, "border"),
+				result  : '{"style"=>"solid", "width"=>1px, "color"=>#cccccc}',
+			),
+			4: (
+				request: hq("css.toMap -> map.toString", dotted, "outline"),
+				result: '{"style"=>"dotted", "width"=>null, "color"=>null}',
+			),
+			5: (
+				request : hq("css.toMap -> map.toString", url(../img.jpg) #ccc 0 50%, "background"),
+				result  : '{"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)}',
+			),
+			6: (
+				request : hq("css.toMap -> map.toString", 12px/1.5 bold, "font"),
+				result  : '{"size"=>8px, "line-height"=>null, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null}',
+			),
+			7: (
+				request : hq("css.toMap -> map.toString", url(../img.jpg) outside square, "list-style"),
+				result  : '{"type"=>"square", "image"=>"url(../img.jpg)", "position"=>"outside"}',
+			),
+			//error Test
+			8: (
+				request : hq("css.toMap -> map.toString", "test"),
+				result  : null,
+			),
+			9: (
+				request : hq("css.toMap -> map.toString", 12px, "tgest"),
+				result  : null,
+			),
+		);
+
+		$ttl: "hq-css toMap";
+		$c: hq-str-puts(unquote("===== " + $ttl + " ============================="));
+		$isFalse: false;
+		@each $num, $value in $test {
+			$rq: hq("map.get", $value, "request");
+			$rs: hq("map.get", $value, "result");
+			$a: $rq == $rs;
+			@if $a == false{
+				$c: hq-str-puts("[" + $num + "] not result " + $rq);
+				$isFalse: true;
+			}
+		}
+		@if $isFalse == false {
+			$c: hq-str-puts(unquote("success test " + $ttl));
+			
+		}
+	}
+
+
+
+
+
+	toShort   : hq("css.toShort", (
+					top: 8px,
+					right: 2px,
+					bottom: 7px,
+					left: 2px
+				), "margin");
+	
+	toShort   : hq("css.toShort", (
+					top: 8px,
+					right: 2px,
+					bottom: 8px,
+					left: 2px
+				), "padding");
+
+	toShort   : hq("css.toShort", (
+					style: solid,
+					width: 6px,
+					color: #ccc
+				), "border");
+
+	toShort   : hq("css.toShort", (
+					style: dotted,
+					color: #ccc
+				), "border");
+
+	toShort   : hq("css.toShort", (
+					image: url(../img/test.jpg),
+					repeat: no-repeat,
+					position: 0 0,
+					color: #ccc
+				), "background");
+
+	toShort   : hq("css.toShort", (
+					weight: bold,
+					size: 12px,
+					line-height: 1.5,
+					family: "ＭＳ 明朝"
+				), "font");
+	
+	toShort   : hq("css.toShort", (
+					type:    square,
+					image: url(../img/test.jpg),
+					position: outside
+				), "list-style");
+
+	getWidth  : hq("css.getWidth", 500px, solid 1px #ccc, 0 2px 3px 4px);
+	getHeight : hq("css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px);
+}

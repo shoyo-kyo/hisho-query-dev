@@ -6,7 +6,7 @@
 @function hq-error-method($method){
 	@if $method == null{
 		$_error: "    error hisho-query undefined method '" + $_name + "'";
-		$_puts: hq-str-puts($_error);
+		$_puts: hq-str-puts(unquote($_error));
 		@return true;
 	}@else{
 		@return false;

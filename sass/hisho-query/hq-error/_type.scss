@@ -9,7 +9,7 @@
 
 	@if $_value != $_value and $_type != "css" and $_type != "is"{
 		$_error: "    error support not valutype '" + $_name + "' in ' " + $_value + " '";
-		$_puts: hq-str-puts($_error);
+		$_puts: hq-str-puts(unquote($_error));
 		@return true;
 	}@else{
 		@return false;
