@@ -10,49 +10,42 @@
 $help: '
 - map method -
 -------------------------------------------------------
-| method        | query | return |deep| 説明
+| method        | return | mq| deep| description
 -------------------------------------------------------
-| map.get       | true  |  other | o  | keyを指定し値を取得
-| map.set       | true  |   map  | o  | 指定したkeyに値を代入
-| map.extend    | false |   map  | o  | mapとmapをマージ(複数指定,deeq指定可能)
-| map.merge     | true  |   map  | x  | mapとmapをマージ
-| map.mergeDeep | true  |   map  | o  | mapとmapをDeepマージ
-| map.keys      | true  |  list  | x  | keyの一覧リスト取得
-| map.values    | true  |  list  | x  | 値の一覧リスト取得
-| map.hasKey    | true  |  bool  | x  | 指定keyが存在するかチェック
-| map.length    | true  | number | o  | mapの数を取得
-| map.nth       | true  |  list  | x  | 指定位置にあるmapをlist形式で返す
-| map.push      | true  |   map  | o  | mapの最後尾にmap追加
-| map.join      | true  |  list  | x  | 
-| map.zip       | false |  list  | x  | 
-| map.toString  | true  | string | o  | mapをstringに変換（デバッグで使用）
+| map.get       | other  | o |  o  | 指定したkeyの値を取得。
+| map.set       | map    | o |  o  | 指定したkeyに値を設定。
+| map.extend    | map    | x |  o  | 複数のmapをマージ。
+| map.merge     | map    | o |  x  | mapをマージ。
+| map.mergeDeep | map    | o |  o  | mapをマージ。deepMap対応。
+| map.keys      | list   | o |  x  | keyの一覧を取得
+| map.values    | list   | o |  x  | valueの一覧を取得
+| map.hasKey    | bool   | o |  x  | keyを検索
+| map.nth       | list   | o |  x  | 指定位置のvalue&keyを返す
+| map.length    | number | o |  x  | mapの数を返す
+| map.append    | map    | o |  x  | mapの最後尾にkeyと値を追加
+| map.join      | map    | o |  x  | sass joinと同様
+| map.zip       | map    | x |  x  | sass zipと同様
+| map.toString  | map    | o |  o  | mapをハッシュ化しstringに変換。デバッグ用
 -------------------------------------------------------
-$map:  ( hoge: 2, fuga: e );
-$map2: ( hoges: 20000, fugas: test );
-$mapd: (
-	cat: ( text: good, colorType: black ),
-	Lion: ( text: bad, colorType: orange )
-);
-$mapd2: (
-	Lion: ( text: good, colorType: orange, option: ( box: 2 ) ),
-	bird: ( text: good, colorType: blue, option: ( box: 1 ) )
-);
+* deep: "deep map"の対応可否。非対応のものは1階層目のみ判断し処理が行われる。
+* mq: "map query"対応可否
 
-$h: hq( "map.get", $mapd, "cat.colorType" );          -> black
-$h: hq( "map.set", $mapd, "cat.colorType", "blue" ); 
-$h: hq( "map.extend", $mapd, $mapd2 );               
-$h: hq( "map.extend", $mapd, $mapd2, true );         
-$h: hq( "map.merge", $mapd, $mapd2 );                
-$h: hq( "map.mergeDeep", $mapd, $mapd2 );             
-$h: hq( "map.keys", $map );                -> hoge, fuga
-$h: hq( "map.values", $map );              -> 2, e
-$h: hq( "map.hasKey", $map, "hoge" );      -> true
-$h: hq( "map.nth", $map, 2 );              -> e
-$h: hq( "map.length", $mapd);              -> 2
-$h: hq( "map.push", $map, foo hoge );      
-$h: hq( "map.join", $map, $map2, comma );  -> hoge 2, fuga e, hoges 20000, fugas test;
-$h: hq( "map.zip", $map );                 -> hoge 2, fuga e;
-$h: hq( "map.toString", $map );            
+$h: hq("map.get", $mapd, "cat.colorType");
+$h: hq("map.set", $mapd, "cat.colorType", "blue");
+$h: hq("map.extend", $mapd, $mapd2);
+$h: hq("map.extend", $mapd, $mapd2, true); //deepCopy
+$h: hq("map.merge", $mapd, $mapd2);
+$h: hq("map.mergeDeep", $mapd, $mapd2);
+$h: hq("map.keys", $map);
+$h: hq("map.values", $map);
+$h: hq("map.hasKey", $map, "hoge");
+$h: hq("map.nth", $map, 2);
+$h: hq("map.length", $mapd);
+$h: hq("map.push", $mapd, foo hoge);
+$h: hq("map.join", $map, $map2, comma);
+$h: hq("map.zip", $map, $map2);
+$h: hq("map.toString", $mapd);
+
 -------------------------------------------------------
 ';
 	

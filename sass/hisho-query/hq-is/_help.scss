@@ -10,18 +10,21 @@
 $help: '
 - is method -
 -------------------------------------------------------
-| method      | query | return | 説明
+| method        | return | mq| description
 -------------------------------------------------------
-| is.gValue   | false |  bool  | gloval変数チェック
-| is.function | false |  bool  | functionの存在チェック
-| is.mixin    | false |  bool  | mixinの存在チェック
-| is.string   | false |  bool  | stringチェック
-| is.number   | false |  bool  | numberチェック
-| is.color    | false |  bool  | colorチェック
-| is.map      | false |  bool  | mapチェック
-| is.list     | false |  bool  | listチェック
-| is.bool     | false |  bool  | boolチェック
+| is.help       |  null  | x | is Method List 表示
+| is.gValue     |  bool  | x | グローバル変数存在チェック
+| is.function   |  bool  | x | function存在チェック
+| is.mixin      |  bool  | x | mixin存在チェック
+| is.string     |  bool  | x | string型かチェック
+| is.number     |  bool  | x | number型かチェック
+| is.color      |  bool  | x | color型かチェック
+| is.list       |  bool  | x | list型かチェック
+| is.map        |  bool  | x | map型かチェック
+| is.bool       |  bool  | x | bool型かチェック
 -------------------------------------------------------
+* mq: "map query"対応可否
+
 $gvalue: hoge
 $h: hq( "is.gValue", gvalue );    -> true
 $h: hq( "is.function", hq );      -> true
@@ -32,6 +35,7 @@ $h: hq( "is.color", #ff0000 );    -> true
 $h: hq( "is.map", (test:hoge) );  -> true
 $h: hq( "is.list", 0 2 3 5 );     -> true
 $h: hq( "is.bool", true );        -> true
+
 -------------------------------------------------------
 ';
 	

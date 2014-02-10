@@ -9,6 +9,8 @@
 //--------------------------------
 $str: "abcdefg.Hijklmn";
 
+$help: hq("help");
+
 .method-setting{
 
 	/* 通常 */
@@ -35,6 +37,7 @@ $str: "abcdefg.Hijklmn";
 $str: "abcdefg.Hijklmn";
 
 .hq-str{
+	help      : hq("str.help");
 	unquote   : hq("str.unquote", $str);
 	quote     : hq("str.quote", $str);
 	length    : hq("str.length", $str);
@@ -53,7 +56,6 @@ $str: "abcdefg.Hijklmn";
 	sprit     : hq("str.split", $str, ".");
 	getId     : hq("str.getId");
 	reverse   : hq("str.reverse", $str);
-	//help      : hq("str.help");
 }
 
 //--------------------------------
@@ -61,6 +63,7 @@ $str: "abcdefg.Hijklmn";
 // number method
 //--------------------------------
 .hq-num{
+	help       : hq("num.help");
 	percentage : hq("num.percentage", (100px / 50px) );
 	round      : hq("num.round", 10.4px);
 	ceil       : hq("num.ceil", 10.4px);
@@ -81,14 +84,15 @@ $list: a b c d ;
 $list2: e f g h i j k;
 
 .hq-list{
+	help     : hq("list.help");
 	get      : hq("list.get", $list, 1);
 	set      : hq("list.set", $list, 3, "hoge");
 	length   : hq("list.length", $list);
 	index    : hq("list.index", $list, "b");
-	push     : hq("list.push", $list, "x");
 	unshift  : hq("list.unshift", $list, "x");
-	pop      : hq("list.pop", $list);
+	push     : hq("list.push", $list, "x");
 	shift    : hq("list.shift", $list);
+	pop      : hq("list.pop", $list);
 	slice    : hq("list.slice", $list, 2, 3);
 	remove   : hq("list.remove", $list, c);
 	join     : hq("list.join", $list, $list2, "comma");
@@ -97,7 +101,6 @@ $list2: e f g h i j k;
 	toComma  : hq("list.toComma", $list);
 	separator  : hq("list.separator", $list);
 	reverse  : hq("list.reverse", $list);
-	//help     : hq("list.help");
 }
 
 //--------------------------------
@@ -143,6 +146,7 @@ $mapd2: (
 );
 
 .hq-map{
+	help      : hq("map.help");
 	get       : hq("map.get", $mapd, "cat.colorType");
 	set       : hq("map.set -> map.toString", $mapd, "cat.colorType", "blue");
 	extend    : hq("map.extend -> map.toString", $mapd, $mapd2);
@@ -158,7 +162,6 @@ $mapd2: (
 	join      : hq("map.join", $map, $map2, comma);
 	zip       : hq("map.zip", $map, $map2);
 	toString  : hq("map.toString", $mapd);
-	//help      : hq("map.help");
 }
 
 //--------------------------------
@@ -168,6 +171,7 @@ $mapd2: (
 $gvalue: test;
 .hq-is{
 	$fuga: hogehoge;
+	help     : hq("is.help");
 	gValue   : hq("is.gValue", gvalue);
 	function : hq("is.function", hq-is);
 	mixin    : hq("is.mixin", hq);
@@ -177,7 +181,6 @@ $gvalue: test;
 	map      : hq("is.map", $map);
 	list     : hq("is.list", $list);
 	bool     : hq("is.bool", true);
-	//help     : hq("is.help");
 }
 
 //--------------------------------
@@ -185,6 +188,7 @@ $gvalue: test;
 // css method
 //--------------------------------
 .hq-css{
+	help      : hq("css.help");
 	toMap     : hq("css.toMap -> map.toString", 0 2px 3px 4px, "margin");
 	toMap     : hq("css.toMap -> map.toString", 0 2px, "padding");
 	toMap     : hq("css.toMap -> map.toString", solid 1px #ccc, "border");
@@ -240,7 +244,6 @@ $gvalue: test;
 
 	getWidth  : hq("css.getWidth", 500px, solid 1px #ccc, 0 2px 3px 4px);
 	getHeight : hq("css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px);
-	//help      : hq("css.help");
 }
 
 //--------------------------------

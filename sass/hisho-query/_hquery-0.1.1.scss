@@ -11,6 +11,170 @@
 
 
 // ------------------------------
+// [name] hq-help v1.0.0
+// [path] /hisho-query/_hq-help.scss
+// [desc] hishoqueryhelpをターミナルに表示
+// [exsample]
+//   hq-help()
+// ------------------------------
+@function hq-help(){
+
+$help: '
+============================
+HISHO QUERY v0.1.1
+2014.02.10
+============================
+
+----------------------------
+- method help
+
+$hoge: hq("str.help");
+$hoge: hq("num.help");
+$hoge: hq("list.help");
+$hoge: hq("map.help");
+$hoge: hq("is.help");
+$hoge: hq("css.help");
+
+----------------------------
+- method query
+
+$str: hogehoge.fuga;
+
+$hoge: hq("str.upcase->str.quote", $str);  //-> "HOGEHOGE.FUGA"
+
+//argmentは第三引数以降に順に設定する  
+$hoge: hq("str.replace->str.split->list.get", $str, "fuga", "fugo", ".", 2);  //-> fugo
+
+----------------------------
+- method map
+
+method-map   : hq($str,(
+  "str.replace": "abcd" "dcbb",
+  "str.quote": null
+));
+
+----------------------------
+- console
+
+$h: hq-console($value);
+
+----------------------------
+';
+	
+	$a: hq-str-puts($help);
+	@return null;
+}
+
+
+
+// ------------------------------
+// [name] hq-str-help v1.0.0
+// [path] /hisho-query/hq-str/_help.scss
+// [desc] hq("str.xxx")のhelpをターミナルに表示
+// [exsample]
+//   hq-str-help()
+// ------------------------------
+@function hq-str-help(){
+
+$help: '
+- string method -
+-------------------------------------------------------
+| method        | return | mq| description
+-------------------------------------------------------
+| str.quote     | string | o | quoteを付与する
+| str.length    | number | o | 文字数を返す
+| str.insert    | string | o | 指定位置に文字列を追加
+| str.index     | number | o | 指定文字の位置を返す
+| str.slice     | string | o | 指定した範囲の文字列を取り出す
+| str.upcase    | string | o | 文字列を大文字に変換
+| str.downcase  | string | o | 文字列を小文字に変換
+| str.capitalize| string | o | 先頭の文字を大文字に変換し、他を小文字に変換
+| str.flUpcase  | string | o | 先頭文字のみ大文字に変換
+| str.flDowncase| string | o | 先頭文字のみ小文字に変換
+| str.strip     | string | o | 先頭と末尾の空白文字を除去
+| str.succ      | string | o | 次の文字列を返す
+| str.match     | bool   | o | 文字列検索
+| str.replace   | string | o | 文字列変換
+| str.split     | list   | o | 区切り記号を使用して文字列を分割
+| str.getId     | string | o | ユニークなIDを生成
+| str.reverse   | string | o | 文字列を反転
+-------------------------------------------------------
+* mq: "map query"対応可否
+
+$h: hq("str.unquote", $str);
+$h: hq("str.quote", $str);
+$h: hq("str.length", $str);
+$h: hq("str.insert", $str, hoge, 3);
+$h: hq("str.index", $str, fg);
+$h: hq("str.slice", $str, 1, 3);
+$h: hq("str.upcase", $str);
+$h: hq("str.downcase", $str);
+$h: hq("str.capitalize", $str);
+$h: hq("str.flUpcase", $str);
+$h: hq("str.flDowncase", $str);
+$h: hq("str.strip", $str);
+$h: hq("str.succ", $str);
+$h: hq("str.match", $str, "bc");
+$h: hq("str.replace", $str, "bc", "xa");
+$h: hq("str.split", $str, ".");
+$h: hq("str.getId");
+$h: hq("str.reverse", $str);
+-------------------------------------------------------
+';
+	
+	$a: hq-str-puts($help);
+	@return null;
+}
+
+
+
+// ------------------------------
+// [name] hq-num-help v1.0.0
+// [path] /hisho-query/hq-num/_help.scss
+// [desc] hq("num.xxx")のhelpをターミナルに表示
+// [exsample]
+//   hq-num-help()
+// ------------------------------
+@function hq-num-help(){
+
+$help: '
+- number method -
+-------------------------------------------------------
+| method        | return | mq| description
+-------------------------------------------------------
+| num.percentage| number | o | パーセンテージに変換
+| num.round     | number | o | 小数点以下四捨五入
+| num.ceil      | number | o | 小数点以下切上げ
+| num.floor     | number | o | 小数点以下切捨て
+| num.abs       | number | o | 絶対値を取得
+| num.min       | number | x | 最小値取得
+| num.max       | number | x | 最大値取得
+| num.unit      | string | o | 値の単位を取得
+| num.unitless  | bool   | o | 単位が指定されているかチェック
+| num.comparable| bool   | o | 2つの値が、合計、比較が可能かチェック
+-------------------------------------------------------
+* mq: "map query"対応可否
+
+$h: hq("num.percentage", (100px / 50px) );
+$h: hq("num.round", 10.4px);
+$h: hq("num.ceil", 10.4px);
+$h: hq("num.floor", 10.4px);
+$h: hq("num.abs", -15px);
+$h: hq("num.min", 10px, 5px, 2px, 15px, 18px);
+$h: hq("num.max", 10px, 5px, 2px, 15px, 18px);
+$h: hq("num.unit", 20em);
+$h: hq("num.unitless", 20em);
+$h: hq("num.comparable", 15em, 15px);
+-------------------------------------------------------
+';
+	
+	$a: hq-str-puts($help);
+	@return null;
+}
+
+
+
+// ------------------------------
 // [name] hq-list-help v1.0.0
 // [path] /hisho-query/hq-list/_help.scss
 // [desc] hq("is.xxx")のhelpをターミナルに表示
@@ -22,44 +186,44 @@
 $help: '
 - list method -
 -------------------------------------------------------
-| method         | query | return | 説明
+| method        | return | mq| description
 -------------------------------------------------------
-| list.get       | true  |  other | 値を取得
-| list.set       | true  |  list  | 値を設定
-| list.length    | true  | number | list数をチェック
-| list.index     | true  | number | 指定した値の位置を取得
-| list.push      | true  |  list  | 値を最後尾に追加
-| list.unshift   | true  |  list  | 値を先頭に追加
-| list.pop       | true  |  list  | 最後尾の値を削除
-| list.shift     | true  |  list  | 先頭の値を削除
-| list.slice     | true  |  list  | 指定範囲を抜き出す
-| list.remove    | true  |  list  | 指定した値を削除
-| list.join      | true  |  list  | 指定したリストを結合
-| list.zip       | false |  list  | リストを統合
-| list.toSpace   | true  |  list  | リスト形式をspaceに変換
-| list.toComma   | true  |  list  | リスト形式をCommaに変換
-| list.separator | true  | string | セパレータの形式を返す
-| list.reverse   | true  |  list  | リストの位置を反転する
+| list.get      | other  | o | 配列から値を取得
+| list.set      | list   | o | 配列に値を設定（差し替える）
+| list.length   | number | o | 配列の数を返す
+| list.index    | number | o | 値を検索し位置を返す
+| list.unshift  | list   | o | 値を先頭に追加
+| list.push     | list   | o | 値を最後尾に追加
+| list.shift    | list   | o | 先頭の値を削除
+| list.pop      | list   | o | 最後尾の値を削除
+| list.slice    | list   | o | 指定した範囲の配列を取り出す
+| list.remove   | list   | o | 指定した値を削除
+| list.join     | list   | o | 配列を結合する
+| list.zip      | list   | x | sass zipと同様
+| list.toSpace  | list   | o | listの区切り文字をspaceに変換
+| list.toComma  | list   | o | listの区切り文字をcommaに変換
+| list.separator| string | o | listの区切り文字を返す
+| list.reverse  | list   | o | 配列を反転する
 -------------------------------------------------------
-$list: a b c d ;
-$list2: e f g h i j k;
+* mq: "map query"対応可否
 
-$h: hq( "list.get", $list, 1 );       -> a
-$h: hq( "list.set", $list, 3, hoge ); -> a b hoge d
-$h: hq( "list.length", $list );       -> 4
-$h: hq( "list.index", $list, b );     -> 2
-$h: hq( "list.push", $list, x );      -> a b c d x
-$h: hq( "list.unshift", $list, x );   -> x a b c d
-$h: hq( "list.pop", $list );          -> a b c
-$h: hq( "list.shift", $list );        -> b c d
-$h: hq( "list.slice", $list, 2, 3 );  -> b c
-$h: hq( "list.remove", $list, c );    -> a b d
-$h: hq( "list.join", $list1, $list2, comma );  -> a, b, c, d, e, f, g, h, i, j
-$h: hq( "list.zip", $list );          -> a e a, b f b, c g c, d h d
-$h: hq( "list.toSpace", $list );      -> a b c d
-$h: hq( "list.toComma", $list );      -> a, b, c, d
-$h: hq( "list.separator", $list );    -> space
-$h: hq( "list.reverse", $list );      -> d c b a
+$h: hq("list.get", $list, 1);
+$h: hq("list.set", $list, 3, "hoge");
+$h: hq("list.length", $list);
+$h: hq("list.index", $list, "b");
+$h: hq("list.unshift", $list, "x");
+$h: hq("list.push", $list, "x");
+$h: hq("list.shift", $list);
+$h: hq("list.pop", $list);
+$h: hq("list.slice", $list, 2, 3);
+$h: hq("list.remove", $list, c);
+$h: hq("list.join", $list, $list2, "comma");
+$h: hq("list.zip", $list, $list2, $list);
+$h: hq("list.toSpace", $list);
+$h: hq("list.toComma", $list);
+$h: hq("list.separator", $list);
+$h: hq("list.reverse", $list);
+
 -------------------------------------------------------
 ';
 	
@@ -211,49 +375,42 @@ $h: hq( "list.reverse", $list );      -> d c b a
 $help: '
 - map method -
 -------------------------------------------------------
-| method        | query | return |deep| 説明
+| method        | return | mq| deep| description
 -------------------------------------------------------
-| map.get       | true  |  other | o  | keyを指定し値を取得
-| map.set       | true  |   map  | o  | 指定したkeyに値を代入
-| map.extend    | false |   map  | o  | mapとmapをマージ(複数指定,deeq指定可能)
-| map.merge     | true  |   map  | x  | mapとmapをマージ
-| map.mergeDeep | true  |   map  | o  | mapとmapをDeepマージ
-| map.keys      | true  |  list  | x  | keyの一覧リスト取得
-| map.values    | true  |  list  | x  | 値の一覧リスト取得
-| map.hasKey    | true  |  bool  | x  | 指定keyが存在するかチェック
-| map.length    | true  | number | o  | mapの数を取得
-| map.nth       | true  |  list  | x  | 指定位置にあるmapをlist形式で返す
-| map.push      | true  |   map  | o  | mapの最後尾にmap追加
-| map.join      | true  |  list  | x  | 
-| map.zip       | false |  list  | x  | 
-| map.toString  | true  | string | o  | mapをstringに変換（デバッグで使用）
+| map.get       | other  | o |  o  | 指定したkeyの値を取得。
+| map.set       | map    | o |  o  | 指定したkeyに値を設定。
+| map.extend    | map    | x |  o  | 複数のmapをマージ。
+| map.merge     | map    | o |  x  | mapをマージ。
+| map.mergeDeep | map    | o |  o  | mapをマージ。deepMap対応。
+| map.keys      | list   | o |  x  | keyの一覧を取得
+| map.values    | list   | o |  x  | valueの一覧を取得
+| map.hasKey    | bool   | o |  x  | keyを検索
+| map.nth       | list   | o |  x  | 指定位置のvalue&keyを返す
+| map.length    | number | o |  x  | mapの数を返す
+| map.append    | map    | o |  x  | mapの最後尾にkeyと値を追加
+| map.join      | map    | o |  x  | sass joinと同様
+| map.zip       | map    | x |  x  | sass zipと同様
+| map.toString  | map    | o |  o  | mapをハッシュ化しstringに変換。デバッグ用
 -------------------------------------------------------
-$map:  ( hoge: 2, fuga: e );
-$map2: ( hoges: 20000, fugas: test );
-$mapd: (
-	cat: ( text: good, colorType: black ),
-	Lion: ( text: bad, colorType: orange )
-);
-$mapd2: (
-	Lion: ( text: good, colorType: orange, option: ( box: 2 ) ),
-	bird: ( text: good, colorType: blue, option: ( box: 1 ) )
-);
+* deep: "deep map"の対応可否。非対応のものは1階層目のみ判断し処理が行われる。
+* mq: "map query"対応可否
 
-$h: hq( "map.get", $mapd, "cat.colorType" );          -> black
-$h: hq( "map.set", $mapd, "cat.colorType", "blue" ); 
-$h: hq( "map.extend", $mapd, $mapd2 );               
-$h: hq( "map.extend", $mapd, $mapd2, true );         
-$h: hq( "map.merge", $mapd, $mapd2 );                
-$h: hq( "map.mergeDeep", $mapd, $mapd2 );             
-$h: hq( "map.keys", $map );                -> hoge, fuga
-$h: hq( "map.values", $map );              -> 2, e
-$h: hq( "map.hasKey", $map, "hoge" );      -> true
-$h: hq( "map.nth", $map, 2 );              -> e
-$h: hq( "map.length", $mapd);              -> 2
-$h: hq( "map.push", $map, foo hoge );      
-$h: hq( "map.join", $map, $map2, comma );  -> hoge 2, fuga e, hoges 20000, fugas test;
-$h: hq( "map.zip", $map );                 -> hoge 2, fuga e;
-$h: hq( "map.toString", $map );            
+$h: hq("map.get", $mapd, "cat.colorType");
+$h: hq("map.set", $mapd, "cat.colorType", "blue");
+$h: hq("map.extend", $mapd, $mapd2);
+$h: hq("map.extend", $mapd, $mapd2, true); //deepCopy
+$h: hq("map.merge", $mapd, $mapd2);
+$h: hq("map.mergeDeep", $mapd, $mapd2);
+$h: hq("map.keys", $map);
+$h: hq("map.values", $map);
+$h: hq("map.hasKey", $map, "hoge");
+$h: hq("map.nth", $map, 2);
+$h: hq("map.length", $mapd);
+$h: hq("map.push", $mapd, foo hoge);
+$h: hq("map.join", $map, $map2, comma);
+$h: hq("map.zip", $map, $map2);
+$h: hq("map.toString", $mapd);
+
 -------------------------------------------------------
 ';
 	
@@ -411,25 +568,19 @@ $h: hq( "map.toString", $map );
 $help: '
 - css method -
 -------------------------------------------------------
-| method        | query | return | 説明                
+| method        | return | mq| description
 -------------------------------------------------------
-| css.toMap     | true  | map    | shorthandをMapに変換
-| css.toShort   | true  | list   | Mapをshorthandに変換  
-| css.getWidth  | true  | number | width算出            
-| css.getHeight | true  | number | height算出           
+| css.toMap     |  list  | o | shortHand形式で記載したCSSをMapに変換
+| css.toShort   |  map   | o | Map形式で記載したCSSをshortHandに変換
+| css.getWidth  | number | o | widthの指定値を算出
+| css.getHeight | number | o | heightの指定値を算出
 -------------------------------------------------------
+* mq: "map query"対応可否
 
 $h: hq( "css.toMap", "margin", 0 2px 3px 4px );
-    -> (top:0,right:2,bottom:3px,left:4px)
-
 $h: hq( "css.toMap", "margin", (top:0,right:5px,bottom:9px,left:5px) );
-    -> 0 5px 9px
-
 $h: hq( "css.getWidth",  500px, solid 1px #ccc, 0 2px 3px 4px );
-    -> 492px
-
 $h: hq( "css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px );
-    -> 495px
 
 -------------------------------------------------------
 ';
@@ -1120,18 +1271,21 @@ $h: hq( "css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px );
 $help: '
 - is method -
 -------------------------------------------------------
-| method      | query | return | 説明
+| method        | return | mq| description
 -------------------------------------------------------
-| is.gValue   | false |  bool  | gloval変数チェック
-| is.function | false |  bool  | functionの存在チェック
-| is.mixin    | false |  bool  | mixinの存在チェック
-| is.string   | false |  bool  | stringチェック
-| is.number   | false |  bool  | numberチェック
-| is.color    | false |  bool  | colorチェック
-| is.map      | false |  bool  | mapチェック
-| is.list     | false |  bool  | listチェック
-| is.bool     | false |  bool  | boolチェック
+| is.help       |  null  | x | is Method List 表示
+| is.gValue     |  bool  | x | グローバル変数存在チェック
+| is.function   |  bool  | x | function存在チェック
+| is.mixin      |  bool  | x | mixin存在チェック
+| is.string     |  bool  | x | string型かチェック
+| is.number     |  bool  | x | number型かチェック
+| is.color      |  bool  | x | color型かチェック
+| is.list       |  bool  | x | list型かチェック
+| is.map        |  bool  | x | map型かチェック
+| is.bool       |  bool  | x | bool型かチェック
 -------------------------------------------------------
+* mq: "map query"対応可否
+
 $gvalue: hoge
 $h: hq( "is.gValue", gvalue );    -> true
 $h: hq( "is.function", hq );      -> true
@@ -1142,6 +1296,7 @@ $h: hq( "is.color", #ff0000 );    -> true
 $h: hq( "is.map", (test:hoge) );  -> true
 $h: hq( "is.list", 0 2 3 5 );     -> true
 $h: hq( "is.bool", true );        -> true
+
 -------------------------------------------------------
 ';
 	

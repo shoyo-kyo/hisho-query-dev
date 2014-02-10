@@ -1,0 +1,54 @@
+// ------------------------------
+// [name] hq-help v1.0.0
+// [path] /hisho-query/_hq-help.scss
+// [desc] hishoqueryhelpをターミナルに表示
+// [exsample]
+//   hq-help()
+// ------------------------------
+@function hq-help(){
+
+$help: '
+============================
+HISHO QUERY v0.1.1
+2014.02.10
+============================
+
+----------------------------
+- method help
+
+$hoge: hq("str.help");
+$hoge: hq("num.help");
+$hoge: hq("list.help");
+$hoge: hq("map.help");
+$hoge: hq("is.help");
+$hoge: hq("css.help");
+
+----------------------------
+- method query
+
+$str: hogehoge.fuga;
+
+$hoge: hq("str.upcase->str.quote", $str);  //-> "HOGEHOGE.FUGA"
+
+//argmentは第三引数以降に順に設定する  
+$hoge: hq("str.replace->str.split->list.get", $str, "fuga", "fugo", ".", 2);  //-> fugo
+
+----------------------------
+- method map
+
+method-map   : hq($str,(
+  "str.replace": "abcd" "dcbb",
+  "str.quote": null
+));
+
+----------------------------
+- console
+
+$h: hq-console($value);
+
+----------------------------
+';
+	
+	$a: hq-str-puts($help);
+	@return null;
+}

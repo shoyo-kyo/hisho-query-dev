@@ -10,25 +10,19 @@
 $help: '
 - css method -
 -------------------------------------------------------
-| method        | query | return | 説明                
+| method        | return | mq| description
 -------------------------------------------------------
-| css.toMap     | true  | map    | shorthandをMapに変換
-| css.toShort   | true  | list   | Mapをshorthandに変換  
-| css.getWidth  | true  | number | width算出            
-| css.getHeight | true  | number | height算出           
+| css.toMap     |  list  | o | shortHand形式で記載したCSSをMapに変換
+| css.toShort   |  map   | o | Map形式で記載したCSSをshortHandに変換
+| css.getWidth  | number | o | widthの指定値を算出
+| css.getHeight | number | o | heightの指定値を算出
 -------------------------------------------------------
+* mq: "map query"対応可否
 
 $h: hq( "css.toMap", "margin", 0 2px 3px 4px );
-    -> (top:0,right:2,bottom:3px,left:4px)
-
 $h: hq( "css.toMap", "margin", (top:0,right:5px,bottom:9px,left:5px) );
-    -> 0 5px 9px
-
 $h: hq( "css.getWidth",  500px, solid 1px #ccc, 0 2px 3px 4px );
-    -> 492px
-
 $h: hq( "css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px );
-    -> 495px
 
 -------------------------------------------------------
 ';

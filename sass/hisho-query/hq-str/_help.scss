@@ -1,0 +1,58 @@
+// ------------------------------
+// [name] hq-str-help v1.0.0
+// [path] /hisho-query/hq-str/_help.scss
+// [desc] hq("str.xxx")のhelpをターミナルに表示
+// [exsample]
+//   hq-str-help()
+// ------------------------------
+@function hq-str-help(){
+
+$help: '
+- string method -
+-------------------------------------------------------
+| method        | return | mq| description
+-------------------------------------------------------
+| str.quote     | string | o | quoteを付与する
+| str.length    | number | o | 文字数を返す
+| str.insert    | string | o | 指定位置に文字列を追加
+| str.index     | number | o | 指定文字の位置を返す
+| str.slice     | string | o | 指定した範囲の文字列を取り出す
+| str.upcase    | string | o | 文字列を大文字に変換
+| str.downcase  | string | o | 文字列を小文字に変換
+| str.capitalize| string | o | 先頭の文字を大文字に変換し、他を小文字に変換
+| str.flUpcase  | string | o | 先頭文字のみ大文字に変換
+| str.flDowncase| string | o | 先頭文字のみ小文字に変換
+| str.strip     | string | o | 先頭と末尾の空白文字を除去
+| str.succ      | string | o | 次の文字列を返す
+| str.match     | bool   | o | 文字列検索
+| str.replace   | string | o | 文字列変換
+| str.split     | list   | o | 区切り記号を使用して文字列を分割
+| str.getId     | string | o | ユニークなIDを生成
+| str.reverse   | string | o | 文字列を反転
+-------------------------------------------------------
+* mq: "map query"対応可否
+
+$h: hq("str.unquote", $str);
+$h: hq("str.quote", $str);
+$h: hq("str.length", $str);
+$h: hq("str.insert", $str, hoge, 3);
+$h: hq("str.index", $str, fg);
+$h: hq("str.slice", $str, 1, 3);
+$h: hq("str.upcase", $str);
+$h: hq("str.downcase", $str);
+$h: hq("str.capitalize", $str);
+$h: hq("str.flUpcase", $str);
+$h: hq("str.flDowncase", $str);
+$h: hq("str.strip", $str);
+$h: hq("str.succ", $str);
+$h: hq("str.match", $str, "bc");
+$h: hq("str.replace", $str, "bc", "xa");
+$h: hq("str.split", $str, ".");
+$h: hq("str.getId");
+$h: hq("str.reverse", $str);
+-------------------------------------------------------
+';
+	
+	$a: hq-str-puts($help);
+	@return null;
+}

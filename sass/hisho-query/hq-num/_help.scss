@@ -1,0 +1,43 @@
+// ------------------------------
+// [name] hq-num-help v1.0.0
+// [path] /hisho-query/hq-num/_help.scss
+// [desc] hq("num.xxx")のhelpをターミナルに表示
+// [exsample]
+//   hq-num-help()
+// ------------------------------
+@function hq-num-help(){
+
+$help: '
+- number method -
+-------------------------------------------------------
+| method        | return | mq| description
+-------------------------------------------------------
+| num.percentage| number | o | パーセンテージに変換
+| num.round     | number | o | 小数点以下四捨五入
+| num.ceil      | number | o | 小数点以下切上げ
+| num.floor     | number | o | 小数点以下切捨て
+| num.abs       | number | o | 絶対値を取得
+| num.min       | number | x | 最小値取得
+| num.max       | number | x | 最大値取得
+| num.unit      | string | o | 値の単位を取得
+| num.unitless  | bool   | o | 単位が指定されているかチェック
+| num.comparable| bool   | o | 2つの値が、合計、比較が可能かチェック
+-------------------------------------------------------
+* mq: "map query"対応可否
+
+$h: hq("num.percentage", (100px / 50px) );
+$h: hq("num.round", 10.4px);
+$h: hq("num.ceil", 10.4px);
+$h: hq("num.floor", 10.4px);
+$h: hq("num.abs", -15px);
+$h: hq("num.min", 10px, 5px, 2px, 15px, 18px);
+$h: hq("num.max", 10px, 5px, 2px, 15px, 18px);
+$h: hq("num.unit", 20em);
+$h: hq("num.unitless", 20em);
+$h: hq("num.comparable", 15em, 15px);
+-------------------------------------------------------
+';
+	
+	$a: hq-str-puts($help);
+	@return null;
+}

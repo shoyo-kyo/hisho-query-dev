@@ -25,6 +25,10 @@ module.exports = function(grunt){
 				},
 				dest: 'sass/hisho-query/_hquery-<%= pkg.version %>.scss',
 				src:[
+					'sass/hisho-query/_hq-help.scss',
+					'sass/hisho-query/hq-str/_help.scss',
+					'sass/hisho-query/hq-num/_help.scss',
+
 					'sass/hisho-query/hq-list/_help.scss',
 					'sass/hisho-query/hq-list/_pop.scss',
 					'sass/hisho-query/hq-list/_prepend.scss',
