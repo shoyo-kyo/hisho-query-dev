@@ -1,0 +1,29 @@
+@charset "utf-8";
+@function hq-test($name,$test){
+
+	$c: hq-str-puts(unquote("===== " + $name + " ============================="));
+	$isFalse: false;
+	@each $num, $value in $test {
+		$rq: hq("map.get", $value, "request");
+		$rs: hq("map.get", $value, "result");
+		
+		$rq: if(hq("is.map",$rq), hq("map.toString",$rq), $rq);
+		$rs: if(hq("is.map",$rs), hq("map.toString",$rs), $rs);
+
+		$rq: if($rq, $rq, "null");
+		$rs: if($rs, $rs, "null");
+
+		$a: $rq == $rs;
+		@if $a == false{
+			$c: hq-str-puts("[" + $num + "] No " + $rs + " for " + $rq);
+			$isFalse: true;
+		}
+	}
+	@if $isFalse == false {
+		$c: hq-str-puts(unquote("Successful test " + $name));
+		@return true;
+	}@else{
+		@return false;
+	}
+
+}

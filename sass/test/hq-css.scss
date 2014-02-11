@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @import "hisho-query/_hquery-0.1.1";
+@import "test/hq-test.scss";
 
 
 //--------------------------------
@@ -8,6 +9,7 @@
 // css method
 //--------------------------------
 .hq-css{
+
 	.toMap{
 		$test:(
 			1: (
@@ -15,107 +17,131 @@
 				result  : '{"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px}',
 			),
 			2: (
+				request : hq("css.toMap -> map.toString", 4px, "margin"),
+				result  : '{"top"=>4px, "right"=>4px, "bottom"=>4px, "left"=>4px}',
+			),
+			3: (
 				request : hq("css.toMap -> map.toString", 0 2px, "padding"),
 				result  : '{"top"=>0, "right"=>2px, "bottom"=>0, "left"=>2px}',
 			),
-			3: (
+			4: (
+				request : hq("css.toMap -> map.toString", 0, "padding"),
+				result  : '{"top"=>0, "right"=>0, "bottom"=>0, "left"=>0}',
+			),
+			5: (
 				request : hq("css.toMap -> map.toString", solid 1px #ccc, "border"),
 				result  : '{"style"=>"solid", "width"=>1px, "color"=>#cccccc}',
 			),
-			4: (
+			6: (
+				request : hq("css.toMap -> map.toString", #ccc, "border"),
+				result  : '{"style"=>null, "width"=>null, "color"=>#cccccc}',
+			),
+			7: (
+				request : hq("css.toMap -> map.toString", 1px, "border"),
+				result  : '{"style"=>null, "width"=>1px, "color"=>null}',
+			),
+			8: (
+				request : hq("css.toMap -> map.toString", solid, "border"),
+				result  : '{"style"=>"solid", "width"=>null, "color"=>null}',
+			),
+			9: (
 				request: hq("css.toMap -> map.toString", dotted, "outline"),
 				result: '{"style"=>"dotted", "width"=>null, "color"=>null}',
 			),
-			5: (
+			10: (
 				request : hq("css.toMap -> map.toString", url(../img.jpg) #ccc 0 50%, "background"),
 				result  : '{"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)}',
 			),
-			6: (
+			11: (
+				request : hq("css.toMap -> map.toString", url(../img.jpg), "background"),
+				result  : '{"color"=>null, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>null}',
+			),
+			12: (
+				request : hq("css.toMap -> map.toString", 0 50px, "background"),
+				result  : '{"color"=>null, "image"=>null, "repeat"=>null, "attachment"=>null, "position"=>(0 50px)}',
+			),
+			13: (
 				request : hq("css.toMap -> map.toString", 12px/1.5 bold, "font"),
 				result  : '{"size"=>8px, "line-height"=>null, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null}',
 			),
-			7: (
+			14: (
 				request : hq("css.toMap -> map.toString", url(../img.jpg) outside square, "list-style"),
 				result  : '{"type"=>"square", "image"=>"url(../img.jpg)", "position"=>"outside"}',
 			),
+			15: (
+				request : hq("css.toMap -> map.toString", outside, "list-style"),
+				result  : '{"type"=>null, "image"=>null, "position"=>"outside"}',
+			),
+			16: (
+				request : hq("css.toMap -> map.toString", square, "list-style"),
+				result  : '{"type"=>"square", "image"=>null, "position"=>null}',
+			),
+			17: (
+				request : hq("css.toMap -> map.toString", url(../img.jpg), "list-style"),
+				result  : '{"type"=>null, "image"=>"url(../img.jpg)", "position"=>null}',
+			),
 			//error Test
-			8: (
+			18: (
 				request : hq("css.toMap -> map.toString", "test"),
 				result  : null,
 			),
-			9: (
+			19: (
 				request : hq("css.toMap -> map.toString", 12px, "tgest"),
+				result  : 12px,
+			),
+		);
+		$a: hq-test("hq-css toMap", $test);
+	}
+/*
+
+	.toShort{
+		$test:(
+			1: (
+				request : hq("css.toShort", ( top: 8px, right: 2px, bottom: 7px, left: 2px ), "margin"),
+				result  : null,
+			),
+			2: (
+				request : hq("css.toShort", ( top: 8px, right: 2px, bottom: 8px, left: 2px ), "padding"),
+				result  : null,
+			),
+			3: (
+				request : hq("css.toShort", ( style: solid, width: 6px, color: #ccc ), "border"),
+				result  : null,
+			),
+			4: (
+				request : hq("css.toShort", ( style: dotted, color: #ccc ), "border"),
+				result  : null,
+			),
+			5: (
+				request : hq("css.toShort", ( image: url(../img/test.jpg), repeat: no-repeat, position: 0 0, color: #ccc ), "background"),
+				result  : null,
+			),
+			6: (
+				request : hq("css.toShort", ( weight: bold, size: 12px, line-height: 1.5, family: "ＭＳ 明朝" ), "font"),
+				result  : null,
+			),
+			7: (
+				request : hq("css.toShort", ( type: square, image: url(../img/test.jpg), position: outside ), "list-style"),
+				result  : null,
+			),
+			//error Test
+			8: (
+				request : hq("css.toShort", ( top: 8px, right: 2px, bottom: 7px, left: 2px )),
+				result  : null,
+			),
+			9: (
+				request : hq("css.toShort", 12px, "margin"),
 				result  : null,
 			),
 		);
-
-		$ttl: "hq-css toMap";
-		$c: hq-str-puts(unquote("===== " + $ttl + " ============================="));
-		$isFalse: false;
-		@each $num, $value in $test {
-			$rq: hq("map.get", $value, "request");
-			$rs: hq("map.get", $value, "result");
-			$a: $rq == $rs;
-			@if $a == false{
-				$c: hq-str-puts("[" + $num + "] not result " + $rq);
-				$isFalse: true;
-			}
-		}
-		@if $isFalse == false {
-			$c: hq-str-puts(unquote("success test " + $ttl));
-			
-		}
+		$a: hq-test("hq-css toShort", $test);
 	}
 
 
 
 
 
-	toShort   : hq("css.toShort", (
-					top: 8px,
-					right: 2px,
-					bottom: 7px,
-					left: 2px
-				), "margin");
-	
-	toShort   : hq("css.toShort", (
-					top: 8px,
-					right: 2px,
-					bottom: 8px,
-					left: 2px
-				), "padding");
-
-	toShort   : hq("css.toShort", (
-					style: solid,
-					width: 6px,
-					color: #ccc
-				), "border");
-
-	toShort   : hq("css.toShort", (
-					style: dotted,
-					color: #ccc
-				), "border");
-
-	toShort   : hq("css.toShort", (
-					image: url(../img/test.jpg),
-					repeat: no-repeat,
-					position: 0 0,
-					color: #ccc
-				), "background");
-
-	toShort   : hq("css.toShort", (
-					weight: bold,
-					size: 12px,
-					line-height: 1.5,
-					family: "ＭＳ 明朝"
-				), "font");
-	
-	toShort   : hq("css.toShort", (
-					type:    square,
-					image: url(../img/test.jpg),
-					position: outside
-				), "list-style");
-
-	getWidth  : hq("css.getWidth", 500px, solid 1px #ccc, 0 2px 3px 4px);
-	getHeight : hq("css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px);
+getWidth  : hq("css.getWidth", 500px, solid 1px #ccc, 0 2px 3px 4px);
+getHeight : hq("css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px);
+*/
 }

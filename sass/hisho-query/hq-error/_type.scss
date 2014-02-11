@@ -7,8 +7,9 @@
 	$_type: nth( hq-str-split($name,".") ,1 );
 	$_value: type-of($input);
 
-	@if $_value != $_value and $_type != "css" and $_type != "is"{
-		$_error: "    error support not valutype '" + $_name + "' in ' " + $_value + " '";
+	//error判定
+	@if $_value != $_type and $_type != "css" and $_type != "is"{
+		$_error: "    error '" + $name + "' does not support '" + $_value + "'";
 		$_puts: hq-str-puts(unquote($_error));
 		@return true;
 	}@else{

@@ -171,9 +171,9 @@
 			$_data: hq-map-get-deep($api, $_name);
 			$_method: nth($_data,2);
 			$_argNum: nth($_data,1);
-
+			
 			//method
-			@if hq-error-method($_method) or hq-error-type($_name, $input){
+			@if hq-error-method($_method) or hq-error-type($_name, $_result){
 				$_error: "";
 			//default
 			}@else{

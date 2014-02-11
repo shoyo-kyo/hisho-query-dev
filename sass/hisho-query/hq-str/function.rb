@@ -135,6 +135,19 @@ module HishoQueryStr
   end
 
   #
+  # [name] hq-num-toNumber v1.0.0
+  # [desc] number型に変換
+  # [return] Number
+  # [exsample] hq-num-toNumber("120")
+  #
+  def hq_num_toNumber(str)
+    assert_type str, :String
+    result = str.to_i
+    Sass::Script::Number.new(result)
+  end
+
+
+  #
   # [name] hq-console v1.0.0
   # [desc] ターミナルに値の結果を表示
   # [return] null

@@ -96,12 +96,14 @@ module.exports = function(grunt){
 							'module Sass::Script::Functions\n' +
 							'  include HishoQueryStr\n' +
 							'  include HishoQueryMap\n' +
+							'  include HishoQueryNum\n' +
 							'end'
 				},
 				dest: 'sass/hisho-query/_hquery-function-<%= pkg.version %>.rb',
 				src:[
 					'sass/hisho-query/hq-map/function.rb',
-					'sass/hisho-query/hq-str/function.rb'
+					'sass/hisho-query/hq-str/function.rb',
+					'sass/hisho-query/hq-num/function.rb'
 				]
 			}
 		},

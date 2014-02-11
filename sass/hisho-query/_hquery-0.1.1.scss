@@ -923,9 +923,11 @@ $h: hq( "css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px );
 	}@else if type-of($value) == string and hq-str-match($value,"/normal|small-caps/"){
 		@return (variant: $value);
 
-	}@else if type-of($value) == string and hq-str-match($value,"/\//"){
-		@return (size: hq-str-split($value, "/", 0));
-		@return (line-height: hq-str-split($value, "/", 1));
+	}@else if type-of($value) == string and hq-str-match($value,"/"){
+		@return (
+			size: hq-str-split($value, "/", 0),
+			line-height: hq-str-split($value, "/", 1),
+		);
 
 	}@else if type-of($value) == string{
 		@return (family: $value);
@@ -945,8 +947,9 @@ $h: hq( "css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px );
 	);
 	//list形式
 	@if type-of($list) == list{
-		@each $_v in $list{
-			$_result: hq-map-extend($_result, hq-css-to-map-font-setter($_v));
+		@for $i from 1 through length($list) {
+			$_value: hq-num-toString(nth($list, $i));
+			$_result: hq-map-extend($_result, hq-css-to-map-font-setter($_value));
 		}
 	//単一指定
 	}@else{
@@ -1411,8 +1414,9 @@ $h: hq( "is.bool", true );        -> true
 	$_type: nth( hq-str-split($name,".") ,1 );
 	$_value: type-of($input);
 
-	@if $_value != $_value and $_type != "css" and $_type != "is"{
-		$_error: "    error support not valutype '" + $_name + "' in ' " + $_value + " '";
+	//error判定
+	@if $_value != $_type and $_type != "css" and $_type != "is"{
+		$_error: "    error '" + $name + "' does not support '" + $_value + "'";
 		$_puts: hq-str-puts(unquote($_error));
 		@return true;
 	}@else{
@@ -2255,9 +2259,9 @@ $h: hq( "is.bool", true );        -> true
 			$_data: hq-map-get-deep($api, $_name);
 			$_method: nth($_data,2);
 			$_argNum: nth($_data,1);
-
+			
 			//method
-			@if hq-error-method($_method) or hq-error-type($_name, $input){
+			@if hq-error-method($_method) or hq-error-type($_name, $_result){
 				$_error: "";
 			//default
 			}@else{
