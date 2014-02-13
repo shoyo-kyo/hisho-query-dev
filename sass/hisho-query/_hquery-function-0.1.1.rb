@@ -7,7 +7,7 @@ require "sass"
 # Released under the MIT license
 # https://github.com/syouyou/hisho-query/blob/master/LICENSE
 # 
-# Date: 2014-02-11
+# Date: 2014-02-13
 # 
 
 #
@@ -219,6 +219,23 @@ module HishoQueryStr
     puts "\n"
     Sass::Script::String.new("")
   end
+
+  #
+  # [name] hq-str-puts v1.0.0
+  # [desc] ターミナルに文字列を表示する（改行無し）
+  # [return] null
+  # [exsample] hq-str-puts(1 + 2)
+  #
+  def hq_str_print(str)
+    if str.class == Sass::Script::Value::Map then 
+      print to_h(str)
+    else
+      print str
+    end
+    Sass::Script::String.new("")
+  end
+
+
 
 end
 

@@ -1,0 +1,6 @@
+@charset "UTF-8";
+/*! hisho-query v0.1.1 */
+/* line 11, ../../sass/test/hq-str - コピー.scss */
+.hq-str {
+  method: "str.unquote";
+}

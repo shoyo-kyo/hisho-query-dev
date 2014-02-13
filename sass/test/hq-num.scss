@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+@import "hisho-query/_hquery-0.1.1";
+@import "test/hq-test.scss";
+
+
+//--------------------------------
+// hq("css.xxx",$arg)
+// css method
+//--------------------------------
+.hq-str{
+	
+	//str.unquote ============================================
+	method: "str.unquote";
+	
+
+	$c: hq-test-case("num.help", "aaaa", "is", "aa");
+
+	//$a: hq-test("hq-num", $test);
+
+}

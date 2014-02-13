@@ -6,6 +6,12 @@
 @function hq-error-type($name, $input){
 	$_type: nth( hq-str-split($name,".") ,1 );
 	$_value: type-of($input);
+	
+	@if $_type == "str"{
+		$_type: "string";
+	}@else if $_type == "num"{
+		$_type: "number";
+	}
 
 	//error判定
 	@if $_value != $_type and $_type != "css" and $_type != "is"{

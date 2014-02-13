@@ -1,7 +1,25 @@
 @charset "utf-8";
-@function hq-test($name,$test){
 
-	$c: hq-str-puts(unquote("===== " + $name + " ============================="));
+$hqTestCoreMap: ();
+
+@function hq-test-case($name, $result, $type, $var){
+	$_num: length($hqTestCoreMap);
+	$_myCase: (
+		"test" + $_num: (
+			name: $name,
+			result: $result,
+			type: $type,
+			var: $var
+		)
+	);
+	$_append: map-merge($hqTestCoreMap, $_myCase);
+	@return false;
+}
+
+@function hq-test($name,$test){
+	$c: hq-str-puts(unquote('----------'));
+	$c: hq-str-puts(unquote('I want to start the "' + $name + '" Test'));
+	$errorMsg: ();
 	$isFalse: false;
 	@each $num, $value in $test {
 		$rq: hq("map.get", $value, "request");
@@ -14,16 +32,26 @@
 		$rs: if($rs, $rs, "null");
 
 		$a: $rq == $rs;
-		@if $a == false{
-			$c: hq-str-puts("[" + $num + "] No " + $rs + " for " + $rq);
+		@if $a {
+			$c: hq-str-print(o);
+		}@else{
+			$c: hq-str-print(x);
+			$errorMsg: append($errorMsg, '"' + $num + '" No ' + $rs + " for " + $rq);
 			$isFalse: true;
 		}
 	}
 	@if $isFalse == false {
-		$c: hq-str-puts(unquote("Successful test " + $name));
+		$c: hq-str-puts(unquote('I will publish the test results "Success"'));
+		$c: hq-str-puts(unquote('I end the "' + $name + '" Test'));
+		$c: hq-str-puts(unquote('----------'));
 		@return true;
 	}@else{
+		$c: hq-str-puts(unquote('I will publish the test results "Error"'));
+		@each $v in $errorMsg{
+			$c: hq-str-puts(unquote($v));
+		}
+		$c: hq-str-puts(unquote('I end the "' + $name + '" Test'));
+		$c: hq-str-puts(unquote('----------'));
 		@return false;
 	}
-
 }

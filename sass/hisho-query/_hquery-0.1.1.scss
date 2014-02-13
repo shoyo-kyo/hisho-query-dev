@@ -7,7 +7,7 @@
 // Released under the MIT license
 // https://github.com/syouyou/hisho-query/blob/master/LICENSE
 // 
-// Date: 2014-02-11
+// Date: 2014-02-13
 
 
 // ------------------------------
@@ -1413,6 +1413,12 @@ $h: hq( "is.bool", true );        -> true
 @function hq-error-type($name, $input){
 	$_type: nth( hq-str-split($name,".") ,1 );
 	$_value: type-of($input);
+	
+	@if $_type == "str"{
+		$_type: "string";
+	}@else if $_type == "num"{
+		$_type: "number";
+	}
 
 	//error判定
 	@if $_value != $_type and $_type != "css" and $_type != "is"{
@@ -2259,10 +2265,11 @@ $h: hq( "is.bool", true );        -> true
 			$_data: hq-map-get-deep($api, $_name);
 			$_method: nth($_data,2);
 			$_argNum: nth($_data,1);
-			
+
 			//method
 			@if hq-error-method($_method) or hq-error-type($_name, $_result){
 				$_error: "";
+				$_result: null;
 			//default
 			}@else{
 				//可変長引数

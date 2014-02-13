@@ -53,7 +53,7 @@ $str: "abcdefg.Hijklmn";
 	succ      : hq("str.succ", $str);
 	match     : hq("str.match", $str, "bc");
 	replace   : hq("str.replace", $str, "bc", "xa");
-	sprit     : hq("str.split", $str, ".");
+	split     : hq("str.split", $str, ".");
 	getId     : hq("str.getId");
 	reverse   : hq("str.reverse", $str);
 }
