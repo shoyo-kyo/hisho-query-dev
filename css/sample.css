@@ -29,8 +29,8 @@
   succ: abcdefg.Hijklmo;
   match: true;
   replace: axadefg.Hijklmn;
-  sprit: abcdefg, Hijklmn;
-  getId: uv708ilzj;
+  split: abcdefg, Hijklmn;
+  getId: ujhc5jbaz;
   reverse: nmlkjiH.gfedcba;
 }
 
@@ -81,7 +81,6 @@
   hasKey: true;
   nth: fuga e;
   length: 2;
-  push: {"cat"=>(text: good, colorType: black), "Lion"=>(text: bad, colorType: orange), "foo"=>"hoge"};
   join: hoge 2, fuga e, hoges 20000, fugas test;
   zip: hoge 2, fuga e;
   toString: {"cat"=>(text: good, colorType: black), "Lion"=>(text: bad, colorType: orange)};
@@ -107,7 +106,7 @@
   toMap: {"style"=>"solid", "width"=>1px, "color"=>#cccccc};
   toMap: {"style"=>"dotted", "width"=>null, "color"=>null};
   toMap: {"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)};
-  toMap: {"size"=>8px, "line-height"=>null, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null};
+  toMap: {"size"=>"12px", "line-height"=>"1.5", "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null};
   toMap: {"type"=>"square", "image"=>"url(../img.jpg)", "position"=>"outside"};
   toShort: 8px 2px 7px;
   toShort: 8px 2px;
@@ -118,141 +117,4 @@
   toShort: url(../img/test.jpg) square outside;
   getWidth: 492px;
   getHeight: 495px;
-}
-
-/* line 56, test/*.png */
-.test-sprite {
-  background-image: url('/hisho-query/img/test-s19798cba55.png');
-  background-repeat: no-repeat;
-}
-
-/*hqm("module")*/
-/* line 1593, ../sass/hisho-query/_hquery-0.1.1.scss */
-.PtHqmModule01 {
-  width: 500px;
-  margin: 0 auto 20px;
-  background: red;
-}
-/* line 1600, ../sass/hisho-query/_hquery-0.1.1.scss */
-.PtHqmModule01 .ptHqmModule01Li {
-  border: solid 1px #cccccc;
-}
-
-/* line 275, ../sass/sample.scss */
-.hqm-write {
-  /*hqm("write")*/
-  background: #cccccc;
-  border: solid 1px #cccccc;
-  margin: 0 0 20px 0;
-  /*hqm(write.propaty)*/
-  padding: 10px;
-}
-
-/* line 291, ../sass/sample.scss */
-.hqm-sprite {
-  /*hqm("sprite")*/
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  *zoom: 1;
-  *display: inline;
-  overflow: hidden;
-  border: none;
-  vertical-align: top;
-  white-space: nowrap;
-  text-indent: 100%;
-  cursor: pointer;
-  background-position: 0 0;
-  /*hqm("sprite.core")*/
-  display: inline-block;
-  vertical-align: middle;
-  *vertical-align: auto;
-  *zoom: 1;
-  *display: inline;
-  overflow: hidden;
-  border: none;
-  vertical-align: top;
-  white-space: nowrap;
-  text-indent: 100%;
-  cursor: pointer;
-  /*hqm("sprite.image")*/
-  background-image: url('/hisho-query/img/test-s19798cba55.png');
-  background-repeat: no-repeat;
-  height: 28px;
-  width: 30px;
-  background-position: 0 0;
-}
-/* line 1749, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-sprite:hover {
-  background-position: 0 -28px;
-}
-/* line 1749, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-sprite:hover {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-  opacity: 0.8;
-}
-
-/* line 317, ../sass/sample.scss */
-.hqm-link-styles {
-  /*hqm("link.styles")*/
-  color: #333333;
-  text-decoration: underline;
-}
-/* line 1523, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-link-styles:link {
-  color: #cc33cc;
-  text-decoration: underline;
-}
-/* line 1530, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-link-styles:visited {
-  color: #cc33cc;
-  text-decoration: underline;
-}
-/* line 1537, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-link-styles:hover {
-  color: #cc33cc;
-  text-decoration: none;
-}
-/* line 1544, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-link-styles:active {
-  color: #cc33cc;
-  text-decoration: none;
-}
-/* line 1551, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-link-styles:focus {
-  color: #cc33cc;
-  text-decoration: none;
-}
-
-/* line 340, ../sass/sample.scss */
-.hqm-font-cloud {
-  /*hqm("font.cloud")*/
-}
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-font-cloud.xxs {
-  font-size: 6px;
-}
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-font-cloud.xs {
-  font-size: 8px;
-}
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-font-cloud.s {
-  font-size: 9px;
-}
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-font-cloud.m {
-  font-size: 12px;
-}
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-font-cloud.l {
-  font-size: 16px;
-}
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-font-cloud.xl {
-  font-size: 18px;
-}
-/* line 1457, ../sass/hisho-query/_hquery-0.1.1.scss */
-.hqm-font-cloud.xxl {
-  font-size: 24px;
 }

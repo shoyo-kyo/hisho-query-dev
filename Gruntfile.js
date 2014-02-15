@@ -23,10 +23,11 @@ module.exports = function(grunt){
 					'// Date: <%= grunt.template.today("yyyy-mm-dd") %>\n' +
 					'\n\n'
 				},
-				dest: 'sass/hisho-query/_hquery-<%= pkg.version %>.scss',
+				dest: 'sass/hisho-query/_hquery-<%= pkg.fileversion %>.scss',
 				src:[
 					'sass/hisho-query/_hq-help.scss',
 					'sass/hisho-query/hq-str/_help.scss',
+
 					'sass/hisho-query/hq-num/_help.scss',
 
 					'sass/hisho-query/hq-list/_help.scss',
@@ -60,21 +61,7 @@ module.exports = function(grunt){
 					'sass/hisho-query/hq-is/_list.scss',
 					'sass/hisho-query/hq-is/_bool.scss',
 
-					'sass/hisho-query/hq-error/_method.scss',
-					'sass/hisho-query/hq-error/_type.scss',
-
-					'sass/hisho-query/hq-mixin/_font-cloud.scss',
-					'sass/hisho-query/hq-mixin/_link-styles.scss',
-					'sass/hisho-query/hq-mixin/_module.scss',
-					'sass/hisho-query/hq-mixin/_module-core.scss',
-					'sass/hisho-query/hq-mixin/_sprite.scss',
-					'sass/hisho-query/hq-mixin/_sprite-core.scss',
-					'sass/hisho-query/hq-mixin/_sprite-image.scss',
-					'sass/hisho-query/hq-mixin/_write.scss',
-					'sass/hisho-query/hq-mixin/_write-propaty.scss',
-					
-					'sass/hisho-query/_hq-core.scss',
-					'sass/hisho-query/_hqm-core.scss'
+					'sass/hisho-query/_hq-core.scss'
 				]
 			},
 			hqueryFnction: {
@@ -99,7 +86,7 @@ module.exports = function(grunt){
 							'  include HishoQueryNum\n' +
 							'end'
 				},
-				dest: 'sass/hisho-query/_hquery-function-<%= pkg.version %>.rb',
+				dest: 'sass/hisho-query/_hquery-function-<%= pkg.fileversion %>.rb',
 				src:[
 					'sass/hisho-query/hq-map/function.rb',
 					'sass/hisho-query/hq-str/function.rb',

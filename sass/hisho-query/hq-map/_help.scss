@@ -7,7 +7,7 @@
 // ------------------------------
 @function hq-map-help(){
 
-$help: '
+$_help: '
 - map method -
 -------------------------------------------------------
 | method        | return | mq| deep| description
@@ -49,6 +49,6 @@ $h: hq("map.toString", $mapd);
 -------------------------------------------------------
 ';
 	
-	$a: hq-str-puts($help);
+	$a: hq-puts($_help);
 	@return null;
 }

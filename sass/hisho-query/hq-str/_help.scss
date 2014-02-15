@@ -7,7 +7,7 @@
 // ------------------------------
 @function hq-str-help(){
 
-$help: '
+$_help: '
 - string method -
 -------------------------------------------------------
 | method        | return | mq| description
@@ -52,7 +52,6 @@ $h: hq("str.getId");
 $h: hq("str.reverse", $str);
 -------------------------------------------------------
 ';
-	
-	$a: hq-str-puts($help);
+	$a: hq-puts($_help);
 	@return null;
 }

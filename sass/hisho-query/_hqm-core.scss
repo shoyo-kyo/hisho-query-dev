@@ -38,11 +38,11 @@
 
 		}@else if $_name == "help"{
 			@include hq-mixin-help($_arg...);
-			$test: hq-str-puts($mixinHelp);
+			$test: hq-puts($mixinHelp);
 		}
 	//compass なし
 	}@else{
-		$error: hq-str-puts("  error undefind compass in hqm function")
+		$error: hq-puts("  error undefind compass in hqm function")
 	}
 
 }

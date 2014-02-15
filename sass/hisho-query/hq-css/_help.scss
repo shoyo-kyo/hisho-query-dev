@@ -7,7 +7,7 @@
 // ------------------------------
 @function hq-css-help(){
 
-$help: '
+$_help: '
 - css method -
 -------------------------------------------------------
 | method        | return | mq| description
@@ -27,6 +27,6 @@ $h: hq( "css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px );
 -------------------------------------------------------
 ';
 	
-	$a: hq-str-puts($help);
+	$a: hq-puts($_help);
 	@return null;
 }

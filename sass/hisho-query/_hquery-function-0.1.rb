@@ -7,7 +7,7 @@ require "sass"
 # Released under the MIT license
 # https://github.com/syouyou/hisho-query/blob/master/LICENSE
 # 
-# Date: 2014-02-13
+# Date: 2014-02-16
 # 
 
 #
@@ -185,31 +185,33 @@ module HishoQueryStr
 
 
   #
-  # [name] hq-console v1.0.0
+  # [name] hq-debug v1.0.0
   # [desc] ターミナルに値の結果を表示
   # [return] null
-  # [exsample] hq-console(1 + 2)
+  # [exsample] hq-debug(1 + 2)
   #
-  def hq_console( *args )
+  def hq_debug( *args )
     args.each {|v|
-      puts "\n- CONSOLE - "
-      puts v.class
+      print v.class
+       print " : "
       if v.class == Sass::Script::Value::Map then
-        puts to_h(v)
+        print to_h(v)
       else
-        puts v
+        print v
       end
+       print "\n"
     }
+    print "\n"
     Sass::Script::String.new("")
   end
 
   #
-  # [name] hq-str-puts v1.0.0
+  # [name] hq-puts v1.0.0
   # [desc] ターミナルに文字列を表示する
   # [return] null
-  # [exsample] hq-str-puts(1 + 2)
+  # [exsample] hq-puts(1 + 2)
   #
-  def hq_str_puts(str)
+  def hq_puts(str)
     puts "\n"
     if str.class == Sass::Script::Value::Map then 
       puts to_h(str)
@@ -221,12 +223,12 @@ module HishoQueryStr
   end
 
   #
-  # [name] hq-str-puts v1.0.0
+  # [name] hq-print v1.0.0
   # [desc] ターミナルに文字列を表示する（改行無し）
   # [return] null
-  # [exsample] hq-str-puts(1 + 2)
+  # [exsample] hq-puts(1 + 2)
   #
-  def hq_str_print(str)
+  def hq_print(str)
     if str.class == Sass::Script::Value::Map then 
       print to_h(str)
     else
@@ -235,6 +237,24 @@ module HishoQueryStr
     Sass::Script::String.new("")
   end
 
+  #
+  # [name] hq-str-toNumber v1.0.0
+  # [desc] StringをNumber型に変換
+  # [return] null
+  # [exsample] hq-str-toNumber("12px")
+  #
+  def hq_str_toNumber(str)
+    assert_type str, :String
+    is_int = str.value.match(".")
+    unit = str.value.gsub(/^(.*)[0-9](.*?)$/, '\2')
+    if is_int == false
+      result = str.value.to_i
+    else
+      result = str.value.to_f
+    end
+    Sass::Script::Number.new(result,unit)
+  end
+  
 
 
 end
@@ -273,9 +293,9 @@ module HishoQueryNum
     str = num.to_s
     if (/\/.+\// =~ find.value) then
       findValue = find.value.gsub(/\//, "")
-      isMatch = str.value.match(/#{findValue}/)
+      isMatch = str.match(/#{findValue}/)
     else
-      isMatch = str.value.match(find.value)
+      isMatch = str.match(find.value)
     end
     result =  if isMatch then true else false end
     Sass::Script::Bool.new(result)
@@ -287,18 +307,19 @@ module HishoQueryNum
   # [return] string
   # [exsample] hq-num-replace(aabb, "/aa(.*)/", "xx\1")
   #
-  def hq_num_replace(str, find, rep)
+  def hq_num_replace(num, find, rep)
     assert_type num, :Number
     assert_type find, :String
     assert_type rep, :String
     str = num.to_s
     if (/\/.+\// =~ find.value) then
       findValue = find.value.gsub(/\//, "")
-      result = str.value.gsub(/#{findValue}/, rep.value)
+      result = str.gsub(/#{findValue}/, rep.value)
     else
-      result = str.value.sub(find.value, rep.value)
+      result = str.sub(find.value, rep.value)
     end
-    Sass::Script::String.new(result)
+    result = result.to_i
+    Sass::Script::Number.new(result)
   end
 
 

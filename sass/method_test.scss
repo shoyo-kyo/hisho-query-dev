@@ -1,0 +1,656 @@
+@charset "utf-8";
+
+@import "hisho-query/_hquery-0.1";
+@import "test/hq-test.scss";
+
+
+
+//hq.str ============================================
+$test:(
+	"unquote-1": (
+		request : hq("str.unquote", "hogehoge"),
+		result  : hogehoge,
+	),
+	"unquote-2": (
+		request : hq("str.unquote", hogehoge),
+		result  : hogehoge,
+	),
+	"quote-1": (
+		request : hq("str.quote", "hogehoge"),
+		result  : "hogehoge",
+	),
+	"quote-2": (
+		request : hq("str.quote", hogehoge),
+		result  : "hogehoge",
+	),
+	"length-1": (
+		request : hq("str.length", "hogehoge"),
+		result  : 8,
+	),
+	"length-2": (
+		request : hq("str.length", hogehoge),
+		result  : 8,
+	),
+	"insert-1": (
+		request : hq("str.insert", "hogehoge",hoge,5),
+		result  : hogehogehoge,
+	),
+	"insert-2": (
+		request : hq("str.insert", hogehoge,hoge,5),
+		result  : hogehogehoge,
+	),
+	"index-1": (
+		request : hq("str.index", "hogehoge", "g"),
+		result  : 3,
+	),
+	"index-2": (
+		request : hq("str.index", hogehoge, "g"),
+		result  : 3,
+	),
+	"slice-1": (
+		request : hq("str.slice", "hogehoge", 1, 3),
+		result  : hog,
+	),
+	"slice-2": (
+		request : hq("str.slice", hogehoge, 1, 3),
+		result  : hog,
+	),
+	"upcase-1": (
+		request : hq("str.upcase", "hogehogeHOGE"),
+		result  : HOGEHOGEHOGE,
+	),
+	"upcase-2": (
+		request : hq("str.upcase", hogehogeHOGE),
+		result  : HOGEHOGEHOGE,
+	),
+	"downcase-1": (
+		request : hq("str.downcase", "hogehogeHOGE"),
+		result  : hogehogehoge,
+	),
+	"downcase-2": (
+		request : hq("str.downcase", hogehogeHOGE),
+		result  : hogehogehoge,
+	),
+	"capitalize-1": (
+		request : hq("str.capitalize", "hogehogeHOGE"),
+		result  : Hogehogehoge,
+	),
+	"capitalize-2": (
+		request : hq("str.capitalize", hogehogeHOGE),
+		result  : Hogehogehoge,
+	),
+	"flUpcase-1": (
+		request : hq("str.flUpcase", "hogehogeHOGE"),
+		result  : HogehogeHOGE,
+	),
+	"flUpcase-2": (
+		request : hq("str.flUpcase", hogehogeHOGE),
+		result  : HogehogeHOGE,
+	),
+	"flDowncase-1": (
+		request : hq("str.flDowncase", "HogehogeHOGE"),
+		result  : hogehogeHOGE,
+	),
+	"flDowncase-2": (
+		request : hq("str.flDowncase", HogehogeHOGE),
+		result  : hogehogeHOGE,
+	),
+	"strip-1": (
+		request : hq("str.strip", "   Hogehoge HOGE  "),
+		result  : "Hogehoge HOGE",
+	),
+	"strip-2": (
+		request : hq("str.strip", HogehogeHOGE    ),
+		result  : HogehogeHOGE,
+	),
+	"succ-1": (
+		request : hq("str.succ", "hogehogeHOGE"),
+		result  : hogehogeHOGF,
+	),
+	"succ-2": (
+		request : hq("str.succ", hogehogeHOGE),
+		result  : hogehogeHOGF,
+	),
+	"match-1": (
+		request : hq("str.match", "hogehogeHOGE", "hoge"),
+		result  : true,
+	),
+	"match-2": (
+		request : hq("str.match", "hogehogeHOGE", "HOGE"),
+		result  : true,
+	),
+	"match-3": (
+		request : hq("str.match", "hogehogeHOGE", "fuga"),
+		result  : false,
+	),
+	"match-4": (
+		request : hq("str.match", "hogehogeHOGE", "/^h.*E$/"),
+		result  : true,
+	),
+	"match-5": (
+		request : hq("str.match", "hogehogeHOGE", "/^h.*e$/"),
+		result  : false,
+	),
+	"match-6": (
+		request : hq("str.match", "hogehogeHOGE", "/^f.*e$/"),
+		result  : false,
+	),
+	"replace-1": (
+		request : hq("str.replace", "hogehogeHOGE", "hoge", "fuga"),
+		result  : "fugahogeHOGE",
+	),
+	"replace-2": (
+		request : hq("str.replace", "hogehogeHOGE", "HOGE", "fuga"),
+		result  : "hogehogefuga",
+	),
+	"replace-3": (
+		request : hq("str.replace", "hogehogeHOGE", "fuga", "fuga"),
+		result  : "hogehogeHOGE",
+	),
+	"replace-4": (
+		request : hq("str.replace", "hogehogeHOGE", "/^h(.*)E$/", "fuga"),
+		result  : "fuga",
+	),
+	"replace-5": (
+		request : hq("str.replace", "hogehogeHOGE", "/^h.*e$/", "fuga"),
+		result  : "hogehogeHOGE",
+	),
+	"replace-6": (
+		request : hq("str.replace", "hogehogeHOGE", "/^f.*e$/", "fuga"),
+		result  : "hogehogeHOGE",
+	),
+	"replace-7": (
+		request : hq("str.replace", "hogehogeHOGE", "/^h(.*)E$/", "a\1a"),
+		result  : "aogehogeHOGa",
+	),
+	"replace-8": (
+		request : hq("str.replace", "hogehogeHOGE", "/hoge/", "fuga"),
+		result  : "fugafugaHOGE",
+	),
+	"split-1": (
+		request : hq("str.split -> is.list", "hoge hoge HOGE", " "),
+		result  : true
+	),
+	"split-2": (
+		request : hq("str.split -> is.list", "hoge,hoge,HOGE", "|"),
+		result  : true,
+	),
+	"reverse-1": (
+		request : hq("str.reverse", "hogehogeHOGE"),
+		result  : "EGOHegohegoh",
+	),
+	"reverse-2": (
+		request : hq("str.reverse", 1, "hoge"),
+		result  : null,
+	),
+	"toNumber-1": (
+		request : hq("str.toNumber", "12px"),
+		result  : 12px,
+	),
+	"toNumber-2": (
+		request : hq("str.toNumber", "12.5%"),
+		result  : 12.5%,
+	),
+	
+);
+$testStr: hq-test("hq-str", $test);
+
+//hq.num ============================================
+$test2:(
+	"percentage-1": (
+		request : hq("num.percentage", (50px / 100px)),
+		result  : 50%,
+	),
+	"percentage-2": (
+		request : hq("num.percentage", 0.5),
+		result  : 50%,
+	),
+	"round-1": (
+		request : hq("num.round", 10.4px),
+		result  : 10px,
+	),
+	"round-2": (
+		request : hq("num.round", 10.6px),
+		result  : 11px,
+	),
+	"ceil-1": (
+		request : hq("num.ceil", 10.4px),
+		result  : 11px,
+	),
+	"ceil-2": (
+		request : hq("num.ceil", 10.6px),
+		result  : 11px,
+	),
+	"floor-1": (
+		request : hq("num.floor", 10.4px),
+		result  : 10px,
+	),
+	"floor-2": (
+		request : hq("num.floor", 10.6px),
+		result  : 10px,
+	),
+	"abs-1": (
+		request : hq("num.abs", -10.4px),
+		result  : 10.4px,
+	),
+	"abs-2": (
+		request : hq("num.abs", 10.4px),
+		result  : 10.4px,
+	),
+	"min-1": (
+		request : hq("num.min", 10px,20px,5px,1px,100px),
+		result  : 1px,
+	),
+	"max-1": (
+		request : hq("num.max", 10px,20px,5px,1px,100px),
+		result  : 100px,
+	),
+	"unit-1": (
+		request : hq("num.unit", 20em),
+		result  : em,
+	),
+	"unit-2": (
+		request : hq("num.unit", 20px),
+		result  : px,
+	),
+	"unit-3": (
+		request : hq("num.unit", 20rem),
+		result  : rem,
+	),
+	"unitless-1": (
+		request : hq("num.unitless", 20em),
+		result  : false,
+	),
+	"unitless-2": (
+		request : hq("num.unitless", 20),
+		result  : true,
+	),
+	"comparable-1": (
+		request : hq("num.comparable", 20px, 20px),
+		result  : true,
+	),
+	"comparable-2": (
+		request : hq("num.comparable", 20px, 20),
+		result  : true,
+	),
+	"comparable-3": (
+		request : hq("num.comparable", 20px, 20em),
+		result  : false,
+	),
+	"comparable-4": (
+		request : hq("num.comparable", 20rem, 20em),
+		result  : false,
+	),
+	"match-1": (
+		request : hq("num.match", 10px, "10px"),
+		result  : true,
+	),
+	"match-2": (
+		request : hq("num.match", 10px, "10"),
+		result  : true,
+	),
+	"match-3": (
+		request : hq("num.match", 10px, "11"),
+		result  : false,
+	),
+	"match-4": (
+		request : hq("num.match", 100, "/(100|200|300)/"),
+		result  : true,
+	),
+	"match-5": (
+		request : hq("num.match", 500, "/(100|200|300)/"),
+		result  : false,
+	),
+	"replace-1": (
+		request : hq("num.replace", 10px, "10px", "12px"),
+		result  : 12px,
+	),
+	"replace-2": (
+		request : hq("num.replace", 10px, "10", "12"),
+		result  : 12px,
+	),
+	"replace-3": (
+		request : hq("num.replace", 10px, "/(.*)px/", "1\1"),
+		result  : 110,
+	),
+	"toString-1": (
+		request : hq("num.toString", 10px),
+		result  : "10px",
+	),
+);
+$testNum: hq-test("hq-num", $test2);
+
+
+//hq.list ============================================
+$test4:(
+	"get-1": (
+		request : hq("list.get", a b c d, 1),
+		result  : a,
+	),
+	"set-1": (
+		request : hq("list.set", a b c d, 2, bb),
+		result  : a bb c d,
+	),
+	"length-1": (
+		request : hq("list.length", a b c d),
+		result  : 4,
+	),
+	"index-1": (
+		request : hq("list.index", a b c d, b),
+		result  : 2,
+	),
+	"index-2": (
+		request : hq("list.index", a b c d, x),
+		result  : null,
+	),
+	"unshift-1": (
+		request : hq("list.unshift", a b c d, x),
+		result  : x a b c d,
+	),
+	"push-1": (
+		request : hq("list.push", a b c d, x),
+		result  : a b c d x,
+	),
+	"shift-1": (
+		request : hq("list.shift", a b c d),
+		result  : b c d,
+	),
+	"pop-1": (
+		request : hq("list.pop", a b c d),
+		result  : a b c,
+	),
+	"slice-1": (
+		request : hq("list.slice", a b c d, 2),
+		result  : b c d,
+	),
+	"slice-2": (
+		request : hq("list.slice", a b c d, 2, 3),
+		result  : b c,
+	),
+	"remove-1": (
+		request : hq("list.remove", a b c d, c),
+		result  : a b d,
+	),
+	"join-1": (
+		request : hq("list.join", a b c, d e f),
+		result  : a b c d e f,
+	),
+	"join-2": (
+		request : hq("list.join->list.separator", a b c, d e f, "comma"),
+		result  : "comma",
+	),
+	"join-3": (
+		request : hq("list.join->list.separator", a b c, d e f, "space"),
+		result  : "space",
+	),
+	"zip-1": (
+		request : hq("list.zip", a b c, d e f, g h i),
+		result  : a b c,
+	),
+	"toSpace-1": (
+		request : hq("list.toSpace -> list.separator", a b c),
+		result  : "space",
+	),
+	"toComma-1": (
+		request : hq("list.toComma -> list.separator", a b c),
+		result  : "comma",
+	),
+	"reverse-1": (
+		request : hq("list.reverse", a b c),
+		result  : c b a,
+	),
+);
+$testIs: hq-test("hq-list", $test4);
+
+
+//hq.map ============================================
+$map: (
+	hoge: 2,
+	fuga: e
+);
+
+$map2: (
+	hoges: 20000,
+	fugas: test
+);
+
+$mapd: (
+	cat: (
+		text: good,
+		colorType: black
+	),
+	Lion: (
+		text: bad,
+		colorType: orange,
+		option: (
+			max: 3
+		)
+	)
+);
+
+$mapd2: (
+	Lion: (
+		text: good,
+		colorType: orange,
+		option: (
+			box: 2
+		)
+	),
+	bird: (
+		text: good,
+		colorType: blue,
+		option: (
+			box: 1
+		)
+	)
+);
+
+$test5:(
+	"get-1": (
+		request : hq("map.get", $map, "hoge"),
+		result  : 2,
+	),
+	"get-2": (
+		request : hq("map.get", $mapd, "cat.text"),
+		result  : "good",
+	),
+	"get-3": (
+		request : hq("map.get", $mapd, "cat.meme"),
+		result  : null,
+	),
+	"get-4": (
+		request : hq("map.get", $mapd, "mome.meme"),
+		result  : null,
+	),
+	"set-1": (
+		request : hq("map.set -> map.toString", $map, "hoge", 5),
+		result  : '{"hoge"=>5, "fuga"=>"e"}',
+	),
+	"set-2": (
+		request : hq("map.set -> map.toString", $mapd, "cat.text", 5),
+		result  : '{"cat"=>(text: 5, colorType: black), "Lion"=>(text: bad, colorType: orange, option: ((max: 3)))}',
+	),
+	"set-3": (
+		request : hq("map.set -> map.toString", $mapd, "meme.mama", 5),
+		result  : '{"cat"=>(text: good, colorType: black), "Lion"=>(text: bad, colorType: orange, option: ((max: 3))), "meme"=>(mama: 5)}',
+	),
+	"extend-1": (
+		request : hq("map.extend -> map.toString", $mapd, $mapd2),
+		result  : '{"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))}',
+	),
+	"extend-2": (
+		request : hq("map.extend -> map.toString", $mapd, $mapd2, $map),
+		result  : '{"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1))), "hoge"=>2, "fuga"=>"e"}',
+	),
+	"extend-3": (
+		request : hq("map.extend -> map.toString", $mapd, $mapd2, true),
+		result  : '{"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((max: 3, box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))}',
+	),
+	"merge-1": (
+		request : hq("map.merge -> map.toString", $mapd, $mapd2),
+		result  : '{"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))}',
+	),
+	"mergeDeep-1": (
+		request : hq("map.mergeDeep -> map.toString", $mapd, $mapd2),
+		result  : '{"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((max: 3, box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))}',
+	),
+	"keys-1": (
+		request : hq("map.keys -> list.toSpace", $map),
+		result  : hoge fuga,
+	),
+	"keys-2": (
+		request : hq("map.keys -> list.toSpace", $mapd),
+		result  : cat Lion,
+	),
+	"values-1": (
+		request : hq("map.values -> list.toSpace", $map),
+		result  : 2 e,
+	),
+	"hasKey-1": (
+		request : hq("map.hasKey", $map, "hoge"),
+		result  : true,
+	),
+	"hasKey-2": (
+		request : hq("map.hasKey", $map, "hhhh"),
+		result  : false,
+	),
+	"nth-1": (
+		request : hq("map.nth", $map, 1),
+		result  : hoge 2,
+	),
+	"nth-2": (
+		request : hq("map.nth", $map, 2),
+		result  : fuga e,
+	),
+	"length-1": (
+		request : hq("map.length", $map),
+		result  : 2,
+	),
+	"length-2": (
+		request : hq("map.length", $mapd),
+		result  : 2,
+	),
+	"append-1": (
+		request : hq("map.append", $map, test hogehoge),
+		result  : hoge 2,
+	),
+	"join-1": (
+		request : hq("map.join", $map, $map2),
+		result  : hoge 2,
+	),
+	"zip-1": (
+		request : hq("map.zip", $map, $map2),
+		result  : hoge 2,
+	),
+);
+$testMap: hq-test("hq-map", $test5);
+
+
+//hq.css ============================================
+$test6:(
+	"toMap-1": (
+		request : hq("css.toMap -> map.toString", 0 2px 3px 4px, "margin"),
+		result  : '{"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px}',
+	),
+	"toMap-2": (
+		request : hq("css.toMap -> map.toString", 4px, "margin"),
+		result  : '{"top"=>4px, "right"=>4px, "bottom"=>4px, "left"=>4px}',
+	),
+	"toMap-3": (
+		request : hq("css.toMap -> map.toString", 0 2px, "padding"),
+		result  : '{"top"=>0, "right"=>2px, "bottom"=>0, "left"=>2px}',
+	),
+	"toMap-4": (
+		request : hq("css.toMap -> map.toString", 0, "padding"),
+		result  : '{"top"=>0, "right"=>0, "bottom"=>0, "left"=>0}',
+	),
+	"toMap-5": (
+		request : hq("css.toMap -> map.toString", solid 1px #ccc, "border"),
+		result  : '{"style"=>"solid", "width"=>1px, "color"=>#cccccc}',
+	),
+	"toMap-6": (
+		request : hq("css.toMap -> map.toString", #ccc, "border"),
+		result  : '{"style"=>null, "width"=>null, "color"=>#cccccc}',
+	),
+	"toMap-7": (
+		request : hq("css.toMap -> map.toString", 1px, "border"),
+		result  : '{"style"=>null, "width"=>1px, "color"=>null}',
+	),
+	"toMap-8": (
+		request : hq("css.toMap -> map.toString", solid, "border"),
+		result  : '{"style"=>"solid", "width"=>null, "color"=>null}',
+	),
+	"toMap-9": (
+		request: hq("css.toMap -> map.toString", dotted, "outline"),
+		result: '{"style"=>"dotted", "width"=>null, "color"=>null}',
+	),
+	"toMap-10": (
+		request : hq("css.toMap -> map.toString", url(../img.jpg) #ccc 0 50%, "background"),
+		result  : '{"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)}',
+	),
+	"toMap-11": (
+		request : hq("css.toMap -> map.toString", url(../img.jpg), "background"),
+		result  : '{"color"=>null, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>null}',
+	),
+	"toMap-12": (
+		request : hq("css.toMap -> map.toString", 0 50px, "background"),
+		result  : '{"color"=>null, "image"=>null, "repeat"=>null, "attachment"=>null, "position"=>(0 50px)}',
+	),
+	"toMap-13": (
+		request : hq("css.toMap -> map.toString", 12px/1.5 bold, "font"),
+		result  : '{"size"=>12px, "line-height"=>1.5, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null}',
+	),
+	"toMap-14": (
+		request : hq("css.toMap -> map.toString", url(../img.jpg) outside square, "list-style"),
+		result  : '{"type"=>"square", "image"=>"url(../img.jpg)", "position"=>"outside"}',
+	),
+	"toMap-15": (
+		request : hq("css.toMap -> map.toString", outside, "list-style"),
+		result  : '{"type"=>null, "image"=>null, "position"=>"outside"}',
+	),
+	"toMap-16": (
+		request : hq("css.toMap -> map.toString", square, "list-style"),
+		result  : '{"type"=>"square", "image"=>null, "position"=>null}',
+	),
+	"toMap-17": (
+		request : hq("css.toMap -> map.toString", url(../img.jpg), "list-style"),
+		result  : '{"type"=>null, "image"=>"url(../img.jpg)", "position"=>null}',
+	),
+	"toShort-1": (
+		request : hq("css.toShort", ( top: 8px, right: 2px, bottom: 7px, left: 2px ), "margin"),
+		result  : 8px 2px 7px,
+	),
+	"toShort-2": (
+		request : hq("css.toShort", ( top: 8px, right: 2px, bottom: 8px, left: 2px ), "padding"),
+		result  : 8px 2px,
+	),
+	"toShort-3": (
+		request : hq("css.toShort", ( style: solid, width: 6px, color: #ccc ), "border"),
+		result  : solid 6px #cccccc,
+	),
+	"toShort-4": (
+		request : hq("css.toShort", ( style: dotted, color: #ccc ), "border"),
+		result  : dotted #cccccc,
+	),
+	"toShort-5": (
+		request : hq("css.toShort", ( image: url(../img/test.jpg), repeat: no-repeat, position: 0 0, color: #ccc ), "background"),
+		result  : url(../img/test.jpg) no-repeat 0 0 #cccccc,
+	),
+	"toShort-6": (
+		request : hq("css.toShort", ( weight: bold, size: 12px, line-height: 1.5, family: "ＭＳ 明朝" ), "font"),
+		result  : bold 12px/1.5 "ＭＳ 明朝",
+	),
+	"toShort-7": (
+		request : hq("css.toShort", ( type: square, image: url(../img/test.jpg), position: outside ), "list-style"),
+		result  : url(../img/test.jpg) square outside,
+	),
+	"getWidth-1": (
+		request : hq("css.getWidth", 500px, solid 1px #ccc, 0 2px 3px 4px),
+		result  : 492px,
+	),
+	"getHeight-1": (
+		request : hq("css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px),
+		result  : 495px,
+	),
+);
+$testCss: hq-test("hq-css", $test6);

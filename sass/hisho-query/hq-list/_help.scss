@@ -7,7 +7,7 @@
 // ------------------------------
 @function hq-list-help(){
 
-$help: '
+$_help: '
 - list method -
 -------------------------------------------------------
 | method        | return | mq| description
@@ -51,6 +51,6 @@ $h: hq("list.reverse", $list);
 -------------------------------------------------------
 ';
 	
-	$a: hq-str-puts($help);
+	$a: hq-puts($_help);
 	@return null;
 }

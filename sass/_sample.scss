@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-@import "hisho-query/_hquery-0.1.1";
+@import "hisho-query/_hquery-0.1";
 
 
 //--------------------------------
@@ -244,100 +244,4 @@ $gvalue: test;
 
 	getWidth  : hq("css.getWidth", 500px, solid 1px #ccc, 0 2px 3px 4px);
 	getHeight : hq("css.getHeight", 500px, solid 1px #ccc, 0 2px 3px 4px);
-}
-
-//--------------------------------
-// @include hqm($arg...)
-// hisho mixin
-//--------------------------------
-
-//compass
-@import "compass";
-
-//sprites
-@import "test/*.png";
-$spriteMap: $test-sprites;
-
-/*hqm("module")*/
-@include hqm("module",(
-	name    : "PtHqmModule01",
-	width   : 500px,
-	align   : center,
-	margin  : 0 0 20px,
-	core: (
-		background:red
-	),
-	li: (
-		border:solid 1px #ccc
-	)
-));
-
-.hqm-write{
-	/*hqm("write")*/
-	@include hqm("write",(
-		background: #ccc,
-		border: (
-			style:solid,
-			width:1px,
-			color:#ccc,
-		),
-		margin: 0 0 20px 0
-	));
-
-	/*hqm(write.propaty)*/
-	@include hqm("write.propaty", "padding", 10px);
-}
-
-.hqm-sprite {
-	/*hqm("sprite")*/
-	@include hqm("sprite",(
-		spriteMap: $spriteMap,
-		name: "dummy01:dummy01_hover",
-		positionOnly: false,
-		btn: true,
-		hover: null
-	));
-
-	/*hqm("sprite.core")*/
-	@include hqm("sprite.core",(
-		btn: true,
-		hover: (
-			opacity: 0.8
-		)
-	));
-
-	/*hqm("sprite.image")*/
-	@include hqm("sprite.image",(
-		spriteMap: $spriteMap,
-		name: "dummy01",
-		positionOnly: true,
-	));
-}
-
-.hqm-link-styles{
-	/*hqm("link.styles")*/
-	@include hqm("link.styles", (
-		color: (
-			default : #333,
-			link    : #CC33CC,
-			visited : #CC33CC,
-			hover   : #CC33CC,
-			active  : #CC33CC,
-			focus   : #CC33CC
-		),
-		underline: (
-			default : true,
-			link    : true,
-			visited : true,
-			hover   : false,
-			active  : false,
-			focus   : false
-		)
-	));
-}
-
-
-.hqm-font-cloud{
-	/*hqm("font.cloud")*/
-	@include hqm("font.cloud", 12px);
 }

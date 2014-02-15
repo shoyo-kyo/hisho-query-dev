@@ -148,31 +148,33 @@ module HishoQueryStr
 
 
   #
-  # [name] hq-console v1.0.0
+  # [name] hq-debug v1.0.0
   # [desc] ターミナルに値の結果を表示
   # [return] null
-  # [exsample] hq-console(1 + 2)
+  # [exsample] hq-debug(1 + 2)
   #
-  def hq_console( *args )
+  def hq_debug( *args )
     args.each {|v|
-      puts "\n- CONSOLE - "
-      puts v.class
+      print v.class
+       print " : "
       if v.class == Sass::Script::Value::Map then
-        puts to_h(v)
+        print to_h(v)
       else
-        puts v
+        print v
       end
+       print "\n"
     }
+    print "\n"
     Sass::Script::String.new("")
   end
 
   #
-  # [name] hq-str-puts v1.0.0
+  # [name] hq-puts v1.0.0
   # [desc] ターミナルに文字列を表示する
   # [return] null
-  # [exsample] hq-str-puts(1 + 2)
+  # [exsample] hq-puts(1 + 2)
   #
-  def hq_str_puts(str)
+  def hq_puts(str)
     puts "\n"
     if str.class == Sass::Script::Value::Map then 
       puts to_h(str)
@@ -184,12 +186,12 @@ module HishoQueryStr
   end
 
   #
-  # [name] hq-str-puts v1.0.0
+  # [name] hq-print v1.0.0
   # [desc] ターミナルに文字列を表示する（改行無し）
   # [return] null
-  # [exsample] hq-str-puts(1 + 2)
+  # [exsample] hq-puts(1 + 2)
   #
-  def hq_str_print(str)
+  def hq_print(str)
     if str.class == Sass::Script::Value::Map then 
       print to_h(str)
     else
@@ -198,6 +200,24 @@ module HishoQueryStr
     Sass::Script::String.new("")
   end
 
+  #
+  # [name] hq-str-toNumber v1.0.0
+  # [desc] StringをNumber型に変換
+  # [return] null
+  # [exsample] hq-str-toNumber("12px")
+  #
+  def hq_str_toNumber(str)
+    assert_type str, :String
+    is_int = str.value.match(".")
+    unit = str.value.gsub(/^(.*)[0-9](.*?)$/, '\2')
+    if is_int == false
+      result = str.value.to_i
+    else
+      result = str.value.to_f
+    end
+    Sass::Script::Number.new(result,unit)
+  end
+  
 
 
 end

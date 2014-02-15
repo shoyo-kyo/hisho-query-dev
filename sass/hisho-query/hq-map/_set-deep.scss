@@ -9,18 +9,26 @@
 @function hq-map-set-deep($map, $key, $value){
 	$_keyList: hq-str-split($key, ".");
 	$_length: length($_keyList);
-	
-	//mapSet
-	$_sMap: null;
-	@for $i from 0 through $_length - 1 {
-		$_num: $_length - $i;
-		$_key: nth($_keyList, $_num);
-		@if $_sMap {
-			$_sMap: ( #{$_key} : $value );
-		}@else{
-			$_sMap: ( #{$_key} : $_sMap );
+	$_result: null;
+
+	//single mapSet
+	@if $_length == 1{
+		$_result: hq-map-set($map, nth($_keyList, 1), $value);
+
+	//deep mapSet
+	}@else{
+		$_sMap: null;
+		@for $i from 0 through $_length - 1 {
+			$_num: $_length - $i;
+			$_key: nth($_keyList, $_num);
+			@if $_sMap == null {
+				$_sMap: ( #{$_key} : $value );
+			}@else{
+				$_sMap: ( #{$_key} : $_sMap );
+			}
 		}
+		$_result: hq-map-merge-deep($map, $_sMap);
 	}
-	$_result: hq-map-merge-deep($map, $_sMap);
+
 	@return $_result;
 }

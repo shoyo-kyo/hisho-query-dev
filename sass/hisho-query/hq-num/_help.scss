@@ -7,7 +7,7 @@
 // ------------------------------
 @function hq-num-help(){
 
-$help: '
+$_help: '
 - number method -
 -------------------------------------------------------
 | method        | return | mq| description
@@ -38,6 +38,6 @@ $h: hq("num.comparable", 15em, 15px);
 -------------------------------------------------------
 ';
 	
-	$a: hq-str-puts($help);
+	$a: hq-puts($_help);
 	@return null;
 }

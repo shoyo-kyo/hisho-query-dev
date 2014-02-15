@@ -10,7 +10,9 @@
 	$keyList: hq-str-split($key, ".");
 	$_result: $map;
 	@each $v in $keyList{
-		$_result: map-get($_result,$v);
+		@if hq-is-map($_result){
+			$_result: map-get($_result, $v);
+		}
 	}
 	@return $_result;
 }

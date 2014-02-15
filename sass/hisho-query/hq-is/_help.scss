@@ -7,7 +7,7 @@
 // ------------------------------
 @function hq-is-help(){
 
-$help: '
+$_help: '
 - is method -
 -------------------------------------------------------
 | method        | return | mq| description
@@ -39,6 +39,6 @@ $h: hq( "is.bool", true );        -> true
 -------------------------------------------------------
 ';
 	
-	$a: hq-str-puts($help);
+	$a: hq-puts($_help);
 	@return null;
 }

@@ -4,10 +4,6 @@ Sass3.3 and compass1.0 Library
 
 sass3.3(RC)とcompassで動作する、sass function Library  
 
-※※※※※※※※※※※※  
-まだ制作中(バグ有り)  
-※※※※※※※※※※※※  
-
 バージョン
 ------
 0.1.1
@@ -25,16 +21,16 @@ compass 1.0.0.alpha.17
 
 [2]上記にファイルを配置  
 
-	/sass/hisho-query/_hquery-0.1.1.scss
-	/sass/hisho-query/_hquery-function-0.1.1.rb
+	/sass/hisho-query/_hquery-0.1.scss
+	/sass/hisho-query/_hquery-function-0.1.rb
 
 [3]compassの"config.rb"内に追記  
 
-	require "./sass/hisho-query/_hquery-function-0.1.1.rb"
+	require "./sass/hisho-query/_hquery-function-0.1.rb"
 
 [4]sass内でinclude  
 
-	@import "hisho-query/_hquery-0.1.1";
+	@import "hisho-query/_hquery-0.1";
 
 
 hq functionの使い方
@@ -107,24 +103,24 @@ methodの役割はmethod名から判断してくださいw
 
 
 あと下記のfunctionで、指定した変数の値の型がプロンプト（ターミナル）に表示される。  
+@debugで表示していた、行番号を削除し型を表示するcustomDebug  
 
 -scss  
 
-	$hoge: hq-console($value);
+	$hoge: hq-debug($value);
 
 -プロンプト（ターミナル）  
 
-	- CONSOLE -
-	Sass::Script::Value::String
-	"hogehogehoge"
-
+	
+	Sass::Script::Value::String : "hogehogehoge"
+	
 
 
 今後
 ------
-* functionの他にもmixinも作っているので出来次第release
 * 2日で適当に作ったので、コードが冗長化してる。どこかのタイミングでリファクタリングする
 * color系のfunctionはめんどくさいので、要望ない限り実装しない。
+* v0.3辺りでパフォーマンス対応検討
 
 
 

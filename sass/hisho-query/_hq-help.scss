@@ -7,7 +7,7 @@
 // ------------------------------
 @function hq-help(){
 
-$help: '
+$_help: '
 ============================
 HISHO QUERY v0.1.1
 2014.02.10
@@ -44,11 +44,11 @@ method-map   : hq($str,(
 ----------------------------
 - console
 
-$h: hq-console($value);
+$h: hq-debug($value,$value2);
 
 ----------------------------
 ';
 	
-	$a: hq-str-puts($help);
+	$a: hq-puts($_help);
 	@return null;
 }
