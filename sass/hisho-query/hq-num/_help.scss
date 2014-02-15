@@ -22,6 +22,9 @@ $_help: '
 | num.unit      | string | o | 値の単位を取得
 | num.unitless  | bool   | o | 単位が指定されているかチェック
 | num.comparable| bool   | o | 2つの値が、合計、比較が可能かチェック
+| num.toString  | string | o | string型に変換
+| num.match     | bool   | o | 文字列検索
+| num.replace   | string | o | 文字列変換
 -------------------------------------------------------
 * mq: "map query"対応可否
 
@@ -35,6 +38,9 @@ $h: hq("num.max", 10px, 5px, 2px, 15px, 18px);
 $h: hq("num.unit", 20em);
 $h: hq("num.unitless", 20em);
 $h: hq("num.comparable", 15em, 15px);
+$h: hq("num.toString", 12px);
+$h: hq("num.match", 100, "/(100|200|300)/");
+$h: hq("num.replace", 100, "/.(00)/", "2\1");
 -------------------------------------------------------
 ';
 	

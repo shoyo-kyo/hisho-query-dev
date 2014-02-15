@@ -29,6 +29,7 @@ $_help: '
 | str.split     | list   | o | 区切り記号を使用して文字列を分割
 | str.getId     | string | o | ユニークなIDを生成
 | str.reverse   | string | o | 文字列を反転
+| str.toNumber  | number | o | number型に変更
 -------------------------------------------------------
 * mq: "map query"対応可否
 
@@ -50,6 +51,7 @@ $h: hq("str.replace", $str, "bc", "xa");
 $h: hq("str.split", $str, ".");
 $h: hq("str.getId");
 $h: hq("str.reverse", $str);
+$h: hq("str.toNumber", "12.5px");
 -------------------------------------------------------
 ';
 	$a: hq-puts($_help);

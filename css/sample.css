@@ -30,7 +30,7 @@
   match: true;
   replace: axadefg.Hijklmn;
   split: abcdefg, Hijklmn;
-  getId: ujhc5jbaz;
+  getId: u0e4zz6p2;
   reverse: nmlkjiH.gfedcba;
 }
 
@@ -71,7 +71,7 @@
 /* line 148, ../sass/sample.scss */
 .hq-map {
   get: black;
-  set: {"cat"=>"blue", "Lion"=>(text: bad, colorType: orange)};
+  set: {"cat"=>(text: good, colorType: "blue"), "Lion"=>(text: bad, colorType: orange)};
   extend: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))};
   extend: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))};
   merge: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))};
@@ -106,7 +106,7 @@
   toMap: {"style"=>"solid", "width"=>1px, "color"=>#cccccc};
   toMap: {"style"=>"dotted", "width"=>null, "color"=>null};
   toMap: {"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)};
-  toMap: {"size"=>"12px", "line-height"=>"1.5", "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null};
+  toMap: {"size"=>12px, "line-height"=>1.5, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null};
   toMap: {"type"=>"square", "image"=>"url(../img.jpg)", "position"=>"outside"};
   toShort: 8px 2px 7px;
   toShort: 8px 2px;
