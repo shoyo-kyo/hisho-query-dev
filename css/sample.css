@@ -1,120 +1,15 @@
 @charset "UTF-8";
 /*! hisho-query v0.1.1 */
-/* line 14, ../sass/sample.scss */
-.method-setting {
-  /* 通常 */
-  method-normal: 15;
-  /* method-query指定（引数なし） */
-  method-query: "nmlkjiH.gfedcba";
-  /* method-query指定（引数有り） */
-  method-query: "abcdefg";
-  /* method-map */
-  method-map: "dcbbefg.Hijklmn";
-}
+.method-setting { /* 通常 */ method-normal: 15; /* method-query指定（引数なし） */ method-query: "nmlkjiH.gfedcba"; /* method-query指定（引数有り） */ method-query: "abcdefg"; /* method-map */ method-map: "dcbbefg.Hijklmn"; }
 
-/* line 39, ../sass/sample.scss */
-.hq-str {
-  unquote: abcdefg.Hijklmn;
-  quote: "abcdefg.Hijklmn";
-  length: 15;
-  insert: "abhogecdefg.Hijklmn";
-  index: 6;
-  slice: "abc";
-  upperCase: "ABCDEFG.HIJKLMN";
-  lowerCase: "abcdefg.hijklmn";
-  capitalize: Abcdefg.hijklmn;
-  FlUpcase: Abcdefg.Hijklmn;
-  FlDowncase: abcdefg.Hijklmn;
-  strip: abcdefg.Hijklmn;
-  succ: abcdefg.Hijklmo;
-  match: true;
-  replace: axadefg.Hijklmn;
-  split: abcdefg, Hijklmn;
-  getId: u0e4zz6p2;
-  reverse: nmlkjiH.gfedcba;
-}
+.hq-str { unquote: abcdefg.Hijklmn; quote: "abcdefg.Hijklmn"; length: 15; insert: "abhogecdefg.Hijklmn"; index: 6; slice: "abc"; upperCase: "ABCDEFG.HIJKLMN"; lowerCase: "abcdefg.hijklmn"; capitalize: Abcdefg.hijklmn; FlUpcase: Abcdefg.Hijklmn; FlDowncase: abcdefg.Hijklmn; strip: abcdefg.Hijklmn; succ: abcdefg.Hijklmo; match: true; replace: axadefg.Hijklmn; split: abcdefg, Hijklmn; getId: ujzutj67h; reverse: nmlkjiH.gfedcba; }
 
-/* line 65, ../sass/sample.scss */
-.hq-num {
-  percentage: 200%;
-  round: 10px;
-  ceil: 11px;
-  floor: 10px;
-  abs: 15px;
-  min: 2px;
-  max: 18px;
-  unit: "em";
-  unitless: false;
-  comparable: false;
-}
+.hq-num { percentage: 200%; round: 10px; ceil: 11px; floor: 10px; abs: 15px; min: 2px; max: 18px; unit: "em"; unitless: false; comparable: false; }
 
-/* line 86, ../sass/sample.scss */
-.hq-list {
-  get: a;
-  set: a b "hoge" d;
-  length: 4;
-  index: 2;
-  unshift: "x" a b c d;
-  push: a b c d "x";
-  shift: b c d;
-  pop: a b c;
-  slice: b c;
-  remove: a b d;
-  join: a, b, c, d, e, f, g, h, i, j, k;
-  zip: a e a, b f b, c g c, d h d;
-  toSpace: a b c d;
-  toComma: a, b, c, d;
-  separator: space;
-  reverse: d c b a;
-}
+.hq-list { get: a; set: a b "hoge" d; length: 4; index: 2; unshift: "x" a b c d; push: a b c d "x"; shift: b c d; pop: a b c; slice: b c; remove: a b d; join: a, b, c, d, e, f, g, h, i, j, k; zip: a e a, b f b, c g c, d h d; toSpace: a b c d; toComma: a, b, c, d; separator: space; reverse: d c b a; }
 
-/* line 148, ../sass/sample.scss */
-.hq-map {
-  get: black;
-  set: {"cat"=>(text: good, colorType: "blue"), "Lion"=>(text: bad, colorType: orange)};
-  extend: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))};
-  extend: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))};
-  merge: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))};
-  mergeDeep: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))};
-  keys: hoge, fuga;
-  values: 2, e;
-  hasKey: true;
-  nth: fuga e;
-  length: 2;
-  join: hoge 2, fuga e, hoges 20000, fugas test;
-  zip: hoge 2, fuga e;
-  toString: {"cat"=>(text: good, colorType: black), "Lion"=>(text: bad, colorType: orange)};
-}
+.hq-map { get: black; set: {"cat"=>(text: good, colorType: "blue"), "Lion"=>(text: bad, colorType: orange)}; extend: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))}; extend: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))}; merge: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))}; mergeDeep: {"cat"=>(text: good, colorType: black), "Lion"=>(text: good, colorType: orange, option: ((box: 2))), "bird"=>(text: good, colorType: blue, option: ((box: 1)))}; keys: hoge, fuga; values: 2, e; hasKey: true; nth: fuga e; length: 2; join: hoge 2, fuga e, hoges 20000, fugas test; zip: hoge 2, fuga e; toString: {"cat"=>(text: good, colorType: black), "Lion"=>(text: bad, colorType: orange)}; }
 
-/* line 172, ../sass/sample.scss */
-.hq-is {
-  gValue: true;
-  function: false;
-  mixin: false;
-  string: true;
-  number: true;
-  color: true;
-  map: true;
-  list: true;
-  bool: true;
-}
+.hq-is { gValue: true; function: false; mixin: false; string: true; number: true; color: true; map: true; list: true; bool: true; }
 
-/* line 190, ../sass/sample.scss */
-.hq-css {
-  toMap: {"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px};
-  toMap: {"top"=>0, "right"=>2px, "bottom"=>0, "left"=>2px};
-  toMap: {"style"=>"solid", "width"=>1px, "color"=>#cccccc};
-  toMap: {"style"=>"dotted", "width"=>null, "color"=>null};
-  toMap: {"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)};
-  toMap: {"size"=>12px, "line-height"=>1.5, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null};
-  toMap: {"type"=>"square", "image"=>"url(../img.jpg)", "position"=>"outside"};
-  toShort: 8px 2px 7px;
-  toShort: 8px 2px;
-  toShort: solid 6px #cccccc;
-  toShort: dotted #cccccc;
-  toShort: url(../img/test.jpg) no-repeat 0 0 #cccccc;
-  toShort: bold 12px/1.5 "ＭＳ 明朝";
-  toShort: url(../img/test.jpg) square outside;
-  getWidth: 492px;
-  getHeight: 495px;
-}
+.hq-css { toMap: {"top"=>0, "right"=>2px, "bottom"=>3px, "left"=>4px}; toMap: {"top"=>0, "right"=>2px, "bottom"=>0, "left"=>2px}; toMap: {"style"=>"solid", "width"=>1px, "color"=>#cccccc}; toMap: {"style"=>"dotted", "width"=>null, "color"=>null}; toMap: {"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)}; toMap: {"size"=>12px, "line-height"=>1.5, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null}; toMap: {"type"=>"square", "image"=>"url(../img.jpg)", "position"=>"outside"}; toShort: 8px 2px 7px; toShort: 8px 2px; toShort: solid 6px #cccccc; toShort: dotted #cccccc; toShort: url(../img/test.jpg) no-repeat 0 0 #cccccc; toShort: bold 12px/1.5 "ＭＳ 明朝"; toShort: url(../img/test.jpg) square outside; getWidth: 492px; getHeight: 495px; }
