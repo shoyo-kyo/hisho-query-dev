@@ -66,6 +66,7 @@ $hqFunctionSetting: (
 		toComma  : 1 hq-list-toComma,
 		separator: 1 list-separator,
 		reverse  : 1 hq-list-reverse,
+		toString : 1 hq-list-toString,
 	),
 	map: (
 		help      : 0 hq-map-help,
@@ -116,7 +117,7 @@ $hqFunctionSetting: (
 	//argument check
 	$_data1: nth($argument,1);
 	$_data2: if( length($argument) < 2, null, nth($argument,2) );
-	$_data3: hq-list-slice($argument,3);
+	$_data3: if( length($argument) < 3, null, hq-list-slice($argument,3) );
 	$_isMMap: length($argument) == 2 and hq-is-map($_data2) and hq-str-match(nth(nth($_data2, 1), 1), "\.");
 	$_api: null;
 	
