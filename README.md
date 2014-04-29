@@ -6,7 +6,7 @@ sass3.3(RC)とcompassで動作する、sass function Library
 
 バージョン
 ------
-0.1.1
+0.1.2
 
 開発環境
 ------
