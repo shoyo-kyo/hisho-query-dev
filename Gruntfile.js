@@ -84,10 +84,12 @@ module.exports = function(grunt){
 							'  include HishoQueryStr\n' +
 							'  include HishoQueryMap\n' +
 							'  include HishoQueryNum\n' +
+							'  include HishoQueryList\n' +
 							'end'
 				},
 				dest: 'sass/hisho-query/_hquery-function-<%= pkg.fileversion %>.rb',
 				src:[
+					'sass/hisho-query/hq-list/function.rb',
 					'sass/hisho-query/hq-map/function.rb',
 					'sass/hisho-query/hq-str/function.rb',
 					'sass/hisho-query/hq-num/function.rb'

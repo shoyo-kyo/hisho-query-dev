@@ -226,6 +226,7 @@
 
 	}@else if type-of($value) == string and hq-str-match($value,"/"){
 		@return (
+
 			size: hq-str-toNumber(hq-str-split($value, "/", 0)),
 			line-height: hq-str-toNumber(hq-str-split($value, "/", 1)),
 		);
@@ -248,6 +249,11 @@
 	);
 	//list形式
 	@if type-of($list) == list{
+		//listのitemをString形式に変更
+		$list: join((), $list, comma);
+		$list: hq-list-toString($list);
+		$list: hq-str-split($list, ",");
+
 		@for $i from 1 through length($list) {
 			$_value: if( hq-is-number(nth($list, $i)) and hq-num-match(nth($list, $i) , "/") == true, hq-num-toString(nth($list, $i)), nth($list, $i));
 			$_result: hq-map-extend($_result, hq-css-to-map-font-setter($_value));

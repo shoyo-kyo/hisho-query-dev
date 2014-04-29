@@ -1,7 +1,7 @@
 {
   "name": "hisho-query",
-  "description": "Sass3 and compass1 Library",
-  "version": "0.1.1",
+  "description": "Sass3.3 Function Library",
+  "version": "0.1.2",
   "fileversion": "0.1",
   "author": "shoyo kyo",
   "licenses": [

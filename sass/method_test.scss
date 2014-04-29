@@ -383,9 +383,9 @@ $test4:(
 		request : hq("list.join->list.separator", a b c, d e f, "space"),
 		result  : "space",
 	),
-	"zip-1": (
+	"zip-1": ( //test 通過しない
 		request : hq("list.zip", a b c, d e f, g h i),
-		result  : a b c,
+		result  : #{"a d g, b e h, c f i"},
 	),
 	"toSpace-1": (
 		request : hq("list.toSpace -> list.separator", a b c),
@@ -530,15 +530,15 @@ $test5:(
 		request : hq("map.length", $mapd),
 		result  : 2,
 	),
-	"append-1": (
+	"append-1": ( //test 通過しない
 		request : hq("map.append", $map, test hogehoge),
 		result  : hoge 2,
 	),
-	"join-1": (
+	"join-1": ( //test 通過しない
 		request : hq("map.join", $map, $map2),
 		result  : hoge 2,
 	),
-	"zip-1": (
+	"zip-1": ( //test 通過しない
 		request : hq("map.zip", $map, $map2),
 		result  : hoge 2,
 	),
@@ -596,7 +596,7 @@ $test6:(
 		request : hq("css.toMap -> map.toString", 0 50px, "background"),
 		result  : '{"color"=>null, "image"=>null, "repeat"=>null, "attachment"=>null, "position"=>(0 50px)}',
 	),
-	"toMap-13": (
+	"toMap-13": ( //test 通過しない
 		request : hq("css.toMap -> map.toString", 12px/1.5 bold, "font"),
 		result  : '{"size"=>12px, "line-height"=>1.5, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null}',
 	),
@@ -632,11 +632,11 @@ $test6:(
 		request : hq("css.toShort", ( style: dotted, color: #ccc ), "border"),
 		result  : dotted #cccccc,
 	),
-	"toShort-5": (
+	"toShort-5": ( //test 通過しない
 		request : hq("css.toShort", ( image: url(../img/test.jpg), repeat: no-repeat, position: 0 0, color: #ccc ), "background"),
 		result  : url(../img/test.jpg) no-repeat 0 0 #cccccc,
 	),
-	"toShort-6": (
+	"toShort-6": ( //test 通過しない
 		request : hq("css.toShort", ( weight: bold, size: 12px, line-height: 1.5, family: "ＭＳ 明朝" ), "font"),
 		result  : bold 12px/1.5 "ＭＳ 明朝",
 	),
