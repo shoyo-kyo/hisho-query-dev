@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*! hisho-query v0.1.2 */
+/*! hisho-query v1.0.0 */
 /* line 14, ../sass/sample.scss */
 .method-setting {
   /* 通常 */
@@ -30,7 +30,7 @@
   match: true;
   replace: axadefg.Hijklmn;
   split: abcdefg, Hijklmn;
-  getId: u9q6mhja8;
+  getId: uukqkqmax;
   reverse: nmlkjiH.gfedcba;
 }
 
@@ -106,7 +106,7 @@
   toMap: {"style"=>"solid", "width"=>1px, "color"=>#cccccc};
   toMap: {"style"=>"dotted", "width"=>null, "color"=>null};
   toMap: {"color"=>#cccccc, "image"=>"url(../img.jpg)", "repeat"=>null, "attachment"=>null, "position"=>(0 50%)};
-  toMap: {"size"=>12px, "line-height"=>1.5, "style"=>null, "variant"=>null, "weight"=>" bold", "family"=>null};
+  toMap: {"size"=>0px, "line-height"=>1.5, "style"=>null, "variant"=>null, "weight"=>" bold)", "family"=>null};
   toMap: {"type"=>"square", "image"=>"url(../img.jpg)", "position"=>"outside"};
   toShort: 8px 2px 7px;
   toShort: 8px 2px;

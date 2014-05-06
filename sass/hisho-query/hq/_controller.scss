@@ -1,0 +1,328 @@
+// ==============================
+// [name] hq-controller v1.0.0
+// [path] /hisho-query/hq/controller.scss
+// [desc] hq function Interface
+// ==============================
+
+$hqFunctionSetting: (
+	str: (
+		help      : 0 hq-str-help,
+		quote     : 1 quote,
+		unquote   : 1 unquote,
+		length    : 1 str-length,
+		insert    : 3 str-insert,
+		index     : 2 str-index,
+		slice     : 3 str-slice,
+		upcase    : 1 to-upper-case,
+		downcase  : 1 to-lower-case,
+		capitalize: 1 hq-str-capitalize,
+		flUpcase  : 1 hq-str-first-letter-upper-case,
+		flDowncase: 1 hq-str-first-letter-lower-case,
+		strip     : 1 hq-str-strip,
+		succ      : 1 hq-str-succ,
+		match     : 2 hq-str-match,
+		replace   : 3 hq-str-replace,
+		split     : 2 hq-str-split, 
+		getId     : 0 unique-id,
+		reverse   : 1 hq-str-reverse,
+		toNumber  : 1 hq-str-toNumber,
+	),
+	num: (
+		help       : 0 hq-num-help,
+		percentage : 1 percentage,
+		per        : 1 percentage,
+		round      : 1 round,
+		ceil       : 1 ceil,
+		floor      : 1 floor,
+		abs        : 1 abs,
+		min        : i min,
+		max        : i max,
+		unit       : 1 unit,
+		unitless   : 1 unitless,
+		comparable : 2 comparable,
+		toString   : 1 hq-num-toString,
+		match      : 2 hq-num-match,
+		replace    : 3 hq-num-replace,
+	),
+	list: (
+		help     : 0 hq-list-help,
+		nth      : 2 nth,
+		get      : 2 nth,
+		setNth   : 3 set-nth,
+		set      : 3 set-nth,
+		length   : 1 length,
+		index    : 2 index,
+		prepend  : 2 hq-list-prepend,
+		unshift  : 2 hq-list-prepend,
+		append   : 2 append,
+		push     : 2 append,
+		shift    : 1 hq-list-shift,
+		pop      : 1 hq-list-pop,
+		slice    : 3 hq-list-slice,
+		remove   : 2 hq-list-remove,
+		join     : 3 join,
+		zip      : i zip,
+		toSpace  : 1 hq-list-toSpace,
+		toComma  : 1 hq-list-toComma,
+		separator: 1 list-separator,
+		reverse  : 1 hq-list-reverse,
+		toString : 1 hq-list-toString,
+	),
+	map: (
+		help      : 0 hq-map-help,
+		get       : 2 hq-map-get-deep,
+		set       : 3 hq-map-set-deep,
+		extend    : i hq-map-extend,
+		merge     : 2 map-merge,
+		mergeDeep : 2 hq-map-merge-deep,
+		keys      : 1 map-keys,
+		values    : 1 map-values,
+		hasKey    : 2 map-has-key,
+		nth       : 2 nth,
+		length    : 1 length,
+		append    : 2 append,
+		push      : 2 append,
+		join      : 3 join,
+		zip       : 1 zip,
+		toString  : 1 hq-map-to-string,
+	),
+	is: (
+		help       : 0 hq-is-help,
+		globalValue: 1 global-variable-exists,
+		gValue     : 1 global-variable-exists,
+		function   : 1 function-exists,
+		mixin      : 1 mixin-exists,
+		string     : 1 hq-is-string,
+		number     : 1 hq-is-number,
+		color      : 1 hq-is-color,
+		map        : 1 hq-is-map,
+		list       : 1 hq-is-list,
+		bool       : 1 hq-is-bool,
+	),
+	css: (
+		help      : 0 hq-css-help,
+		toMap     : 2 hq-css-to-map,
+		toShort   : 2 hq-css-to-short,
+		getWidth  : 3 hq-css-get-width,
+		getHeight : 3 hq-css-get-height,
+	),
+	help : 0 hq-help,
+);
+
+
+// ------------------------------
+// hq interface
+// ------------------------------
+@function hq($argument...){
+	//argument check
+	$_data1: nth($argument,1);
+	$_data2: if( length($argument) < 2, null, nth($argument,2) );
+	$_data3: if( length($argument) < 3, null, hq-list-slice($argument,3) );
+	$_isMMap: length($argument) == 2 and hq-is-map($_data2) and hq-str-match(nth(nth($_data2, 1), 1), "\.");
+	$_api: null;
+	
+	//method map
+	@if $_isMMap {
+		$_api: hq-core-method-api($_data1, $_data2);
+
+	//method query
+	}@else{
+		//method map変換api
+		$_toMapApi: hq-core-query-to-map-api($_data1, $_data2, $_data3...);
+		$_methodMap: map-get($_toMapApi, "result");
+		//実行
+		$_api: hq-core-method-api($_data2, $_methodMap);
+	}
+
+	//error
+	@if map-get($_api, "error") {
+		@warn map-get-deep($_api, "error.msg");
+		@return null;
+	//success
+	}@else{
+		@return map-get($_api, "result");
+	}
+}
+
+
+// ------------------------------
+// method query to method map
+// ------------------------------
+@function hq-core-query-to-map-api($query, $input, $options...){
+	$_apiResponse:(
+		error: null,
+		result: null,
+		request: (
+			input: $input,
+			query: $query,
+			options: $options,
+		),
+	);
+	$_isError: false;
+	$_result: $input;
+
+
+	$_methodList: hq-str-split($query,"->");
+	$_startNum: 1;
+	$_result: ();
+
+	@each $_name in $_methodList{
+		//error なし
+		@if $_isError == false {
+
+			$_name: quote(hq-str-strip($_name));
+			$_data: hq-map-get-deep($hqFunctionSetting, $_name);
+			
+			//methodが存在
+			@if $_data{
+				$_method: nth($_data,2);
+				$_argNum: nth($_data,1);
+				$_map:();
+
+				//可変長引数
+				@if $_argNum == i{
+					$_map: ( $_name: hq-list-toSpace($options) );
+
+				//引数不要
+				}@else if $_argNum == 0{
+					$_map: ( $_name: "not" );
+
+				//引数1
+				}@else if $_argNum == 1{
+					$_map: ( $_name: null );
+
+				//引数複数
+				}@else{
+					$_endNum: $_startNum + ($_argNum - 1) - 1;
+
+					//slice系method 引数チェック
+					@if hq-str-match($_name, "slice") {
+						@if length($options) < 2 or hq-is-number(nth($options,2)) == false{
+							$_endNum: $_endNum - 1;
+						}
+
+					//join系method
+					}@else if hq-str-match($_name, "join") {
+						@if length($options) < 2 or hq-str-match(nth($options,2), "/(comma|space)/") == false{
+							$_endNum: $_endNum - 1;
+						}
+					}
+					
+					//引数が存在する場合
+					@if length($options) >= $_endNum {
+						$_setOption: hq-list-slice($options, $_startNum, $_endNum);
+						$_map: ( $_name: $_setOption );
+						$_startNum: $_endNum + 1;
+					//引数が足りない場合
+					}@else{
+						@warn "not argument is hq('#{$_name}')";
+						$_map:();
+					}
+				}
+				$_result: hq-map-extend($_result, $_map);
+			
+			//methodが存在しない
+			}@else{
+				$_apiResponse: hq-map-extend($_apiResponse, (
+					msg: "hisho-query undefined method '#{$_name}'",
+				));
+				$_isError: true;
+			}
+		}
+	}
+	
+	//successの場合、resultセット
+	@if $_isError == false{
+		$_apiResponse: hq-map-set($_apiResponse, "result", $_result);
+	}
+	@return $_apiResponse;
+}
+
+
+// ------------------------------
+// method call api
+// ------------------------------
+@function hq-core-method-api($input, $map){
+	$_apiResponse:(
+		error: null,
+		result: null,
+		request: (
+			input: $input,
+			methodMap: $map,
+		),
+	);
+	$_isError: false;
+	$_result: $input;
+
+	//method map each
+	@each $_name, $_options in $map{
+
+		//error なし
+		@if $_isError == false {
+			$_method: nth(hq-map-get-deep($hqFunctionSetting, $_name), 2);
+			
+			//method name が存在しない
+			@if $_method == null or function-exists($_method) == false{
+				$_apiResponse: hq-map-extend($_apiResponse, (
+					msg: "hisho-query undefined method '#{$_name}'",
+				));
+				$_isError: true;
+			
+			//error input type check
+			}@else if hq-core-error-type($_name, $_result) {
+				$_inputType: type-of($_result);
+				$_apiResponse: hq-map-extend($_apiResponse, (
+					msg: "'#{$_name}' does not support '#{$_inputType}'",
+				));
+				$_isError: true;
+
+			//error check通過
+			}@else{
+				@if $_options == "not"{
+					$_result: call($_method);
+
+				}@else if $_options == null{
+					$_result: call($_method, $_result);
+
+				}@else{
+					$_options: hq-list-toComma($_options);
+					$_result: call($_method, $_result, $_options...);
+				}
+			}
+		}
+	}
+	
+	//successの場合、resultセット
+	@if $_isError == false{
+		$_apiResponse: hq-map-set($_apiResponse, "result", $_result);
+	}
+	@return $_apiResponse;
+}
+
+
+// ------------------------------
+// [name] hq-error-type v1.0.0
+// [path] /hisho-query/hq-error/_type.scss
+// [desc] type用error message
+// ------------------------------
+@function hq-core-error-type($name, $input){
+	$_type: nth( hq-str-split($name,".") ,1 );
+	$_value: type-of($input);
+
+	@if hq-str-match($name,"/(help|getId)/") {
+		@return false;
+	}
+	
+	@if $_type == "str"{
+		$_type: "string";
+	}@else if $_type == "num"{
+		$_type: "number";
+	}
+
+	//error判定
+	@if $_value != $_type and $_type != "css" and $_type != "is"{
+		@return true;
+	}@else{
+		@return false;
+	}
+}

@@ -1,0 +1,15 @@
+// ------------------------------
+// [name] hq-list-pop v1.0.0
+// [path] /hisho-query/hq/map/_pop.scss
+// [desc] listの最後を削除します
+// [return] list
+// [exsample]
+//   hq-list-pop($list);
+// ------------------------------
+@function hq-list-pop($list){
+	$_result: ();
+	@for $i from 1 through length($list) - 1{
+		$_result: append($_result, nth($list, $i));
+	}
+	@return $_result;
+}

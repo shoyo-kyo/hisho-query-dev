@@ -1,0 +1,11 @@
+// ------------------------------
+// [name] hq-list-toSpace v1.0.0
+// [path] /hisho-query/hq/map/_toSpace.scss
+// [desc] listのseparatorをSpaceに変換
+// [return] list
+// [exsample]
+//   hq-list-toSpace($list);
+// ------------------------------
+@function hq-list-toSpace($list){
+	@return join((),$list,space);
+}

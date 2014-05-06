@@ -1,0 +1,56 @@
+// ------------------------------
+// [name] hq-list-help v1.0.0
+// [path] /hisho-query/hq/list/_help.scss
+// [desc] hq("is.xxx")のhelpをターミナルに表示
+// [exsample]
+//   hq-list-help()
+// ------------------------------
+@function hq-list-help(){
+
+$_help: '
+- list method -
+-------------------------------------------------------
+| method        | return | mq| description
+-------------------------------------------------------
+| list.get      | other  | o | 配列から値を取得
+| list.set      | list   | o | 配列に値を設定（差し替える）
+| list.length   | number | o | 配列の数を返す
+| list.index    | number | o | 値を検索し位置を返す
+| list.unshift  | list   | o | 値を先頭に追加
+| list.push     | list   | o | 値を最後尾に追加
+| list.shift    | list   | o | 先頭の値を削除
+| list.pop      | list   | o | 最後尾の値を削除
+| list.slice    | list   | o | 指定した範囲の配列を取り出す
+| list.remove   | list   | o | 指定した値を削除
+| list.join     | list   | o | 配列を結合する
+| list.zip      | list   | x | sass zipと同様
+| list.toSpace  | list   | o | listの区切り文字をspaceに変換
+| list.toComma  | list   | o | listの区切り文字をcommaに変換
+| list.separator| string | o | listの区切り文字を返す
+| list.reverse  | list   | o | 配列を反転する
+-------------------------------------------------------
+* mq: "map query"対応可否
+
+$h: hq("list.get", $list, 1);
+$h: hq("list.set", $list, 3, "hoge");
+$h: hq("list.length", $list);
+$h: hq("list.index", $list, "b");
+$h: hq("list.unshift", $list, "x");
+$h: hq("list.push", $list, "x");
+$h: hq("list.shift", $list);
+$h: hq("list.pop", $list);
+$h: hq("list.slice", $list, 2, 3);
+$h: hq("list.remove", $list, c);
+$h: hq("list.join", $list, $list2, "comma");
+$h: hq("list.zip", $list, $list2, $list);
+$h: hq("list.toSpace", $list);
+$h: hq("list.toComma", $list);
+$h: hq("list.separator", $list);
+$h: hq("list.reverse", $list);
+
+-------------------------------------------------------
+';
+	
+	$a: hq-puts($_help);
+	@return null;
+}

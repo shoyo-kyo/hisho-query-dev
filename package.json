@@ -1,8 +1,8 @@
 {
   "name": "hisho-query",
-  "description": "Sass3.3 Function Library",
-  "version": "0.1.2",
-  "fileversion": "0.1",
+  "description": "Sass function Library",
+  "version": "1.0.0",
+  "fileversion": "1.0",
   "author": "shoyo kyo",
   "licenses": [
     {

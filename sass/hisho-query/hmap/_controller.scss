@@ -1,0 +1,28 @@
+// ==============================
+// [name] hmap-controller v1.0.0
+// [path] /hisho-query/hmap/controller.scss
+// [desc] hmap function Interface
+// ==============================
+
+// ------------------------------
+// hmap interface
+// ------------------------------
+@function hmap($argument...){
+	$_data1: nth($argument,1);
+	$_data2: if( length($argument) < 2, null, nth($argument,2) );
+	$_result: null;
+
+	//key判定
+	$_map: hq("str.split -> list.get", $_data1, ".", 1);
+	$_key: hq("str.replace", $_data1, $_map + ".", "");
+
+	//map-set
+	@if $_data2 {
+		$_result: hq-map-set-deep($_map, $_key, $_data2);
+	//map-get
+	}@else{
+		$_result: hq-map-get-deep($_map, $_key);
+	}
+
+	@return $_result;
+}

@@ -1,0 +1,11 @@
+// ------------------------------
+// [name] hq-is-bool v1.0.0
+// [path] /hisho-query/hq/is/_bool.scss
+// [desc] bool判定
+// [return] bool
+// [exsample]
+//   hq-is-bool("aaaa");
+// ------------------------------
+@function hq-is-bool($str){
+	@return if(type-of($str) == bool, true, false);
+}

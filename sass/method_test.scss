@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-@import "hisho-query/_hquery-0.1";
+@import "hisho-query/_hquery-1.0";
 @import "test/hq-test.scss";
 
 
@@ -383,9 +383,9 @@ $test4:(
 		request : hq("list.join->list.separator", a b c, d e f, "space"),
 		result  : "space",
 	),
-	"zip-1": ( //test 通過しない
-		request : hq("list.zip", a b c, d e f, g h i),
-		result  : #{"a d g, b e h, c f i"},
+	"zip-1": (
+		request : hq("list.zip -> list.toString", a b c, d e f, g h i),
+		result  : "a d g, b e h, c f i",
 	),
 	"toSpace-1": (
 		request : hq("list.toSpace -> list.separator", a b c),
@@ -398,6 +398,10 @@ $test4:(
 	"reverse-1": (
 		request : hq("list.reverse", a b c),
 		result  : c b a,
+	),
+	"toString-1": (
+		request : hq("list.toString", a b c),
+		result  : "a b c",
 	),
 );
 $testIs: hq-test("hq-list", $test4);
@@ -530,17 +534,17 @@ $test5:(
 		request : hq("map.length", $mapd),
 		result  : 2,
 	),
-	"append-1": ( //test 通過しない
-		request : hq("map.append", $map, test hogehoge),
-		result  : hoge 2,
+	"append-1": (
+		request : hq("map.append -> list.toString", $map, test hogehoge),
+		result  : "hoge 2, fuga e, test hogehoge",
 	),
-	"join-1": ( //test 通過しない
-		request : hq("map.join", $map, $map2),
-		result  : hoge 2,
+	"join-1": (
+		request : hq("map.join -> list.toString", $map, $map2),
+		result  : "hoge 2, fuga e, hoges 20000, fugas test",
 	),
-	"zip-1": ( //test 通過しない
-		request : hq("map.zip", $map, $map2),
-		result  : hoge 2,
+	"zip-1": (
+		request : hq("map.zip -> list.toString", $map, $map2),
+		result  : "hoge 2, fuga e",
 	),
 );
 $testMap: hq-test("hq-map", $test5);
@@ -596,7 +600,7 @@ $test6:(
 		request : hq("css.toMap -> map.toString", 0 50px, "background"),
 		result  : '{"color"=>null, "image"=>null, "repeat"=>null, "attachment"=>null, "position"=>(0 50px)}',
 	),
-	"toMap-13": ( //test 通過しない
+	"toMap-13": ( //失敗
 		request : hq("css.toMap -> map.toString", 12px/1.5 bold, "font"),
 		result  : '{"size"=>12px, "line-height"=>1.5, "style"=>null, "variant"=>null, "weight"=>"bold", "family"=>null}',
 	),
@@ -632,11 +636,11 @@ $test6:(
 		request : hq("css.toShort", ( style: dotted, color: #ccc ), "border"),
 		result  : dotted #cccccc,
 	),
-	"toShort-5": ( //test 通過しない
+	"toShort-5": ( //失敗
 		request : hq("css.toShort", ( image: url(../img/test.jpg), repeat: no-repeat, position: 0 0, color: #ccc ), "background"),
 		result  : url(../img/test.jpg) no-repeat 0 0 #cccccc,
 	),
-	"toShort-6": ( //test 通過しない
+	"toShort-6": (
 		request : hq("css.toShort", ( weight: bold, size: 12px, line-height: 1.5, family: "ＭＳ 明朝" ), "font"),
 		result  : bold 12px/1.5 "ＭＳ 明朝",
 	),

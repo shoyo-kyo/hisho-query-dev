@@ -1,0 +1,11 @@
+// ------------------------------
+// [name] hq-is-string v1.0.0
+// [path] /hisho-query/hq/is/_string.scss
+// [desc] string判定
+// [return] bool
+// [exsample]
+//   hq-is-string("aaaa");
+// ------------------------------
+@function hq-is-string($str){
+	@return if(type-of($str) == string, true, false);
+}

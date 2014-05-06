@@ -29,4 +29,4 @@ http_images_dir = 'hisho-query/img/'
 # 
 # function
 #
-require "./sass/hisho-query/_hquery-function-0.1.rb"
+require "./sass/hisho-query/_hquery-function-1.0.rb"
